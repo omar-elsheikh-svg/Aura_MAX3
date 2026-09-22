@@ -1,0 +1,10 @@
+{
+  "name": "Aura Max — Personal Transformation Platform",
+  "description": "Bilingual (AR/EN) personal transformation platform featuring aesthetic assessment, deterministic transformation plans, daily quests, and progress tracking.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

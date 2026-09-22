@@ -1,0 +1,20 @@
+{
+  "id": "/",
+  "name": "Aura Max — Personal Transformation Platform",
+  "short_name": "Aura Max",
+  "description": "Your personal transformation plan, built around you.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#08090C",
+  "theme_color": "#08090C",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
