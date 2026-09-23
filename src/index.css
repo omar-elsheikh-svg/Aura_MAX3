@@ -50,6 +50,11 @@
     letter-spacing: -0.02em;
   }
 
+  .font-serif-brand {
+    font-family: 'Bodoni Moda', 'Playfair Display', Didot, 'Bodoni MT', 'Cinzel', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+
   [dir="rtl"] body,
   [dir="rtl"] {
     font-family: 'Cairo', 'IBM Plex Sans Arabic', 'Outfit', sans-serif;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Locale, GenderTrack } from "../types";
-import { AuraMaxEmblem } from "./AuraMaxLogo";
+import { AuraMaxEmblem, AuraMaxWordmark } from "./AuraMaxLogo";
 import { 
   Sparkles, 
   ArrowRight, 
@@ -109,10 +109,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
           {/* Zone 1: Brand Wordmark */}
           <div className="flex items-center gap-2.5 select-none">
-            <AuraMaxEmblem width={30} height={30} glow={false} />
-            <span className="font-extrabold text-base sm:text-lg tracking-[0.16em] text-[#f4f4f5] font-display">
-              AURA MAX
-            </span>
+            <AuraMaxEmblem width={32} height={32} concept="concept-a" glow={true} />
+            <AuraMaxWordmark size="sm" />
           </div>
 
           {/* Zone 2: Navigation Links */}

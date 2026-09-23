@@ -86,26 +86,46 @@ export const HomeView: React.FC<HomeViewProps> = ({
       className="max-w-6xl mx-auto px-4 py-6 space-y-6 animate-in fade-in duration-200"
       dir={isRtl ? "rtl" : "ltr"}
     >
-      {/* 1. Command Center Greeting Header */}
+      {/* 1. Command Center Greeting Header (Obsidian Precision) */}
       <div 
-        className="p-5 sm:p-8 rounded-2xl sm:rounded-3xl bg-[#18181b] border border-[#27272a] relative overflow-hidden flex flex-col md:flex-row md:items-center justify-between gap-6"
+        className="relative overflow-hidden rounded-2xl sm:rounded-3xl border border-white/[0.08] bg-gradient-to-br from-[#18181b] via-[#121215] to-[#09090b] p-6 sm:p-8 shadow-[0_8px_32px_rgba(0,0,0,0.4)] flex flex-col md:flex-row md:items-center justify-between gap-6"
       >
-        <div className="space-y-2 z-10 max-w-xl">
-          <div className="flex items-center gap-2 text-xs text-[#a1a1aa]">
-            <span className="font-semibold text-[#22d3ee] uppercase tracking-wider">
-              {isFemale ? "Aura Fem Track" : "Aura Max Track"}
+        {/* Specular Top Rim Lighting Effect */}
+        <div 
+          aria-hidden="true" 
+          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent pointer-events-none" 
+        />
+
+        {/* Ambient Radial Lighting Glows */}
+        <div 
+          aria-hidden="true" 
+          className={`absolute -top-24 ${isRtl ? "-left-24" : "-right-24"} w-72 h-72 rounded-full ${isFemale ? "bg-[#818cf8]/[0.08]" : "bg-[#22d3ee]/[0.07]"} blur-3xl pointer-events-none`} 
+        />
+        <div 
+          aria-hidden="true" 
+          className={`absolute -bottom-24 ${isRtl ? "-right-24" : "-left-24"} w-72 h-72 rounded-full bg-[#6366f1]/[0.06] blur-3xl pointer-events-none`} 
+        />
+
+        <div className="space-y-3 z-10 max-w-xl">
+          {/* Eyebrow Status Badges */}
+          <div className="flex flex-wrap items-center gap-2 text-xs">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] font-mono font-semibold text-[#22d3ee]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#22d3ee] animate-pulse" />
+              {isFemale ? "AURA FEM" : "AURA MAX"}
             </span>
-            <span aria-hidden="true">·</span>
-            <span>{isRtl ? "الأسبوع 3" : "Week 3"}</span>
-            <span aria-hidden="true">·</span>
-            <span className="text-[#10b981] font-semibold">{isRtl ? "78% التزام" : "78% consistency"}</span>
+            <span className="text-[#71717a]" aria-hidden="true">·</span>
+            <span className="text-[#a1a1aa] font-medium">{isRtl ? "الأسبوع 3" : "Week 3"}</span>
+            <span className="text-[#71717a]" aria-hidden="true">·</span>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#10b981]/10 border border-[#10b981]/20 text-[#10b981] font-semibold text-[11px]">
+              {isRtl ? "78% التزام" : "78% consistency"}
+            </span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-extrabold text-[#f4f4f5] font-display">
-            {greeting}, {userName}
+          <h1 className="text-2xl sm:text-4xl font-extrabold text-[#f4f4f5] font-display tracking-tight leading-tight">
+            {greeting}, <span className="bg-gradient-to-r from-[#f4f4f5] via-white to-[#a1a1aa] bg-clip-text text-transparent">{userName}</span>
           </h1>
 
-          <p className="text-xs sm:text-sm text-[#a1a1aa] leading-relaxed">
+          <p className="text-xs sm:text-sm text-[#a1a1aa] leading-relaxed max-w-lg">
             {activePlan 
               ? activePlan.summary[locale]
               : isRtl 
@@ -114,22 +134,22 @@ export const HomeView: React.FC<HomeViewProps> = ({
           </p>
         </div>
 
-        {/* Primary CTA Buttons */}
+        {/* Primary CTA Buttons with Precision Haptics */}
         <div className="z-10 shrink-0 flex flex-col sm:flex-row gap-3">
           <button
             onClick={() => onNavigateTab("today")}
-            className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#6366f1] to-[#22d3ee] hover:opacity-95 text-[#09090b] text-xs font-bold flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(99,102,241,0.35)] active:scale-95 transition-all cursor-pointer whitespace-nowrap"
+            className="px-5 sm:px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#6366f1] via-[#4f46e5] to-[#22d3ee] hover:brightness-110 text-[#09090b] text-xs sm:text-sm font-bold flex items-center justify-center gap-2 shadow-[0_0_24px_rgba(34,211,238,0.25)] active:scale-95 transition-all cursor-pointer whitespace-nowrap"
           >
             <span>{isRtl ? "تنفيذ مهام اليوم" : "Open Today's Protocol"}</span>
-            <ArrowIcon className="w-4 h-4" />
+            <ArrowIcon className="w-4 h-4 text-[#09090b]" />
           </button>
           
           <button
             onClick={onInitiateScan}
-            className="px-4 py-3.5 rounded-xl bg-[#18181b] hover:bg-[#27272a] border border-[#27272a] text-xs font-semibold text-[#a1a1aa] hover:text-[#f4f4f5] transition-colors cursor-pointer flex items-center justify-center gap-2"
+            className="px-4 py-3.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-[#22d3ee]/40 text-xs sm:text-sm font-semibold text-[#f4f4f5] transition-all cursor-pointer flex items-center justify-center gap-2 active:scale-95"
           >
             <Camera className="w-4 h-4 text-[#22d3ee]" />
-            <span>{isRtl ? "فحص جديد" : "Scan"}</span>
+            <span>{isRtl ? "فحص جديد" : "Scan Face"}</span>
           </button>
         </div>
       </div>

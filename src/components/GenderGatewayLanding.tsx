@@ -50,15 +50,12 @@ export const GenderGatewayLanding: React.FC<GenderGatewayLandingProps> = ({
       {/* Top Bar with Brand and Language Switch */}
       <header className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-6 flex items-center justify-between z-10">
         <div className="flex items-center gap-3">
-          <AuraMaxLogo size={36} />
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-lg font-black tracking-tight text-[#f4f4f5]">AURA MAX</span>
-              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/10 text-white/90 border border-white/10">
-                Aesthetics Engine
-              </span>
-            </div>
-            <p className="text-[11px] text-[#a1a1aa]">
+          <AuraMaxLogo size={36} showWordmark={true} />
+          <div className="hidden sm:block">
+            <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-white/10 text-white/90 border border-white/10">
+              Aesthetics Engine
+            </span>
+            <p className="text-[11px] text-[#a1a1aa] mt-0.5">
               {isRtl ? "منظومة علوم الجمال والهندسة الحيوية للملامح" : "Facial Geometry & Aesthetic Potential Science"}
             </p>
           </div>
