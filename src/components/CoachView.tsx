@@ -177,53 +177,53 @@ export const CoachView: React.FC<CoachViewProps> = ({
       dir={isRtl ? "rtl" : "ltr"}
     >
       {/* 1. Contextual Header: Grounded in User Plan */}
-      <div className="p-6 rounded-3xl bg-[#111318] border border-[#252A33] space-y-3">
+      <div className="p-6 rounded-3xl bg-[#18181b] border border-[#27272a] space-y-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-xl bg-[#8B5CF6]/20 border border-[#8B5CF6]/40 flex items-center justify-center text-[#8B5CF6]">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-[#818cf8]/20 border border-[#818cf8]/40 flex items-center justify-center text-[#818cf8]">
               <Bot className="w-4 h-4" />
             </div>
             <div>
-              <h1 className="text-base font-bold text-[#F4F7FA]">
+              <h1 className="text-base font-bold text-[#f4f4f5]">
                 {isRtl ? "المدرب الذكي للتحول" : "Contextual Transformation Coach"}
               </h1>
-              <div className="text-[11px] text-[#A5AEBC]">
+              <div className="text-[11px] text-[#a1a1aa]">
                 {isRtl ? "متصل مباشرة بخطتك وقياسات فحصك" : "Grounded in your active plan and biometrics"}
               </div>
             </div>
           </div>
 
-          <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#171A21] border border-[#252A33] text-[#8B5CF6] font-bold uppercase">
+          <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#111113] border border-[#27272a] text-[#818cf8] font-bold uppercase">
             Active Plan Context
           </span>
         </div>
 
         {/* Plan context pill bar */}
-        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-[#252A33] text-xs text-[#A5AEBC]">
+        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-[#27272a] text-xs text-[#a1a1aa]">
           <span className="flex items-center gap-1">
-            <Target className="w-3.5 h-3.5 text-[#42E8FF]" />
-            <strong className="text-[#F4F7FA]">{isRtl ? "الهدف:" : "Goal:"}</strong> {activePlan?.primaryGoal || "Face Structure"}
+            <Target className="w-3.5 h-3.5 text-[#22d3ee]" />
+            <strong className="text-[#f4f4f5]">{isRtl ? "الهدف:" : "Goal:"}</strong> {activePlan?.primaryGoal || "Face Structure"}
           </span>
           <span aria-hidden="true">·</span>
           <span className="flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5 text-[#42E8FF]" />
-            <strong className="text-[#F4F7FA]">{isRtl ? "الوقت:" : "Time:"}</strong> {activePlan?.timeBudget || "15m/day"}
+            <Clock className="w-3.5 h-3.5 text-[#22d3ee]" />
+            <strong className="text-[#f4f4f5]">{isRtl ? "الوقت:" : "Time:"}</strong> {activePlan?.timeBudget || "15m/day"}
           </span>
           <span aria-hidden="true">·</span>
           <span className="flex items-center gap-1">
-            <Flame className="w-3.5 h-3.5 text-[#42E8FF]" />
-            <strong className="text-[#F4F7FA]">{isRtl ? "الالتزام:" : "Streak:"}</strong> {userProfile.streakDays}d
+            <Flame className="w-3.5 h-3.5 text-[#fb923c] glow-flame" />
+            <strong className="text-[#f4f4f5]">{isRtl ? "الالتزام:" : "Streak:"}</strong> {userProfile.streakDays}d
           </span>
         </div>
       </div>
 
       {/* 2. Structured Chat History */}
-      <div className="p-6 rounded-3xl bg-[#111318] border border-[#252A33] min-h-[380px] max-h-[500px] overflow-y-auto space-y-4">
+      <div className="p-6 rounded-3xl bg-[#18181b] border border-[#27272a] min-h-[380px] max-h-[500px] overflow-y-auto space-y-4">
         {messages.map((m) => {
           if (m.sender === "user") {
             return (
               <div key={m.id} className="flex justify-end">
-                <div className="max-w-md p-3.5 rounded-2xl bg-[#42E8FF] text-[#08090C] text-xs font-semibold shadow-xs">
+                <div className="max-w-md p-3.5 rounded-2xl bg-gradient-to-r from-[#6366f1] to-[#22d3ee] text-[#09090b] text-xs font-semibold shadow-xs">
                   {m.directAnswer}
                 </div>
               </div>
@@ -233,24 +233,24 @@ export const CoachView: React.FC<CoachViewProps> = ({
           // Structured Coach Response: Direct Answer -> Why -> Next Action
           return (
             <div key={m.id} className="flex justify-start">
-              <div className="max-w-xl p-5 rounded-2xl bg-[#171A21] border border-[#252A33] space-y-3 text-xs">
+              <div className="max-w-xl p-5 rounded-2xl bg-[#111113] border border-[#27272a] space-y-3 text-xs">
                 {/* 1. Direct Answer */}
                 <div>
-                  <div className="text-[10px] font-bold text-[#8B5CF6] uppercase tracking-wider mb-1">
+                  <div className="text-[10px] font-bold text-[#818cf8] uppercase tracking-wider mb-1">
                     {isRtl ? "الإجابة المباشرة" : "Direct Answer"}
                   </div>
-                  <p className="text-[#F4F7FA] font-medium leading-relaxed">
+                  <p className="text-[#f4f4f5] font-medium leading-relaxed">
                     {m.directAnswer}
                   </p>
                 </div>
 
                 {/* 2. Why (Rationale) */}
                 {m.why && (
-                  <div className="pt-2 border-t border-[#252A33]/60">
-                    <div className="text-[10px] font-bold text-[#A5AEBC] uppercase tracking-wider mb-1">
+                  <div className="pt-2 border-t border-[#27272a]">
+                    <div className="text-[10px] font-bold text-[#a1a1aa] uppercase tracking-wider mb-1">
                       {isRtl ? "السبب العلمي والتأثير" : "Why this matters"}
                     </div>
-                    <p className="text-[#A5AEBC] leading-relaxed">
+                    <p className="text-[#a1a1aa] leading-relaxed">
                       {m.why}
                     </p>
                   </div>
@@ -258,13 +258,13 @@ export const CoachView: React.FC<CoachViewProps> = ({
 
                 {/* 3. Next Action */}
                 {m.nextAction && (
-                  <div className="p-3 rounded-xl bg-[#111318] border border-[#42E8FF]/20 flex items-start gap-2.5">
-                    <Check className="w-4 h-4 text-[#42E8FF] shrink-0 mt-0.5" />
+                  <div className="p-3 rounded-xl bg-[#18181b] border border-[#22d3ee]/25 flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-[#22d3ee] shrink-0 mt-0.5" />
                     <div>
-                      <div className="text-[10px] font-bold text-[#42E8FF] uppercase tracking-wider">
+                      <div className="text-[10px] font-bold text-[#22d3ee] uppercase tracking-wider">
                         {isRtl ? "الخطوة المقترحة التالية" : "Next Recommended Action"}
                       </div>
-                      <div className="text-[#F4F7FA] text-xs mt-0.5 font-medium">
+                      <div className="text-[#f4f4f5] text-xs mt-0.5 font-medium">
                         {m.nextAction}
                       </div>
                     </div>
@@ -277,8 +277,8 @@ export const CoachView: React.FC<CoachViewProps> = ({
 
         {isTyping && (
           <div className="flex justify-start">
-            <div className="p-3.5 rounded-2xl bg-[#171A21] border border-[#252A33] text-xs text-[#A5AEBC] flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] animate-pulse" />
+            <div className="p-3.5 rounded-2xl bg-[#111113] border border-[#27272a] text-xs text-[#a1a1aa] flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#818cf8] animate-pulse" />
               <span>{isRtl ? "جاري صياغة التوصية..." : "Formulating structured recommendation..."}</span>
             </div>
           </div>
@@ -289,7 +289,7 @@ export const CoachView: React.FC<CoachViewProps> = ({
 
       {/* 3. Quick Prompt Chips (Section 21) */}
       <div className="space-y-2">
-        <span className="text-[11px] font-bold uppercase tracking-wider text-[#A5AEBC] block">
+        <span className="text-[11px] font-bold uppercase tracking-wider text-[#a1a1aa] block">
           {isRtl ? "أسئلة شائعة مرتبطة ببروتوكولك:" : "Contextual quick prompts:"}
         </span>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -297,10 +297,10 @@ export const CoachView: React.FC<CoachViewProps> = ({
             <button
               key={idx}
               onClick={() => handleSendPrompt(p.q, p.answer, p.why, p.nextAction)}
-              className="p-3 rounded-xl bg-[#111318] hover:bg-[#171A21] border border-[#252A33] hover:border-[#8B5CF6]/50 text-start text-xs text-[#F4F7FA] transition-colors cursor-pointer flex items-center justify-between gap-2"
+              className="p-3 rounded-xl bg-[#18181b] hover:bg-[#27272a] border border-[#27272a] hover:border-[#818cf8]/50 text-start text-xs text-[#f4f4f5] transition-colors cursor-pointer flex items-center justify-between gap-2"
             >
               <span>{p.q}</span>
-              <ArrowIcon className="w-3.5 h-3.5 text-[#8B5CF6] shrink-0" />
+              <ArrowIcon className="w-3.5 h-3.5 text-[#818cf8] shrink-0" />
             </button>
           ))}
         </div>
@@ -313,11 +313,11 @@ export const CoachView: React.FC<CoachViewProps> = ({
           value={inputText}
           onChange={(e) => setInputText(e.target.value)}
           placeholder={isRtl ? "اسأل المدرب عن أي تفصيل في خطتك أو ملامحك..." : "Ask your coach anything about your plan or routine..."}
-          className="flex-1 px-4 py-3 rounded-xl bg-[#111318] border border-[#252A33] text-xs text-[#F4F7FA] focus:outline-none focus:border-[#8B5CF6]"
+          className="flex-1 px-4 py-3 rounded-xl bg-[#18181b] border border-[#27272a] text-xs text-[#f4f4f5] focus:outline-none focus:border-[#22d3ee]"
         />
         <button
           type="submit"
-          className="px-5 py-3 rounded-xl bg-[#8B5CF6] hover:bg-[#7C3AED] text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5"
+          className="px-5 py-3 rounded-xl bg-gradient-to-r from-[#6366f1] to-[#22d3ee] hover:opacity-95 text-[#09090b] text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5"
         >
           <Send className="w-4 h-4 rtl:rotate-180" />
           <span className="hidden sm:inline">{isRtl ? "إرسال" : "Send"}</span>

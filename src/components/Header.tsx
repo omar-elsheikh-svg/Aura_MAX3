@@ -55,12 +55,12 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-[#08090C]/90 backdrop-blur-md border-b border-[#252A33] px-4 lg:px-8 py-3">
+    <header className="sticky top-0 z-40 bg-[#09090b]/90 backdrop-blur-md border-b border-[#27272a] px-4 lg:px-8 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
         {/* Zone 1: Single Brand Wordmark */}
         <button 
           onClick={() => setActiveTab("home")}
-          className="flex items-center gap-2.5 cursor-pointer select-none group text-start focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#42E8FF]"
+          className="flex items-center gap-2.5 cursor-pointer select-none group text-start focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#22d3ee]"
           aria-label="Aura Max Home"
         >
           <AuraMaxEmblem
@@ -70,17 +70,17 @@ export const Header: React.FC<HeaderProps> = ({
             className="group-hover:scale-105 transition-transform shrink-0"
           />
           <div className="flex items-center gap-1.5 leading-none">
-            <span className="font-extrabold text-base tracking-[0.16em] text-[#F4F7FA] font-display">
+            <span className="font-extrabold text-base tracking-[0.16em] text-[#f4f4f5] font-display">
               AURA
             </span>
-            <span className="font-extrabold text-base tracking-[0.12em] text-[#42E8FF] font-display">
+            <span className="font-extrabold text-base tracking-[0.12em] text-[#22d3ee] font-display">
               {isFemale ? "FEM" : "MAX"}
             </span>
           </div>
         </button>
 
         {/* Zone 2: 4-5 Clean Text Navigation Links (Desktop) */}
-        <nav className="hidden md:flex items-center gap-1 p-1 bg-[#111318] rounded-xl border border-[#252A33]">
+        <nav className="hidden md:flex items-center gap-1 p-1 bg-[#111113] rounded-xl border border-[#27272a]">
           {navItems.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
@@ -89,8 +89,8 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={() => setActiveTab(tab.id)}
                 className={`px-4 py-2 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
                   isActive
-                    ? "bg-[#171A21] text-[#42E8FF] shadow-xs"
-                    : "text-[#A5AEBC] hover:text-[#F4F7FA] hover:bg-[#171A21]/50"
+                    ? "bg-[#18181b] text-[#22d3ee] shadow-xs"
+                    : "text-[#a1a1aa] hover:text-[#f4f4f5] hover:bg-[#18181b]/50"
                 }`}
               >
                 {tab.label}
@@ -108,46 +108,49 @@ export const Header: React.FC<HeaderProps> = ({
               ? (isRtl ? "التبديل إلى مسار الرجال" : "Switch to Men's track") 
               : (isRtl ? "التبديل إلى مسار النساء" : "Switch to Women's track")
             }
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-[#252A33] bg-[#111318] hover:border-[#42E8FF]/40 text-[#A5AEBC] hover:text-[#F4F7FA] transition-colors cursor-pointer min-h-[36px]"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-[#27272a] bg-[#18181b] hover:border-[#22d3ee]/40 text-[#a1a1aa] hover:text-[#f4f4f5] transition-colors cursor-pointer min-h-[36px]"
           >
             {isFemale ? (
               <>
-                <Crown className="w-3.5 h-3.5 text-[#8B5CF6]" />
+                <Crown className="w-3.5 h-3.5 text-[#818cf8]" />
                 <span>{isRtl ? "مسار النساء" : "Aura Fem"}</span>
               </>
             ) : (
               <>
-                <Flame className="w-3.5 h-3.5 text-[#42E8FF]" />
+                <Flame className="w-3.5 h-3.5 text-[#fb923c] glow-flame" />
                 <span>{isRtl ? "مسار الرجال" : "Aura Max"}</span>
               </>
             )}
           </button>
 
-          {/* Streak Indicator (Unboxed, quiet metadata) */}
+          {/* Streak Indicator (Unboxed, quiet metadata with flame) */}
           <div 
-            className="flex items-center gap-1 px-2.5 py-1.5 text-xs text-[#A5AEBC] font-medium"
+            className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs text-[#a1a1aa] font-medium"
             title={`${streakDays} ${isRtl ? "أيام التزام" : "Days streak"}`}
           >
-            <Flame className="w-3.5 h-3.5 text-[#42E8FF]" />
-            <span className="font-semibold text-[#F4F7FA]">{streakDays}d</span>
+            <div className="flame-anim">
+              <Flame className="w-4 h-4 text-[#fb923c] glow-flame" />
+            </div>
+            <span className="font-bold text-[#f4f4f5]">{streakDays}d</span>
           </div>
 
-          {/* Language Switcher */}
+          {/* Language Switcher Pill matching shell: bg-[#18181b], border-[#27272a], color-[#22d3ee] */}
           <button
             onClick={toggleLanguage}
-            className="flex items-center justify-center w-9 h-9 rounded-lg border border-[#252A33] bg-[#111318] hover:border-[#42E8FF]/40 text-xs font-bold text-[#A5AEBC] hover:text-[#F4F7FA] transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#27272a] bg-[#18181b] hover:border-[#22d3ee]/50 text-xs font-semibold text-[#22d3ee] transition-colors cursor-pointer min-h-[36px]"
             aria-label="Toggle language"
             title={locale === "en" ? "تبديل إلى العربية" : "Switch to English"}
           >
-            <Globe className="w-3.5 h-3.5 text-[#42E8FF]" />
+            <Globe className="w-3.5 h-3.5 text-[#22d3ee]" />
+            <span>{locale === "en" ? "AR" : "EN"}</span>
           </button>
 
           {/* Quick Scan CTA Button */}
           <button
             onClick={onQuickScan}
-            className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#42E8FF] hover:bg-[#38BDF8] text-[#08090C] text-xs font-bold transition-all shadow-[0_0_15px_rgba(66,232,255,0.2)] active:scale-95 cursor-pointer whitespace-nowrap min-h-[36px]"
+            className="hidden lg:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#22d3ee] hover:opacity-95 text-[#09090b] text-xs font-bold transition-all shadow-[0_0_16px_rgba(99,102,241,0.35)] active:scale-95 cursor-pointer whitespace-nowrap min-h-[36px]"
           >
-            <Camera className="w-3.5 h-3.5" />
+            <Camera className="w-3.5 h-3.5 text-[#09090b]" />
             <span>{isRtl ? "فحص جديد" : "Quick Scan"}</span>
           </button>
 
@@ -155,7 +158,7 @@ export const Header: React.FC<HeaderProps> = ({
           {onOpenSettings && (
             <button
               onClick={onOpenSettings}
-              className="flex items-center justify-center w-9 h-9 rounded-lg border border-[#252A33] bg-[#111318] hover:border-[#42E8FF]/40 text-[#A5AEBC] hover:text-[#F4F7FA] transition-colors cursor-pointer"
+              className="flex items-center justify-center w-9 h-9 rounded-lg border border-[#27272a] bg-[#18181b] hover:border-[#22d3ee]/40 text-[#a1a1aa] hover:text-[#f4f4f5] transition-colors cursor-pointer"
               aria-label="Open settings"
             >
               <Settings className="w-4 h-4" />

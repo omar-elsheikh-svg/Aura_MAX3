@@ -536,34 +536,34 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-xl overflow-y-auto">
-      <div className="relative w-full max-w-5xl bg-[#0d0f14] border border-[#1E232E] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[94vh]">
+      <div className="relative w-full max-w-5xl bg-[#18181b] border border-[#27272a] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[94vh]">
         
         {/* Top Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#1E232E] bg-[#111318]/90">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#27272a] bg-[#18181b]/90">
           <div className="flex items-center gap-3">
             <div className={`w-10 h-10 rounded-2xl border flex items-center justify-center shadow-lg ${
               isFemale 
-                ? "bg-[#F472B6]/20 border-[#F472B6]/40 shadow-[#F472B6]/10 text-[#F472B6]" 
-                : "bg-[#42E8FF]/20 border-[#42E8FF]/40 shadow-[#42E8FF]/10 text-[#42E8FF]"
+                ? "bg-[#ec4899]/20 border-[#ec4899]/40 shadow-[#ec4899]/10 text-[#ec4899]" 
+                : "bg-[#22d3ee]/20 border-[#22d3ee]/40 shadow-[#22d3ee]/10 text-[#22d3ee]"
             }`}>
               <Wand2 className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-base font-extrabold text-[#F4F7FA] font-display">
+                <h3 className="text-base font-extrabold text-[#f4f4f5] font-display">
                   {isFemale 
                     ? (isRtl ? "استوديو Aura Fem للتألق وتوليد المظهر بالذكاء الاصطناعي" : "Aura Fem AI Makeover Studio")
                     : (isRtl ? "استوديو Aura Max لتوليد المظهر بالذكاء الاصطناعي" : "Aura Max AI Makeover Studio")}
                 </h3>
                 <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono font-bold border ${
                   isFemale 
-                    ? "bg-[#F472B6]/15 text-[#F472B6] border-[#F472B6]/30" 
-                    : "bg-[#42E8FF]/15 text-[#42E8FF] border-[#42E8FF]/30"
+                    ? "bg-[#ec4899]/15 text-[#ec4899] border-[#ec4899]/30" 
+                    : "bg-[#22d3ee]/15 text-[#22d3ee] border-[#22d3ee]/30"
                 }`}>
                   {FACE_SHAPE_PRESETS[selectedShape]?.analysis?.name?.[locale] || selectedShape.toUpperCase()}
                 </span>
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[#a1a1aa]">
                 {isRtl 
                   ? "توليد صورة فوتوغرافية احترافية بالذكاء الاصطناعي بناءً على معايير الحلاقة ونحت الفك" 
                   : "AI image generation pipeline driven directly by your Grooming & Aesthetics settings"}
@@ -573,13 +573,13 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
 
           <div className="flex items-center gap-2">
             {/* View Mode Switcher */}
-            <div className="hidden sm:flex items-center bg-[#181B22] p-1 rounded-xl border border-[#262D3D]">
+            <div className="hidden sm:flex items-center bg-[#111113] p-1 rounded-xl border border-[#27272a]">
               <button
                 onClick={() => setViewMode("slider")}
                 className={`min-h-[36px] px-3 py-1 rounded-lg text-xs font-bold transition-all ${
                   viewMode === "slider" 
-                    ? (isFemale ? "bg-[#F472B6] text-black" : "bg-[#42E8FF] text-black") 
-                    : "text-slate-400 hover:text-white"
+                    ? (isFemale ? "bg-[#ec4899] text-black" : "bg-[#22d3ee] text-black") 
+                    : "text-[#71717a] hover:text-[#f4f4f5]"
                 }`}
               >
                 {isRtl ? "شريط المقارنة" : "Split Slider"}
@@ -588,8 +588,8 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                 onClick={() => setViewMode("sideBySide")}
                 className={`min-h-[36px] px-3 py-1 rounded-lg text-xs font-bold transition-all ${
                   viewMode === "sideBySide" 
-                    ? (isFemale ? "bg-[#F472B6] text-black" : "bg-[#42E8FF] text-black") 
-                    : "text-slate-400 hover:text-white"
+                    ? (isFemale ? "bg-[#ec4899] text-black" : "bg-[#22d3ee] text-black") 
+                    : "text-[#71717a] hover:text-[#f4f4f5]"
                 }`}
               >
                 {isRtl ? "جنباً إلى جنب" : "Side by Side"}
@@ -598,8 +598,8 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                 onClick={() => setViewMode("afterOnly")}
                 className={`min-h-[36px] px-3 py-1 rounded-lg text-xs font-bold transition-all ${
                   viewMode === "afterOnly" 
-                    ? (isFemale ? "bg-[#F472B6] text-black" : "bg-[#42E8FF] text-black") 
-                    : "text-slate-400 hover:text-white"
+                    ? (isFemale ? "bg-[#ec4899] text-black" : "bg-[#22d3ee] text-black") 
+                    : "text-[#71717a] hover:text-[#f4f4f5]"
                 }`}
               >
                 {isRtl ? "المظهر النهائي" : "AI After"}
@@ -608,7 +608,7 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
 
             <button
               onClick={onClose}
-              className="min-w-[44px] min-h-[44px] p-2 rounded-xl bg-[#181B22] text-slate-400 hover:text-white border border-[#262D3D] hover:border-slate-500 transition-colors flex items-center justify-center cursor-pointer"
+              className="min-w-[44px] min-h-[44px] p-2 rounded-xl bg-[#111113] text-[#71717a] hover:text-[#f4f4f5] border border-[#27272a] hover:border-[#3f3f46] transition-colors flex items-center justify-center cursor-pointer"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
@@ -620,14 +620,14 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
         <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 overflow-y-auto">
           
           {/* Visualizer Stage Area (7 cols on large) */}
-          <div className="lg:col-span-7 p-4 sm:p-6 bg-[#08090C] flex flex-col items-center justify-center border-b lg:border-b-0 lg:border-r border-[#1E232E]">
+          <div className="lg:col-span-7 p-4 sm:p-6 bg-[#09090b] flex flex-col items-center justify-center border-b lg:border-b-0 lg:border-r border-[#27272a]">
             
             {/* Inline Toast Notification */}
             {toastMessage && (
               <div className={`w-full max-w-[440px] mb-3 px-3.5 py-2.5 rounded-2xl border text-xs font-bold flex items-center justify-between animate-fade-in shadow-xl ${
                 isFemale
-                  ? "bg-[#F472B6]/20 border-[#F472B6]/50 text-[#F472B6] shadow-[#F472B6]/10"
-                  : "bg-[#42E8FF]/20 border-[#42E8FF]/50 text-[#42E8FF] shadow-[#42E8FF]/10"
+                  ? "bg-[#ec4899]/20 border-[#ec4899]/50 text-[#ec4899] shadow-[#ec4899]/10"
+                  : "bg-[#22d3ee]/20 border-[#22d3ee]/50 text-[#22d3ee] shadow-[#22d3ee]/10"
               }`}>
                 <div className="flex items-center gap-2">
                   <Sparkles className="w-4 h-4" />
@@ -645,7 +645,7 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
               onMouseDown={handleMouseDown}
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
-              className="relative w-full max-w-[440px] aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl border border-[#262D3D] select-none cursor-ew-resize bg-black"
+              className="relative w-full max-w-[440px] aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl border border-[#27272a] select-none cursor-ew-resize bg-black"
             >
               {viewMode === "slider" && (
                 <>
@@ -659,7 +659,7 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
 
                   {/* GLOW-UP AFTER Tag */}
                   <div className={`absolute top-4 right-4 px-2.5 py-1 rounded-full text-[10px] font-mono font-extrabold text-black uppercase tracking-wider shadow-lg pointer-events-none flex items-center gap-1.5 ${
-                    isFemale ? "bg-[#F472B6] shadow-[#F472B6]/30" : "bg-[#42E8FF] shadow-[#42E8FF]/30"
+                    isFemale ? "bg-[#ec4899] shadow-[#ec4899]/30" : "bg-[#22d3ee] shadow-[#22d3ee]/30"
                   }`}>
                     <Sparkle className="w-3 h-3 fill-black text-black" />
                     <span>{aiGeneratedImageUrl ? (isRtl ? "توليد Nano Banana (بعد)" : "NANO BANANA (AFTER)") : (isRtl ? "مظهر محسّن 1:1 (AFTER)" : "1:1 MAKEOVER (AFTER)")}</span>
@@ -681,7 +681,7 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                     
                     {/* ORIGINAL BEFORE Tag */}
                     <div className="absolute top-4 left-4 px-2.5 py-1 rounded-full bg-black/85 backdrop-blur-md border border-white/20 text-[10px] font-mono font-bold text-white uppercase tracking-wider flex items-center gap-1.5 shadow-md">
-                      <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
                       <span>{isRtl ? "الأصل (قبل)" : "ORIGINAL (BEFORE)"}</span>
                     </div>
                   </div>
@@ -697,12 +697,12 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                   {/* Split Drag Bar */}
                   <div
                     className={`absolute top-0 bottom-0 w-1 pointer-events-none ${
-                      isFemale ? "bg-[#F472B6] shadow-[0_0_15px_#F472B6]" : "bg-[#42E8FF] shadow-[0_0_15px_#42E8FF]"
+                      isFemale ? "bg-[#ec4899] shadow-[0_0_15px_#ec4899]" : "bg-[#22d3ee] shadow-[0_0_15px_#22d3ee]"
                     }`}
                     style={{ left: `${sliderPosition}%` }}
                   >
-                    <div className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#08090C] border-2 flex items-center justify-center ${
-                      isFemale ? "border-[#F472B6] text-[#F472B6] shadow-[0_0_12px_#F472B6]" : "border-[#42E8FF] text-[#42E8FF] shadow-[0_0_12px_#42E8FF]"
+                    <div className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[#09090b] border-2 flex items-center justify-center ${
+                      isFemale ? "border-[#ec4899] text-[#ec4899] shadow-[0_0_12px_#ec4899]" : "border-[#22d3ee] text-[#22d3ee] shadow-[0_0_12px_#22d3ee]"
                     }`}>
                       <Sliders className="w-3.5 h-3.5 rotate-90" />
                     </div>
@@ -713,7 +713,7 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
               {viewMode === "sideBySide" && (
                 <div className="w-full h-full flex">
                   {/* Left Column: Original Before */}
-                  <div className="w-1/2 h-full relative border-r border-[#262D3D]">
+                  <div className="w-1/2 h-full relative border-r border-[#27272a]">
                     <img 
                       src={safeBeforeImage} 
                       alt="Original Untouched Before" 
@@ -734,7 +734,7 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                       className="w-full h-full object-cover" 
                     />
                     <span className={`absolute bottom-3 right-3 px-2 py-0.5 rounded text-[9px] font-mono font-extrabold text-black shadow-md ${
-                      isFemale ? "bg-[#F472B6]" : "bg-[#42E8FF]"
+                      isFemale ? "bg-[#ec4899]" : "bg-[#22d3ee]"
                     }`}>
                       {isRtl ? "بعد (Nano Banana)" : "NANO BANANA AFTER"}
                     </span>
@@ -751,7 +751,7 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                     className="w-full h-full object-cover" 
                   />
                   <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-black font-extrabold text-xs shadow-lg flex items-center gap-1.5 ${
-                    isFemale ? "bg-[#F472B6] shadow-[#F472B6]/20" : "bg-[#42E8FF] shadow-[#42E8FF]/20"
+                    isFemale ? "bg-[#ec4899] shadow-[#ec4899]/20" : "bg-[#22d3ee] shadow-[#22d3ee]/20"
                   }`}>
                     <Sparkles className="w-3.5 h-3.5" />
                     <span>{isRtl ? "المظهر النهائي بالذكاء الاصطناعي" : "AI MAKEOVER PORTRAIT"}</span>
@@ -764,28 +764,28 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                 <div className="absolute inset-0 bg-black/85 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center z-30 animate-fade-in">
                   <div className={`relative w-20 h-20 rounded-3xl border-2 flex items-center justify-center mb-4 ${
                     isFemale 
-                      ? "border-[#F472B6]/50 shadow-[0_0_30px_rgba(244,114,182,0.35)]" 
-                      : "border-[#42E8FF]/50 shadow-[0_0_30px_rgba(66,232,255,0.35)]"
+                      ? "border-[#ec4899]/50 shadow-[0_0_30px_rgba(236,72,153,0.35)]" 
+                      : "border-[#22d3ee]/50 shadow-[0_0_30px_rgba(34,211,238,0.35)]"
                   }`}>
                     <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-transparent via-white/10 to-transparent animate-pulse" />
-                    <Sparkles className={`w-8 h-8 animate-spin ${isFemale ? "text-[#F472B6]" : "text-[#42E8FF]"}`} />
+                    <Sparkles className={`w-8 h-8 animate-spin ${isFemale ? "text-[#ec4899]" : "text-[#22d3ee]"}`} />
                   </div>
 
-                  <h4 className="text-base font-extrabold text-white font-display mb-1.5">
+                  <h4 className="text-base font-extrabold text-[#f4f4f5] font-display mb-1.5">
                     {isRtl ? "جارٍ توليد المظهر بالذكاء الاصطناعي..." : "Generating AI Makeover..."}
                   </h4>
 
                   <p className={`text-xs font-mono max-w-xs leading-relaxed transition-all ${
-                    isFemale ? "text-[#F472B6]" : "text-[#42E8FF]"
+                    isFemale ? "text-[#ec4899]" : "text-[#22d3ee]"
                   }`}>
                     {aiGenMessage}
                   </p>
 
-                  <div className="w-48 h-1.5 bg-[#1E232E] rounded-full mt-4 overflow-hidden">
+                  <div className="w-48 h-1.5 bg-[#27272a] rounded-full mt-4 overflow-hidden">
                     <div className={`h-full animate-[shimmer_1.5s_infinite] ${
                       isFemale 
-                        ? "bg-gradient-to-r from-[#F472B6] to-[#C084FC]" 
-                        : "bg-gradient-to-r from-[#42E8FF] to-[#8B5CF6]"
+                        ? "bg-gradient-to-r from-[#ec4899] to-[#818cf8]" 
+                        : "bg-gradient-to-r from-[#22d3ee] to-[#6366f1]"
                     }`} />
                   </div>
                 </div>
@@ -793,43 +793,43 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
             </div>
 
             {/* Slider Hint & Action CTAs */}
-            <div className="w-full max-w-[440px] mt-3 flex items-center justify-between text-xs text-slate-400 px-1">
+            <div className="w-full max-w-[440px] mt-3 flex items-center justify-between text-xs text-[#a1a1aa] px-1">
               <span className="flex items-center gap-1 text-[11px]">
-                <Sliders className={`w-3 h-3 ${isFemale ? "text-[#F472B6]" : "text-[#42E8FF]"}`} />
+                <Sliders className={`w-3 h-3 ${isFemale ? "text-[#ec4899]" : "text-[#22d3ee]"}`} />
                 {isRtl ? "اسحب الشريط يميناً ويساراً للمقارنة" : "Drag slider horizontally to compare"}
               </span>
 
               <button
                 onClick={handleDownloadImage}
-                className="min-h-[44px] flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#141720] hover:bg-[#1E232E] text-slate-300 hover:text-white border border-[#262D3D] transition-colors text-xs font-medium cursor-pointer"
+                className="min-h-[44px] flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#18181b] hover:bg-[#27272a] text-[#a1a1aa] hover:text-[#f4f4f5] border border-[#27272a] transition-colors text-xs font-medium cursor-pointer"
               >
-                <Download className={`w-3.5 h-3.5 ${isFemale ? "text-[#F472B6]" : "text-[#42E8FF]"}`} />
+                <Download className={`w-3.5 h-3.5 ${isFemale ? "text-[#ec4899]" : "text-[#22d3ee]"}`} />
                 <span>{isRtl ? "تحميل الصورة المولدة" : "Download (8K)"}</span>
               </button>
             </div>
 
             {/* Dynamic AI Prompt Inspector (Expandable) */}
-            <div className="w-full max-w-[440px] mt-3 bg-[#111318] rounded-2xl border border-[#1E232E] p-3 text-xs">
+            <div className="w-full max-w-[440px] mt-3 bg-[#111113] rounded-2xl border border-[#27272a] p-3 text-xs">
               <button
                 onClick={() => setShowPromptDetails(!showPromptDetails)}
-                className="w-full flex items-center justify-between text-slate-300 hover:text-white transition-colors cursor-pointer"
+                className="w-full flex items-center justify-between text-[#a1a1aa] hover:text-[#f4f4f5] transition-colors cursor-pointer"
               >
                 <div className="flex items-center gap-1.5 font-bold">
-                  <Wand2 className={`w-3.5 h-3.5 ${isFemale ? "text-[#F472B6]" : "text-[#42E8FF]"}`} />
+                  <Wand2 className={`w-3.5 h-3.5 ${isFemale ? "text-[#ec4899]" : "text-[#22d3ee]"}`} />
                   <span>{isRtl ? "موجّه الذكاء الاصطناعي المُولّد (Prompt)" : "Compiled AI Generation Prompt"}</span>
                 </div>
                 {showPromptDetails ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
               </button>
 
               {showPromptDetails && (
-                <div className="mt-2.5 pt-2.5 border-t border-[#1E232E]">
-                  <p className="text-[11px] text-slate-400 font-mono leading-relaxed bg-[#08090C] p-2.5 rounded-xl border border-[#181C26]">
+                <div className="mt-2.5 pt-2.5 border-t border-[#27272a]">
+                  <p className="text-[11px] text-[#a1a1aa] font-mono leading-relaxed bg-[#09090b] p-2.5 rounded-xl border border-[#27272a]">
                     {currentPrompt}
                   </p>
                   <div className="flex justify-end mt-2">
                     <button
                       onClick={handleCopyPrompt}
-                      className="flex items-center gap-1 text-[10px] text-slate-400 hover:text-white px-2 py-1 rounded bg-[#181B22] border border-[#262D3D]"
+                      className="flex items-center gap-1 text-[10px] text-[#a1a1aa] hover:text-[#f4f4f5] px-2 py-1 rounded bg-[#18181b] border border-[#27272a]"
                     >
                       <Copy className="w-3 h-3" />
                       <span>{copiedPrompt ? (isRtl ? "تم النسخ" : "Copied!") : (isRtl ? "نسخ الموجّه" : "Copy Prompt")}</span>
@@ -842,22 +842,22 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
           </div>
 
           {/* Controls & Grooming & Aesthetics Drawer (5 cols on large) */}
-          <div className="lg:col-span-5 p-5 sm:p-6 bg-[#0e1015] flex flex-col justify-between space-y-5 overflow-y-auto">
+          <div className="lg:col-span-5 p-5 sm:p-6 bg-[#111113] flex flex-col justify-between space-y-5 overflow-y-auto">
             
             <div className="space-y-5">
               
               {/* Gender Preference Selector */}
               <div>
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                <label className="text-xs font-bold text-[#a1a1aa] uppercase tracking-wider block mb-2">
                   {isRtl ? "مسار التخصيص والجمال" : "Grooming & Aesthetics Category"}
                 </label>
-                <div className="grid grid-cols-2 gap-2 bg-[#141720] p-1.5 rounded-2xl border border-[#1E232E]">
+                <div className="grid grid-cols-2 gap-2 bg-[#18181b] p-1.5 rounded-2xl border border-[#27272a]">
                   <button
                     onClick={() => setActiveGender("male")}
                     className={`min-h-[48px] py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       activeGender === "male"
-                        ? "bg-[#42E8FF] text-black shadow-md shadow-[#42E8FF]/20"
-                        : "text-slate-400 hover:text-white"
+                        ? "bg-[#22d3ee] text-black shadow-md shadow-[#22d3ee]/20"
+                        : "text-[#71717a] hover:text-[#f4f4f5]"
                     }`}
                   >
                     <User className="w-3.5 h-3.5" />
@@ -868,8 +868,8 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                     onClick={() => setActiveGender("female")}
                     className={`min-h-[48px] py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       activeGender === "female"
-                        ? "bg-[#F472B6] text-black shadow-md shadow-[#F472B6]/20"
-                        : "text-slate-400 hover:text-white"
+                        ? "bg-[#ec4899] text-black shadow-md shadow-[#ec4899]/20"
+                        : "text-[#71717a] hover:text-[#f4f4f5]"
                     }`}
                   >
                     <Scissors className="w-3.5 h-3.5" />
@@ -881,10 +881,10 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
               {/* Face Shape Geometry Modifier */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block">
+                  <label className="text-xs font-bold text-[#a1a1aa] uppercase tracking-wider block">
                     {isRtl ? "شكل الوجه الهندسي" : "Face Shape Geometry"}
                   </label>
-                  <span className={`text-[11px] font-mono font-bold ${isFemale ? "text-[#F472B6]" : "text-[#42E8FF]"}`}>
+                  <span className={`text-[11px] font-mono font-bold ${isFemale ? "text-[#ec4899]" : "text-[#22d3ee]"}`}>
                     {selectedShape.toUpperCase()}
                   </span>
                 </div>
@@ -900,9 +900,9 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                         className={`min-h-[44px] py-1.5 px-1 rounded-xl text-center border text-[11px] font-bold transition-all cursor-pointer ${
                           isSelected
                             ? isFemale
-                              ? "bg-[#F472B6]/20 border-[#F472B6] text-[#F472B6] shadow-sm shadow-[#F472B6]/30"
-                              : "bg-[#42E8FF]/20 border-[#42E8FF] text-[#42E8FF] shadow-sm shadow-[#42E8FF]/30"
-                            : "bg-[#141720] border-[#1E232E] text-slate-400 hover:text-white"
+                              ? "bg-[#ec4899]/20 border-[#ec4899] text-[#ec4899] shadow-sm shadow-[#ec4899]/30"
+                              : "bg-[#22d3ee]/20 border-[#22d3ee] text-[#22d3ee] shadow-sm shadow-[#22d3ee]/30"
+                            : "bg-[#18181b] border-[#27272a] text-[#71717a] hover:text-[#f4f4f5]"
                         }`}
                       >
                         {p?.analysis?.name?.[locale] || shapeKey}
@@ -915,11 +915,11 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
               {/* Hairstyle Selection */}
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="text-xs font-bold text-[#F4F7FA] uppercase tracking-wider flex items-center gap-1.5">
-                    <Scissors className={`w-3.5 h-3.5 ${isFemale ? "text-[#F472B6]" : "text-[#42E8FF]"}`} />
+                  <label className="text-xs font-bold text-[#f4f4f5] uppercase tracking-wider flex items-center gap-1.5">
+                    <Scissors className={`w-3.5 h-3.5 ${isFemale ? "text-[#ec4899]" : "text-[#22d3ee]"}`} />
                     <span>{isRtl ? "التسريحة الموصى بها لشكل وجهك" : "Target Hairstyle Injection"}</span>
                   </label>
-                  <span className={`text-[10px] font-mono ${isFemale ? "text-[#F472B6]" : "text-[#42E8FF]"}`}>
+                  <span className={`text-[10px] font-mono ${isFemale ? "text-[#ec4899]" : "text-[#22d3ee]"}`}>
                     {currentHairstyles.length} {isRtl ? "قصات" : "styles"}
                   </span>
                 </div>
@@ -932,20 +932,20 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                       className={`min-h-[48px] p-3 rounded-2xl border transition-all cursor-pointer ${
                         selectedHairstyleId === style.id
                           ? isFemale
-                            ? "bg-[#F472B6]/15 border-[#F472B6] shadow-md shadow-[#F472B6]/10"
-                            : "bg-[#42E8FF]/15 border-[#42E8FF] shadow-md shadow-[#42E8FF]/10"
-                          : "bg-[#141720] border-[#1E232E] hover:border-slate-600"
+                            ? "bg-[#ec4899]/15 border-[#ec4899] shadow-md shadow-[#ec4899]/10"
+                            : "bg-[#22d3ee]/15 border-[#22d3ee] shadow-md shadow-[#22d3ee]/10"
+                          : "bg-[#18181b] border-[#27272a] hover:border-[#3f3f46]"
                       }`}
                     >
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-xs font-extrabold text-[#F4F7FA]">
+                        <span className="text-xs font-extrabold text-[#f4f4f5]">
                           {style.name[locale]}
                         </span>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#8B5CF6]/20 text-[#8B5CF6] border border-[#8B5CF6]/30">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#6366f1]/20 text-[#818cf8] border border-[#6366f1]/30">
                           {style.tag[locale]}
                         </span>
                       </div>
-                      <p className="text-[11px] text-slate-400 leading-snug">
+                      <p className="text-[11px] text-[#a1a1aa] leading-snug">
                         {style.whyItWorks[locale]}
                       </p>
                     </div>
@@ -957,8 +957,8 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
               {activeGender === "male" && scanResult.beardStyles && (
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="text-xs font-bold text-[#F4F7FA] uppercase tracking-wider flex items-center gap-1.5">
-                      <Flame className="w-3.5 h-3.5 text-[#8B5CF6]" />
+                    <label className="text-xs font-bold text-[#f4f4f5] uppercase tracking-wider flex items-center gap-1.5">
+                      <Flame className="w-3.5 h-3.5 text-[#fb923c]" />
                       <span>{isRtl ? "تصميم ونحت اللحية" : "Beard & Facial Hair Architecture"}</span>
                     </label>
                   </div>
@@ -970,14 +970,14 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                         onClick={() => setSelectedBeardId(beard.id)}
                         className={`min-h-[48px] p-2.5 rounded-xl border text-start transition-all cursor-pointer ${
                           selectedBeardId === beard.id
-                            ? "bg-[#8B5CF6]/20 border-[#8B5CF6] text-white"
-                            : "bg-[#141720] border-[#1E232E] text-slate-400 hover:text-white"
+                            ? "bg-[#6366f1]/20 border-[#6366f1] text-[#f4f4f5]"
+                            : "bg-[#18181b] border-[#27272a] text-[#71717a] hover:text-[#f4f4f5]"
                         }`}
                       >
                         <div className="text-xs font-bold truncate">
                           {beard.name[locale]}
                         </div>
-                        <div className="text-[10px] text-[#8B5CF6] font-mono mt-0.5">
+                        <div className="text-[10px] text-[#818cf8] font-mono mt-0.5">
                           {beard.tag[locale]}
                         </div>
                       </button>
@@ -988,7 +988,7 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
 
               {/* Glow-Up Toggles (Prompt Modifiers) */}
               <div>
-                <label className="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                <label className="text-xs font-bold text-[#a1a1aa] uppercase tracking-wider block mb-2">
                   {isRtl ? "عناصر التحسين المباشرة (Active Modifiers)" : "Glow-Up Modifiers"}
                 </label>
 
@@ -998,16 +998,16 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                     className={`min-h-[48px] p-2.5 rounded-xl border flex items-center justify-between transition-all cursor-pointer ${
                       enableJawlineDebloat
                         ? isFemale
-                          ? "bg-[#F472B6]/15 border-[#F472B6]/50 text-[#F4F7FA]"
-                          : "bg-[#42E8FF]/15 border-[#42E8FF]/50 text-[#F4F7FA]"
-                        : "bg-[#141720] border-[#1E232E] text-slate-500"
+                          ? "bg-[#ec4899]/15 border-[#ec4899]/50 text-[#f4f4f5]"
+                          : "bg-[#22d3ee]/15 border-[#22d3ee]/50 text-[#f4f4f5]"
+                        : "bg-[#18181b] border-[#27272a] text-[#71717a]"
                     }`}
                   >
                     <span>{isRtl ? "تحديد ونحت الفك" : "Jawline Debloat"}</span>
                     {enableJawlineDebloat ? (
-                      <Check className={`w-3.5 h-3.5 ${isFemale ? "text-[#F472B6]" : "text-[#42E8FF]"}`} />
+                      <Check className={`w-3.5 h-3.5 ${isFemale ? "text-[#ec4899]" : "text-[#22d3ee]"}`} />
                     ) : (
-                      <span className="w-3.5 h-3.5 rounded-full border border-slate-600" />
+                      <span className="w-3.5 h-3.5 rounded-full border border-zinc-700" />
                     )}
                   </button>
 
@@ -1016,16 +1016,16 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                     className={`min-h-[48px] p-2.5 rounded-xl border flex items-center justify-between transition-all cursor-pointer ${
                       enableGlassSkin
                         ? isFemale
-                          ? "bg-[#F472B6]/15 border-[#F472B6]/50 text-[#F4F7FA]"
-                          : "bg-[#42E8FF]/15 border-[#42E8FF]/50 text-[#F4F7FA]"
-                        : "bg-[#141720] border-[#1E232E] text-slate-500"
+                          ? "bg-[#ec4899]/15 border-[#ec4899]/50 text-[#f4f4f5]"
+                          : "bg-[#22d3ee]/15 border-[#22d3ee]/50 text-[#f4f4f5]"
+                        : "bg-[#18181b] border-[#27272a] text-[#71717a]"
                     }`}
                   >
                     <span>{isRtl ? "نضارة البشرة الزجاجية" : "Glass Skin"}</span>
                     {enableGlassSkin ? (
-                      <Check className={`w-3.5 h-3.5 ${isFemale ? "text-[#F472B6]" : "text-[#42E8FF]"}`} />
+                      <Check className={`w-3.5 h-3.5 ${isFemale ? "text-[#ec4899]" : "text-[#22d3ee]"}`} />
                     ) : (
-                      <span className="w-3.5 h-3.5 rounded-full border border-slate-600" />
+                      <span className="w-3.5 h-3.5 rounded-full border border-zinc-700" />
                     )}
                   </button>
 
@@ -1034,16 +1034,16 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                     className={`min-h-[48px] p-2.5 rounded-xl border flex items-center justify-between transition-all cursor-pointer ${
                       enableBrowLift
                         ? isFemale
-                          ? "bg-[#F472B6]/15 border-[#F472B6]/50 text-[#F4F7FA]"
-                          : "bg-[#42E8FF]/15 border-[#42E8FF]/50 text-[#F4F7FA]"
-                        : "bg-[#141720] border-[#1E232E] text-slate-500"
+                          ? "bg-[#ec4899]/15 border-[#ec4899]/50 text-[#f4f4f5]"
+                          : "bg-[#22d3ee]/15 border-[#22d3ee]/50 text-[#f4f4f5]"
+                        : "bg-[#18181b] border-[#27272a] text-[#71717a]"
                     }`}
                   >
                     <span>{isRtl ? "رفع قوس الحاجب" : "Eyebrow Lift"}</span>
                     {enableBrowLift ? (
-                      <Check className={`w-3.5 h-3.5 ${isFemale ? "text-[#F472B6]" : "text-[#42E8FF]"}`} />
+                      <Check className={`w-3.5 h-3.5 ${isFemale ? "text-[#ec4899]" : "text-[#22d3ee]"}`} />
                     ) : (
-                      <span className="w-3.5 h-3.5 rounded-full border border-slate-600" />
+                      <span className="w-3.5 h-3.5 rounded-full border border-zinc-700" />
                     )}
                   </button>
 
@@ -1052,16 +1052,16 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                     className={`min-h-[48px] p-2.5 rounded-xl border flex items-center justify-between transition-all cursor-pointer ${
                       enableCrownLift
                         ? isFemale
-                          ? "bg-[#F472B6]/15 border-[#F472B6]/50 text-[#F4F7FA]"
-                          : "bg-[#42E8FF]/15 border-[#42E8FF]/50 text-[#F4F7FA]"
-                        : "bg-[#141720] border-[#1E232E] text-slate-500"
+                          ? "bg-[#ec4899]/15 border-[#ec4899]/50 text-[#f4f4f5]"
+                          : "bg-[#22d3ee]/15 border-[#22d3ee]/50 text-[#f4f4f5]"
+                        : "bg-[#18181b] border-[#27272a] text-[#71717a]"
                     }`}
                   >
                     <span>{isRtl ? "كثافة قمة الرأس" : "Crown Volume"}</span>
                     {enableCrownLift ? (
-                      <Check className={`w-3.5 h-3.5 ${isFemale ? "text-[#F472B6]" : "text-[#42E8FF]"}`} />
+                      <Check className={`w-3.5 h-3.5 ${isFemale ? "text-[#ec4899]" : "text-[#22d3ee]"}`} />
                     ) : (
-                      <span className="w-3.5 h-3.5 rounded-full border border-slate-600" />
+                      <span className="w-3.5 h-3.5 rounded-full border border-zinc-700" />
                     )}
                   </button>
                 </div>
@@ -1070,14 +1070,14 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
             </div>
 
             {/* Bottom Primary Action: Generate Neural Makeover via Nano Banana */}
-            <div className="pt-3 border-t border-[#1E232E] flex flex-col gap-2">
+            <div className="pt-3 border-t border-[#27272a] flex flex-col gap-2">
               <button
                 onClick={handleGenerateMakeover}
                 disabled={isAiGenerating}
-                className={`min-h-[52px] w-full py-3.5 px-4 rounded-2xl text-[#08090C] font-extrabold text-sm shadow-xl flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-98 ${
+                className={`min-h-[52px] w-full py-3.5 px-4 rounded-2xl text-[#09090b] font-extrabold text-sm shadow-xl flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-98 ${
                   isFemale
-                    ? "bg-gradient-to-r from-[#F472B6] via-[#f43f5e] to-[#C084FC] shadow-[#F472B6]/25 hover:opacity-95"
-                    : "bg-gradient-to-r from-[#42E8FF] via-[#38bdf8] to-[#8B5CF6] shadow-[#42E8FF]/25 hover:opacity-95"
+                    ? "bg-gradient-to-r from-[#ec4899] via-[#f43f5e] to-[#6366f1] shadow-[#ec4899]/25 hover:opacity-95"
+                    : "bg-gradient-to-r from-[#6366f1] via-[#818cf8] to-[#22d3ee] shadow-[#22d3ee]/25 hover:opacity-95"
                 }`}
               >
                 <Sparkles className="w-4 h-4" />
@@ -1088,7 +1088,7 @@ export const GlowUpVisualizerModal: React.FC<GlowUpVisualizerModalProps> = ({
                 </span>
               </button>
 
-              <p className="text-[10px] text-center text-slate-500">
+              <p className="text-[10px] text-center text-[#71717a]">
                 {isRtl 
                   ? "يولد صورة استوديو 8K واقعية تحافظ على ملامحك الأصلية بنسبة 100% مع تطبيق القصة واللحية والنحت الجمالي" 
                   : "Generates an 8K photorealistic studio portrait preserving 100% facial identity with custom grooming"}

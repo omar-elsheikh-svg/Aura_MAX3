@@ -38,12 +38,12 @@ export const PathSelectionModal: React.FC<PathSelectionModalProps> = ({
       <div 
         role="dialog"
         aria-modal="true"
-        className="w-full max-w-2xl bg-[#08090C] border border-[#252A33] rounded-3xl p-6 sm:p-8 relative shadow-2xl flex flex-col text-start"
+        className="w-full max-w-2xl bg-[#18181b] border border-[#27272a] rounded-3xl p-6 sm:p-8 relative shadow-2xl flex flex-col text-start"
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 end-5 p-2 rounded-xl bg-[#111318] border border-[#252A33] text-[#A5AEBC] hover:text-[#F4F7FA] transition-colors cursor-pointer"
+          className="absolute top-5 end-5 p-2 rounded-xl bg-[#111113] border border-[#27272a] text-[#a1a1aa] hover:text-[#f4f4f5] transition-colors cursor-pointer"
           aria-label="Close"
         >
           <X className="w-4 h-4" />
@@ -51,14 +51,14 @@ export const PathSelectionModal: React.FC<PathSelectionModalProps> = ({
 
         {/* Header */}
         <div className="text-center max-w-md mx-auto mb-8">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#111318] border border-[#252A33] text-xs font-semibold text-[#42E8FF] mb-3">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#111113] border border-[#27272a] text-xs font-semibold text-[#22d3ee] mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             <span>{isRtl ? "تخصيص المسار" : "Choose Your Path"}</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#F4F7FA] font-display mb-2">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#f4f4f5] font-display mb-2">
             {isRtl ? "اختر مسار تطويرك" : "Select Your Track"}
           </h2>
-          <p className="text-xs sm:text-sm text-[#A5AEBC]">
+          <p className="text-xs sm:text-sm text-[#a1a1aa]">
             {isRtl 
               ? "يحدد هذا الخيار خوارزميات التوصيات ونوعية التمارين المناسبة لملامحك." 
               : "This personalizes your facial analysis, haircuts, skincare protocols, and daily quests."}
@@ -70,39 +70,39 @@ export const PathSelectionModal: React.FC<PathSelectionModalProps> = ({
           {/* Track 1: Aura Max (Men) */}
           <div
             onClick={() => onSelectTrack("male")}
-            className="group p-6 rounded-2xl bg-[#111318] hover:bg-[#171A21] border border-[#252A33] hover:border-[#42E8FF]/60 cursor-pointer transition-all duration-200 flex flex-col justify-between"
+            className="group p-6 rounded-2xl bg-[#111113] hover:bg-[#18181b] border border-[#27272a] hover:border-[#22d3ee]/60 cursor-pointer transition-all duration-200 flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-4">
-                <span className="flex items-center gap-1.5 text-xs font-bold text-[#42E8FF]">
-                  <Flame className="w-4 h-4 text-[#42E8FF]" />
+                <span className="flex items-center gap-1.5 text-xs font-bold text-[#22d3ee]">
+                  <Flame className="w-4 h-4 text-[#fb923c]" />
                   <span>Aura Max</span>
                 </span>
-                <span className="text-[10px] text-[#A5AEBC]">
+                <span className="text-[10px] text-[#a1a1aa]">
                   {isRtl ? "مسار الرجال" : "Men's Track"}
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-[#F4F7FA] mb-2 group-hover:text-[#42E8FF] transition-colors">
+              <h3 className="text-lg font-bold text-[#f4f4f5] mb-2 group-hover:text-[#22d3ee] transition-colors">
                 {isRtl ? "العناية بالرجل وهندسة الفك" : "Mandibular Architecture & Grooming"}
               </h3>
-              <p className="text-xs text-[#A5AEBC] leading-relaxed mb-4">
+              <p className="text-xs text-[#a1a1aa] leading-relaxed mb-4">
                 {isRtl 
                   ? "تركيز على زاوية الفك وتحديد الذقن، تشذيب شعر الوجه، قصات الشعر المناسبة، واستقامة الرقبة."
                   : "Sharpened jawline angles, neckline trimming guides, fade haircuts, and postural alignment."}
               </p>
-              <div className="space-y-2 text-xs text-[#A5AEBC]">
+              <div className="space-y-2 text-xs text-[#a1a1aa]">
                 <div className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-[#42E8FF]" />
+                  <Check className="w-3.5 h-3.5 text-[#22d3ee]" />
                   <span>{isRtl ? "تحليل شكل الوجه وزاوية الفك" : "Face shape & jawline architecture"}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-[#42E8FF]" />
+                  <Check className="w-3.5 h-3.5 text-[#22d3ee]" />
                   <span>{isRtl ? "قصات شعر وتشذيب لحية مخصص" : "Tailored haircuts & beard styling"}</span>
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-[#252A33] flex items-center justify-between text-xs font-bold text-[#42E8FF] group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
+            <div className="mt-6 pt-4 border-t border-[#27272a] flex items-center justify-between text-xs font-bold text-[#22d3ee] group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
               <span>{isRtl ? "اختيار مسار الرجال" : "Select Men's Track"}</span>
               <ArrowIcon className="w-4 h-4" />
             </div>
@@ -111,39 +111,39 @@ export const PathSelectionModal: React.FC<PathSelectionModalProps> = ({
           {/* Track 2: Aura Fem (Women) */}
           <div
             onClick={() => onSelectTrack("female")}
-            className="group p-6 rounded-2xl bg-[#111318] hover:bg-[#171A21] border border-[#252A33] hover:border-[#8B5CF6]/60 cursor-pointer transition-all duration-200 flex flex-col justify-between"
+            className="group p-6 rounded-2xl bg-[#111113] hover:bg-[#18181b] border border-[#27272a] hover:border-[#ec4899]/60 cursor-pointer transition-all duration-200 flex flex-col justify-between"
           >
             <div>
               <div className="flex items-center justify-between mb-4">
-                <span className="flex items-center gap-1.5 text-xs font-bold text-[#8B5CF6]">
-                  <Crown className="w-4 h-4 text-[#8B5CF6]" />
+                <span className="flex items-center gap-1.5 text-xs font-bold text-[#ec4899]">
+                  <Crown className="w-4 h-4 text-[#ec4899]" />
                   <span>Aura Fem</span>
                 </span>
-                <span className="text-[10px] text-[#A5AEBC]">
+                <span className="text-[10px] text-[#a1a1aa]">
                   {isRtl ? "مسار النساء" : "Women's Track"}
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-[#F4F7FA] mb-2 group-hover:text-[#8B5CF6] transition-colors">
+              <h3 className="text-lg font-bold text-[#f4f4f5] mb-2 group-hover:text-[#ec4899] transition-colors">
                 {isRtl ? "نضارة البشرة والتناسق الملامحي" : "Glass Skin & Aesthetic Harmony"}
               </h3>
-              <p className="text-xs text-[#A5AEBC] leading-relaxed mb-4">
+              <p className="text-xs text-[#a1a1aa] leading-relaxed mb-4">
                 {isRtl 
                   ? "تركيز على نقاء البشرة الزجاجية، تدليك نحت الخدود (Gua Sha)، سحبة العينين والحواجب، والرقبة الملكية."
                   : "Glass skin barrier protocols, cheekbone sculpting, brow framing, and swan neck posture."}
               </p>
-              <div className="space-y-2 text-xs text-[#A5AEBC]">
+              <div className="space-y-2 text-xs text-[#a1a1aa]">
                 <div className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-[#8B5CF6]" />
+                  <Check className="w-3.5 h-3.5 text-[#ec4899]" />
                   <span>{isRtl ? "بروتوكولات نضارة وترميم الحاجز" : "Ceramide barrier & glass skin"}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-[#8B5CF6]" />
+                  <Check className="w-3.5 h-3.5 text-[#ec4899]" />
                   <span>{isRtl ? "نحت ملامح طبيعي وتمارين استقامة" : "Lymphatic contouring & swan neck"}</span>
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-[#252A33] flex items-center justify-between text-xs font-bold text-[#8B5CF6] group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
+            <div className="mt-6 pt-4 border-t border-[#27272a] flex items-center justify-between text-xs font-bold text-[#ec4899] group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
               <span>{isRtl ? "اختيار مسار النساء" : "Select Women's Track"}</span>
               <ArrowIcon className="w-4 h-4" />
             </div>
@@ -151,8 +151,8 @@ export const PathSelectionModal: React.FC<PathSelectionModalProps> = ({
         </div>
 
         {/* Quiet Privacy Note */}
-        <div className="p-3.5 rounded-xl bg-[#111318] border border-[#252A33] flex items-center gap-2 text-xs text-[#6B7484]">
-          <ShieldCheck className="w-4 h-4 text-[#42E8FF] shrink-0" />
+        <div className="p-3.5 rounded-xl bg-[#111113] border border-[#27272a] flex items-center gap-2 text-xs text-[#71717a]">
+          <ShieldCheck className="w-4 h-4 text-[#22d3ee] shrink-0" />
           <span>
             {isRtl 
               ? "يمكنك تغيير مسارك أو إعادة ضبط تفضيلاتك في أي وقت بسهولة من شريط التطبيق العلوي." 

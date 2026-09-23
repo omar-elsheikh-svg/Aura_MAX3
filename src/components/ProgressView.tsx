@@ -1,70 +1,62 @@
 import React, { useState } from "react";
 import { 
   Locale, 
+  GenderTrack, 
   UserProfile, 
   ScanResult, 
-  TransformationPlan, 
-  GenderTrack 
+  TransformationPlan,
+  WeeklyReview 
 } from "../types";
 import { 
   TrendingUp, 
-  Flame, 
-  Trophy, 
   Calendar, 
+  Flame, 
+  CheckCircle2, 
   Clock, 
-  Sliders, 
+  Trophy, 
+  Sparkles, 
   ArrowRight, 
   ArrowLeft, 
-  CheckCircle2, 
-  Sparkles, 
-  Camera, 
-  Layers, 
-  RotateCcw,
-  Target,
+  Sliders, 
+  Camera,
+  ChevronRight,
+  ShieldCheck,
   AlertCircle
 } from "lucide-react";
-import { translations } from "../i18n/translations";
 
 interface ProgressViewProps {
   locale: Locale;
-  genderTrack?: GenderTrack;
+  genderTrack: GenderTrack;
   userProfile: UserProfile;
   scansHistory: ScanResult[];
   activePlan?: TransformationPlan | null;
   onInitiateScan: () => void;
-  onAdjustPlan?: () => void;
+  onAdjustPlan: () => void;
 }
 
 export const ProgressView: React.FC<ProgressViewProps> = ({
   locale,
-  genderTrack = "male",
   userProfile,
   scansHistory,
   activePlan,
   onInitiateScan,
   onAdjustPlan,
 }) => {
-  const t = translations[locale];
   const isRtl = locale === "ar";
-  const ArrowIcon = isRtl ? ArrowLeft : ArrowRight;
-
   const [sliderPos, setSliderPos] = useState(50);
   const [showAdaptiveToast, setShowAdaptiveToast] = useState(false);
 
-  const hasMultipleScans = scansHistory && scansHistory.length >= 2;
-  const latestScan = scansHistory && scansHistory.length > 0 ? scansHistory[0] : null;
-  const baselineScan = scansHistory && scansHistory.length > 0 ? scansHistory[scansHistory.length - 1] : null;
+  const baselineScan = scansHistory[scansHistory.length - 1];
+  const latestScan = scansHistory[0];
+  const hasMultipleScans = scansHistory.length >= 2;
 
   const handleSliderMove = (clientX: number, rect: DOMRect) => {
-    let pos = ((clientX - rect.left) / rect.width) * 100;
-    if (pos < 5) pos = 5;
-    if (pos > 95) pos = 95;
-    setSliderPos(pos);
+    const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+    setSliderPos(Math.round((x / rect.width) * 100));
   };
 
   const handleAdjustPlanClick = () => {
     setShowAdaptiveToast(true);
-    setTimeout(() => setShowAdaptiveToast(false), 4000);
     if (onAdjustPlan) {
       onAdjustPlan();
     }
@@ -72,20 +64,20 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
 
   return (
     <div 
-      className="max-w-6xl mx-auto px-4 py-6 space-y-8 animate-in fade-in duration-200"
+      className="max-w-6xl mx-auto px-4 py-6 space-y-6 animate-in fade-in duration-200"
       dir={isRtl ? "rtl" : "ltr"}
     >
       {/* 1. Header & Title */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#252A33]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#27272a]">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-[#42E8FF] uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-xs font-bold text-[#22d3ee] uppercase tracking-wider mb-1">
             <TrendingUp className="w-3.5 h-3.5" />
             <span>{isRtl ? "سجل التحول والالتزام" : "Transformation History"}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#F4F7FA] font-display">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#f4f4f5] font-display">
             {isRtl ? "التقدم والمراجعة الأسبوعية" : "Progress & Weekly Review"}
           </h1>
-          <p className="text-xs sm:text-sm text-[#A5AEBC] mt-0.5">
+          <p className="text-xs sm:text-sm text-[#a1a1aa] mt-0.5">
             {isRtl 
               ? "سجل توثيقي حقيقي لالتزامك اليومي وفحوصاتك دون مقارنات وهمية." 
               : "An authentic record of your habit adherence and biometric milestones over time."}
@@ -94,55 +86,60 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
 
         <button
           onClick={onInitiateScan}
-          className="px-4 py-2.5 rounded-xl bg-[#42E8FF] hover:bg-[#38BDF8] text-[#08090C] text-xs font-bold flex items-center justify-center gap-2 cursor-pointer shadow-[0_0_15px_rgba(66,232,255,0.2)] active:scale-95 transition-all self-start sm:self-auto"
+          className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#6366f1] to-[#22d3ee] hover:opacity-95 text-[#09090b] text-xs font-bold flex items-center justify-center gap-2 cursor-pointer shadow-[0_0_16px_rgba(99,102,241,0.35)] active:scale-95 transition-all self-start sm:self-auto"
         >
-          <Camera className="w-3.5 h-3.5" />
+          <Camera className="w-3.5 h-3.5 text-[#09090b]" />
           <span>{isRtl ? "إجراء فحص متابعة" : "Log Milestone Scan"}</span>
         </button>
       </div>
 
       {/* 2. Responsive 2-Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* LEFT COLUMN: KPI METRICS & AUTHENTIC SCAN TIMELINE (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
           {/* Key Metric Cards */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="p-4 rounded-2xl bg-[#111318] border border-[#252A33]">
-              <div className="flex items-center gap-1 text-[11px] text-[#A5AEBC]">
-                <Flame className="w-3.5 h-3.5 text-[#42E8FF]" />
+            <div 
+              className="p-4 rounded-2xl border border-[#27272a] relative overflow-hidden"
+              style={{ background: "linear-gradient(155deg, #18181b, #1c1230)" }}
+            >
+              <div className="flex items-center gap-1.5 text-[11px] text-[#a1a1aa]">
+                <div className="flame-anim">
+                  <Flame className="w-3.5 h-3.5 text-[#fb923c] glow-flame" />
+                </div>
                 <span>{isRtl ? "أيام الالتزام" : "Streak"}</span>
               </div>
-              <div className="text-2xl font-black text-[#F4F7FA] font-display mt-1">
+              <div className="text-2xl font-black text-[#f4f4f5] font-display mt-1">
                 {userProfile.streakDays}d
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-[#111318] border border-[#252A33]">
-              <div className="flex items-center gap-1 text-[11px] text-[#A5AEBC]">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#10B981]" />
+            <div className="p-4 rounded-2xl bg-[#18181b] border border-[#27272a]">
+              <div className="flex items-center gap-1 text-[11px] text-[#a1a1aa]">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[#10b981]" />
                 <span>{isRtl ? "نسبة الأسبوع" : "Weekly Rate"}</span>
               </div>
-              <div className="text-2xl font-black text-[#10B981] font-display mt-1">
+              <div className="text-2xl font-black text-[#10b981] font-display mt-1">
                 78%
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-[#111318] border border-[#252A33]">
-              <div className="flex items-center gap-1 text-[11px] text-[#A5AEBC]">
-                <Trophy className="w-3.5 h-3.5 text-[#8B5CF6]" />
+            <div className="p-4 rounded-2xl bg-[#18181b] border border-[#27272a]">
+              <div className="flex items-center gap-1 text-[11px] text-[#a1a1aa]">
+                <Trophy className="w-3.5 h-3.5 text-[#818cf8]" />
                 <span>{isRtl ? "المستوى" : "Level"}</span>
               </div>
-              <div className="text-2xl font-black text-[#8B5CF6] font-display mt-1">
+              <div className="text-2xl font-black text-[#818cf8] font-display mt-1">
                 Lvl {userProfile.level}
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-[#111318] border border-[#252A33]">
-              <div className="flex items-center gap-1 text-[11px] text-[#A5AEBC]">
-                <Sparkles className="w-3.5 h-3.5 text-[#42E8FF]" />
+            <div className="p-4 rounded-2xl bg-[#18181b] border border-[#27272a]">
+              <div className="flex items-center gap-1 text-[11px] text-[#a1a1aa]">
+                <Sparkles className="w-3.5 h-3.5 text-[#22d3ee]" />
                 <span>{isRtl ? "نقاط XP" : "Total XP"}</span>
               </div>
-              <div className="text-2xl font-black text-[#F4F7FA] font-display mt-1">
+              <div className="text-2xl font-black text-[#f4f4f5] font-display mt-1">
                 {userProfile.xp}
               </div>
             </div>
@@ -150,20 +147,20 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
 
           {/* Authentic Baseline vs Latest Comparison Slider */}
           {hasMultipleScans && latestScan?.imageUrl && baselineScan?.imageUrl ? (
-            <div className="p-6 rounded-3xl bg-[#111318] border border-[#252A33] space-y-4">
+            <div className="p-6 rounded-3xl bg-[#18181b] border border-[#27272a] space-y-4">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#A5AEBC] flex items-center gap-1.5">
-                  <Sliders className="w-3.5 h-3.5 text-[#42E8FF]" />
+                <span className="text-xs font-bold uppercase tracking-wider text-[#a1a1aa] flex items-center gap-1.5">
+                  <Sliders className="w-3.5 h-3.5 text-[#22d3ee]" />
                   <span>{isRtl ? "مقارنة خط الأساس بالفحص الأخير" : "Baseline vs Latest Scan Comparison"}</span>
                 </span>
-                <span className="text-xs text-[#6B7484]">
+                <span className="text-xs text-[#71717a]">
                   {baselineScan.date} → {latestScan.date}
                 </span>
               </div>
 
               {/* Slider Viewport */}
               <div 
-                className="relative w-full aspect-4/3 rounded-2xl overflow-hidden select-none cursor-ew-resize bg-black border border-[#252A33]"
+                className="relative w-full aspect-4/3 rounded-2xl overflow-hidden select-none cursor-ew-resize bg-black border border-[#27272a]"
                 onMouseMove={(e) => {
                   if (e.buttons === 1) {
                     const rect = e.currentTarget.getBoundingClientRect();
@@ -199,28 +196,28 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
 
                 {/* Divider Line */}
                 <div 
-                  className="absolute top-0 bottom-0 w-0.5 bg-[#42E8FF] shadow-[0_0_10px_#42E8FF]"
+                  className="absolute top-0 bottom-0 w-0.5 bg-[#22d3ee] shadow-[0_0_10px_#22d3ee]"
                   style={{ left: `${sliderPos}%` }}
                 >
-                  <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-[#08090C] border-2 border-[#42E8FF] flex items-center justify-center text-[10px] text-[#42E8FF]">
+                  <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-[#09090b] border-2 border-[#22d3ee] flex items-center justify-center text-[10px] text-[#22d3ee]">
                     ↔
                   </div>
                 </div>
               </div>
 
-              <div className="flex justify-between text-xs text-[#A5AEBC]">
+              <div className="flex justify-between text-xs text-[#a1a1aa]">
                 <span>{isRtl ? "◀ خط الأساس" : "◀ Baseline"}</span>
-                <span className="text-[11px] text-[#6B7484]">{isRtl ? "اسحب الشريط للمقارنة" : "Drag slider to compare"}</span>
+                <span className="text-[11px] text-[#71717a]">{isRtl ? "اسحب الشريط للمقارنة" : "Drag slider to compare"}</span>
                 <span>{isRtl ? "الفحص الأخير ▶" : "Latest Scan ▶"}</span>
               </div>
             </div>
           ) : (
-            <div className="p-6 rounded-3xl bg-[#111318] border border-[#252A33] text-center space-y-3">
-              <Camera className="w-8 h-8 text-[#42E8FF] mx-auto opacity-70" />
-              <h3 className="text-sm font-bold text-[#F4F7FA]">
+            <div className="p-6 rounded-3xl bg-[#18181b] border border-[#27272a] text-center space-y-3">
+              <Camera className="w-8 h-8 text-[#22d3ee] mx-auto opacity-70" />
+              <h3 className="text-sm font-bold text-[#f4f4f5]">
                 {isRtl ? "أضف فحصين لتفعيل المقارنة البصرية" : "Log 2 Scans to Unlock Visual Comparison"}
               </h3>
-              <p className="text-xs text-[#A5AEBC] max-w-md mx-auto">
+              <p className="text-xs text-[#a1a1aa] max-w-md mx-auto">
                 {isRtl 
                   ? "قم بإجراء فحص متابعة بعد أسبوعين من الالتزام بالروتين لعرض التغير الحقيقي في تماثل الملامح ونقاء البشرة." 
                   : "Complete a follow-up scan after 14 days of protocol adherence to compare facial symmetry side-by-side."}
@@ -229,8 +226,8 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
           )}
 
           {/* Verified Scans Log */}
-          <div className="p-6 rounded-3xl bg-[#111318] border border-[#252A33] space-y-4">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-[#A5AEBC]">
+          <div className="p-6 rounded-3xl bg-[#18181b] border border-[#27272a] space-y-4">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-[#a1a1aa]">
               {isRtl ? "سجل الفحوصات الموثقة" : "Documented Scans History"}
             </h3>
 
@@ -238,31 +235,31 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
               {scansHistory.map((scan, idx) => (
                 <div 
                   key={scan.id} 
-                  className="p-3.5 rounded-xl bg-[#171A21] border border-[#252A33] flex items-center justify-between"
+                  className="p-3.5 rounded-xl bg-[#111113] border border-[#27272a] flex items-center justify-between"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg overflow-hidden bg-black shrink-0 border border-[#252A33]">
+                    <div className="w-10 h-10 rounded-lg overflow-hidden bg-black shrink-0 border border-[#27272a]">
                       {scan.imageUrl ? (
                         <img src={scan.imageUrl} alt="scan thumb" className="w-full h-full object-cover" />
                       ) : (
-                        <div className="w-full h-full flex items-center justify-center text-[10px] text-[#6B7484]">#</div>
+                        <div className="w-full h-full flex items-center justify-center text-[10px] text-[#71717a]">#</div>
                       )}
                     </div>
                     <div>
-                      <div className="text-xs font-bold text-[#F4F7FA]">
+                      <div className="text-xs font-bold text-[#f4f4f5]">
                         {idx === 0 
                           ? (isRtl ? "الفحص الأخير" : "Latest Scan") 
                           : (isRtl ? `فحص مرحلي #${scansHistory.length - idx}` : `Milestone #${scansHistory.length - idx}`)}
                       </div>
-                      <div className="text-[10px] text-[#6B7484]">{scan.date}</div>
+                      <div className="text-[10px] text-[#71717a]">{scan.date}</div>
                     </div>
                   </div>
 
                   <div className="text-end">
-                    <div className="text-sm font-bold text-[#42E8FF] font-display">
-                      {scan.overallScore} <span className="text-[10px] text-[#A5AEBC]">Aura</span>
+                    <div className="text-sm font-bold text-[#22d3ee] font-display">
+                      {scan.overallScore} <span className="text-[10px] text-[#a1a1aa]">Aura</span>
                     </div>
-                    <div className="text-[10px] text-[#10B981]">
+                    <div className="text-[10px] text-[#10b981]">
                       {isRtl ? "تماثل " : "Symmetry "} {scan.symmetryScore}%
                     </div>
                   </div>
@@ -272,55 +269,55 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
           </div>
         </div>
 
-        {/* RIGHT COLUMN: WEEKLY REVIEW CARD & ADAPTIVE PLAN (5 cols) (Section 20) */}
+        {/* RIGHT COLUMN: WEEKLY REVIEW CARD & ADAPTIVE PLAN (5 cols) */}
         <div className="lg:col-span-5 space-y-6">
-          {/* WEEKLY REVIEW CARD (Master Prompt Section 20) */}
-          <div className="p-6 rounded-3xl bg-[#111318] border border-[#42E8FF]/30 space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-[#252A33]">
-              <span className="text-xs font-bold text-[#42E8FF] uppercase tracking-wider flex items-center gap-1.5">
+          {/* WEEKLY REVIEW CARD */}
+          <div className="p-6 rounded-3xl bg-[#18181b] border border-[#22d3ee]/30 space-y-5">
+            <div className="flex items-center justify-between pb-3 border-b border-[#27272a]">
+              <span className="text-xs font-bold text-[#22d3ee] uppercase tracking-wider flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5" />
                 <span>{isRtl ? "المراجعة الأسبوعية" : "Weekly Review"}</span>
               </span>
-              <span className="text-xs text-[#10B981] font-bold">Week 3</span>
+              <span className="text-xs text-[#10b981] font-bold">Week 3</span>
             </div>
 
             {/* Metric 1: Actions completed */}
-            <div className="p-4 rounded-2xl bg-[#171A21] border border-[#252A33] flex items-center justify-between">
+            <div className="p-4 rounded-2xl bg-[#111113] border border-[#27272a] flex items-center justify-between">
               <div>
-                <div className="text-[11px] text-[#A5AEBC]">{isRtl ? "المهام المنفذة هذا الأسبوع" : "Weekly Protocol Adherence"}</div>
-                <div className="text-xl font-bold text-[#F4F7FA] font-display mt-0.5">
+                <div className="text-[11px] text-[#a1a1aa]">{isRtl ? "المهام المنفذة هذا الأسبوع" : "Weekly Protocol Adherence"}</div>
+                <div className="text-xl font-bold text-[#f4f4f5] font-display mt-0.5">
                   14 / 18 {isRtl ? "مهمة مكتملة" : "actions completed"}
                 </div>
               </div>
-              <span className="text-xs font-bold text-[#10B981]">78%</span>
+              <span className="text-xs font-bold text-[#10b981]">78%</span>
             </div>
 
             {/* Metric 2: Strongest Habit */}
-            <div className="p-4 rounded-2xl bg-[#171A21] border border-[#252A33] space-y-1">
-              <div className="text-[11px] font-bold text-[#10B981] uppercase tracking-wider">
+            <div className="p-4 rounded-2xl bg-[#111113] border border-[#27272a] space-y-1">
+              <div className="text-[11px] font-bold text-[#10b981] uppercase tracking-wider">
                 {isRtl ? "أقوى عادة لديك" : "Strongest Habit"}
               </div>
-              <div className="text-xs font-semibold text-[#F4F7FA]">
+              <div className="text-xs font-semibold text-[#f4f4f5]">
                 {isRtl ? "الروتين الصباحي وطرد السوائل (100% التزام)" : "Morning Hydration & Debloat (100% adherence)"}
               </div>
             </div>
 
             {/* Metric 3: Needs Attention */}
-            <div className="p-4 rounded-2xl bg-[#171A21] border border-[#252A33] space-y-1">
-              <div className="text-[11px] font-bold text-[#F59E0B] uppercase tracking-wider">
+            <div className="p-4 rounded-2xl bg-[#111113] border border-[#27272a] space-y-1">
+              <div className="text-[11px] font-bold text-[#fb923c] uppercase tracking-wider">
                 {isRtl ? "تحتاج إلى انتباه" : "Needs Attention"}
               </div>
-              <div className="text-xs font-semibold text-[#F4F7FA]">
+              <div className="text-xs font-semibold text-[#f4f4f5]">
                 {isRtl ? "استقامة الرقبة المسائية (تخطي مرتين)" : "Evening Cervical Spine Reset (skipped 2 times)"}
               </div>
             </div>
 
             {/* Metric 4: Next Focus */}
-            <div className="p-4 rounded-2xl bg-[#171A21] border border-[#252A33] space-y-1">
-              <div className="text-[11px] font-bold text-[#42E8FF] uppercase tracking-wider">
+            <div className="p-4 rounded-2xl bg-[#111113] border border-[#27272a] space-y-1">
+              <div className="text-[11px] font-bold text-[#22d3ee] uppercase tracking-wider">
                 {isRtl ? "التركيز القادم للأسبوع الجديد" : "Next Focus"}
               </div>
-              <div className="text-xs font-semibold text-[#F4F7FA]">
+              <div className="text-xs font-semibold text-[#f4f4f5]">
                 {isRtl ? "تقليص خطوات المساء لضمان الاستمرارية" : "Streamline evening protocol into 2 high-impact steps"}
               </div>
             </div>
@@ -328,21 +325,21 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
             {/* CTA: Adjust My Plan */}
             <button
               onClick={handleAdjustPlanClick}
-              className="w-full py-3.5 rounded-xl bg-[#42E8FF] hover:bg-[#38BDF8] text-[#08090C] text-xs font-bold flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(66,232,255,0.25)] active:scale-98 transition-all cursor-pointer"
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#6366f1] to-[#22d3ee] hover:opacity-95 text-[#09090b] text-xs font-bold flex items-center justify-center gap-2 shadow-[0_0_16px_rgba(99,102,241,0.35)] active:scale-98 transition-all cursor-pointer"
             >
-              <Sliders className="w-4 h-4" />
+              <Sliders className="w-4 h-4 text-[#09090b]" />
               <span>{isRtl ? "تعديل وتكييف خطتي (Adjust My Plan)" : "Adjust My Plan"}</span>
             </button>
           </div>
 
-          {/* Adaptive Toast Feedback (Prompt: "When a plan adapts, tell the user WHY") */}
+          {/* Adaptive Toast Feedback */}
           {showAdaptiveToast && (
-            <div className="p-4 rounded-2xl bg-[#171A21] border border-[#10B981]/50 text-xs space-y-1 animate-in fade-in duration-200">
-              <div className="font-bold text-[#10B981] flex items-center gap-1.5">
+            <div className="p-4 rounded-2xl bg-[#111113] border border-[#10b981]/50 text-xs space-y-1 animate-in fade-in duration-200">
+              <div className="font-bold text-[#10b981] flex items-center gap-1.5">
                 <CheckCircle2 className="w-4 h-4" />
                 <span>{isRtl ? "تم تكييف الخطة بذكاء" : "Protocol Adapted Automatically"}</span>
               </div>
-              <p className="text-[#A5AEBC] leading-relaxed">
+              <p className="text-[#a1a1aa] leading-relaxed">
                 {isRtl 
                   ? "لاحظنا تفضيلك للروتين الصباحي السريع، لذا قمنا بدمج استطالة الرقبة في روتين الصباح وتقليص المساء من 4 خطوات إلى خطوتين لحماية سلسلة التزامك."
                   : "We noticed you consistently skip evening steps. We've reduced your evening protocol from 4 steps to 2, shifting high-leverage posture drills into your 100%-consistent morning stack."}
@@ -351,8 +348,8 @@ export const ProgressView: React.FC<ProgressViewProps> = ({
           )}
 
           {/* Streak Protection Tip */}
-          <div className="p-4 rounded-2xl bg-[#111318] border border-[#252A33] text-xs text-[#A5AEBC] flex items-start gap-2.5">
-            <Sparkles className="w-4 h-4 text-[#8B5CF6] shrink-0 mt-0.5" />
+          <div className="p-4 rounded-2xl bg-[#18181b] border border-[#27272a] text-xs text-[#a1a1aa] flex items-start gap-2.5">
+            <Sparkles className="w-4 h-4 text-[#818cf8] shrink-0 mt-0.5" />
             <span>
               {isRtl 
                 ? "قاعدة أورا: الانضباط البسيط يومياً يتفوق دائماً على الجهد المكثف المتقطع." 

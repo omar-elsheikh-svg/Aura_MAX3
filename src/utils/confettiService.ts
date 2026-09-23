@@ -2,13 +2,13 @@ import confetti from "canvas-confetti";
 
 // Vibrant aesthetic palette matching Aura Max dark luxury theme
 const AURA_COLORS = [
-  "#42E8FF", // Electric Cyan
-  "#8B5CF6", // Royal Violet
-  "#38BDF8", // Sky Blue
-  "#F59E0B", // Radiant Amber
-  "#10B981", // Emerald Matrix
-  "#EC4899", // Neon Pink
-  "#FFFFFF", // Pure Light
+  "#22d3ee", // Cyan
+  "#6366f1", // Indigo
+  "#38bdf8", // Sky Blue
+  "#fb923c", // Flame Amber
+  "#10b981", // Emerald Matrix
+  "#f472b6", // Neon Rose
+  "#ffffff", // Pure Light
 ];
 
 /**
@@ -109,7 +109,7 @@ export function fireLevelUpConfetti() {
       spread: 120,
       startVelocity: 25,
       origin: { x: 0.5, y: 0.1 },
-      colors: ["#42E8FF", "#8B5CF6", "#F59E0B", "#FFFFFF"],
+      colors: ["#22d3ee", "#6366f1", "#fb923c", "#ffffff"],
       ticks: 350,
       gravity: 0.6,
       scalar: 0.9,
@@ -127,7 +127,7 @@ export function fireMicroConfetti(x = 0.5, y = 0.6) {
     spread: 55,
     startVelocity: 30,
     origin: { x, y },
-    colors: ["#42E8FF", "#8B5CF6", "#38BDF8"],
+    colors: ["#22d3ee", "#6366f1", "#38bdf8"],
     ticks: 180,
     gravity: 1,
     scalar: 0.9,

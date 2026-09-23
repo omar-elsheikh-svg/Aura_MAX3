@@ -2,51 +2,57 @@
 
 @layer base {
   :root {
-    --background: #08090C;
-    --surface: #111318;
-    --surface-elevated: #171A21;
-    --surface-highlight: #1E232E;
-    --border: #252A33;
+    --bg: #09090b;
+    --background: #09090b;
+    --panel: #111113;
+    --surface: #18181b;
+    --surface-elevated: #111113;
+    --surface-highlight: #27272a;
+    --border: #27272a;
     
-    --text-primary: #F4F7FA;
-    --text-secondary: #A5AEBC;
-    --text-muted: #6B7484;
+    --text-primary: #f4f4f5;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
     
-    --accent-primary: #42E8FF;
-    --accent-premium: #8B5CF6;
-    --success: #10B981;
-    --warning: #F59E0B;
-    --error: #EF4444;
+    --accent-primary: #22d3ee;
+    --accent-cyan: #22d3ee;
+    --accent-indigo: #6366f1;
+    --accent-violet: #818cf8;
+    --accent-flame: #fb923c;
+    --accent-premium: #818cf8;
+    --success: #10b981;
+    --warning: #fb923c;
+    --error: #ef4444;
 
     /* Backwards compatibility aliases */
-    --canvas: #08090C;
-    --canvas-subtle: #111318;
-    --canvas-elevated: #171A21;
-    --canvas-border: #252A33;
-    --ink-primary: #F4F7FA;
-    --ink-secondary: #A5AEBC;
-    --ink-muted: #6B7484;
-    --accent-cyan: #42E8FF;
-    --accent-violet: #8B5CF6;
+    --canvas: #09090b;
+    --canvas-subtle: #18181b;
+    --canvas-elevated: #111113;
+    --canvas-border: #27272a;
+    --ink-primary: #f4f4f5;
+    --ink-secondary: #a1a1aa;
+    --ink-muted: #71717a;
   }
 
   body {
-    background-color: var(--background);
-    color: var(--text-primary);
-    font-family: 'Manrope', 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #09090b;
+    color: #f4f4f5;
+    font-family: 'Outfit', 'Manrope', 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.035) 1px, transparent 0);
+    background-size: 22px 22px;
   }
 
   h1, h2, h3, h4, .font-display {
-    font-family: 'Sora', 'El Messiri', 'IBM Plex Sans Arabic', sans-serif;
+    font-family: 'Outfit', 'Sora', 'Cairo', 'El Messiri', sans-serif;
     letter-spacing: -0.02em;
   }
 
   [dir="rtl"] body,
   [dir="rtl"] {
-    font-family: 'IBM Plex Sans Arabic', 'Manrope', sans-serif;
+    font-family: 'Cairo', 'IBM Plex Sans Arabic', 'Outfit', sans-serif;
   }
 
   [dir="rtl"] h1,
@@ -55,8 +61,18 @@
   [dir="rtl"] h4,
   [dir="rtl"] .font-display,
   .font-arabic-display {
-    font-family: 'El Messiri', 'Sora', sans-serif;
+    font-family: 'Cairo', 'El Messiri', sans-serif;
   }
+}
+
+/* Flame animation for streak */
+@keyframes flicker {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(0.95); }
+}
+
+.flame-anim { 
+  animation: flicker 1.8s ease-in-out infinite; 
 }
 
 /* Subtle Biometric radar animation for camera scan preview */
@@ -64,16 +80,16 @@
   0% {
     top: 0%;
     opacity: 0.7;
-    box-shadow: 0 0 12px rgba(66, 232, 255, 0.4);
+    box-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
   }
   50% {
     opacity: 1;
-    box-shadow: 0 0 18px rgba(66, 232, 255, 0.7);
+    box-shadow: 0 0 18px rgba(34, 211, 238, 0.7);
   }
   100% {
     top: 100%;
     opacity: 0.7;
-    box-shadow: 0 0 12px rgba(66, 232, 255, 0.4);
+    box-shadow: 0 0 12px rgba(34, 211, 238, 0.4);
   }
 }
 
@@ -81,13 +97,25 @@
   animation: radar-sweep 2.4s ease-in-out infinite alternate;
 }
 
-/* Soft, purposeful elevation and controlled glow */
-.glow-cyan-subtle {
-  box-shadow: 0 0 24px rgba(66, 232, 255, 0.12);
+/* Exact Glow and Gradient classes matching glowup-shell */
+.glow-cyan-ring {
+  filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.5));
 }
 
-.glow-violet-subtle {
-  box-shadow: 0 0 24px rgba(139, 92, 246, 0.12);
+.glow-flame {
+  filter: drop-shadow(0 0 8px rgba(251, 146, 60, 0.53));
+}
+
+.glow-indigo-box {
+  box-shadow: 0 0 16px rgba(99, 102, 241, 0.4);
+}
+
+.bg-streak-gradient {
+  background: linear-gradient(155deg, #18181b, #1c1230);
+}
+
+.bg-cyan-indigo-gradient {
+  background: linear-gradient(135deg, #6366f1, #22d3ee);
 }
 
 /* Custom sleek scrollbars */
@@ -97,28 +125,19 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #08090C;
+  background: #09090b;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #252A33;
+  background: #27272a;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #323946;
+  background: #3f3f46;
 }
 
-/* Safe area support for iOS/Android notches */
+/* Safe area insets for mobile edge-to-edge navigation */
 .safe-area-bottom {
-  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
+  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
 }

@@ -69,28 +69,28 @@ export const LevelUpModal: React.FC<LevelUpModalProps> = ({
 
   const perkList = [
     {
-      icon: <Zap className="w-4 h-4 text-[#42E8FF]" />,
+      icon: <Zap className="w-4 h-4 text-[#22d3ee]" />,
       title: isRtl ? "+150 طاقة أورا واستيعاب قصوى" : "+150 Max Aura Capacity",
       desc: isRtl ? "زيادة حد نقاط الانضباط اليومية" : "Expanded daily aesthetic points capacity",
-      color: "#42E8FF",
+      color: "#22d3ee",
     },
     {
-      icon: <Crown className="w-4 h-4 text-[#F59E0B]" />,
+      icon: <Crown className="w-4 h-4 text-[#fb923c]" />,
       title: isRtl ? "رتبة جمالية جديدة غير مقفلة" : "New Aesthetic Tier Unlocked",
       desc: tierInfo.title[locale],
-      color: "#F59E0B",
+      color: "#fb923c",
     },
     {
-      icon: <Flame className="w-4 h-4 text-[#8B5CF6]" />,
+      icon: <Flame className="w-4 h-4 text-[#818cf8]" />,
       title: isRtl ? "مضاعف 5% لنقاط السلسلة" : "5% Streak XP Multiplier",
       desc: isRtl ? "مكافآت أكبر لكل مهمة تنجزها" : "Enhanced reward on subsequent quests",
-      color: "#8B5CF6",
+      color: "#818cf8",
     },
     {
-      icon: <ShieldCheck className="w-4 h-4 text-[#10B981]" />,
+      icon: <ShieldCheck className="w-4 h-4 text-[#10b981]" />,
       title: isRtl ? "درع حماية الانضباط" : "Aura Discipline Shield",
       desc: isRtl ? "حماية مضاعفة لسجل التوهج" : "Fortified daily streak preservation",
-      color: "#10B981",
+      color: "#10b981",
     },
   ];
 
@@ -108,13 +108,13 @@ export const LevelUpModal: React.FC<LevelUpModalProps> = ({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#08090C]/85 backdrop-blur-xl -z-10 cursor-pointer"
+            className="fixed inset-0 bg-[#09090b]/85 backdrop-blur-xl -z-10 cursor-pointer"
           />
 
           {/* Glowing Radial Light Orbs */}
           <div 
             aria-hidden="true" 
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#42E8FF]/20 via-[#8B5CF6]/20 to-transparent blur-[120px] pointer-events-none -z-10" 
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-[#22d3ee]/20 via-[#6366f1]/20 to-transparent blur-[120px] pointer-events-none -z-10" 
           />
 
           {/* Modal Container */}
@@ -123,15 +123,15 @@ export const LevelUpModal: React.FC<LevelUpModalProps> = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 15 }}
             transition={{ type: "spring", damping: 24, stiffness: 300 }}
-            className="relative w-full max-w-lg bg-[#111318]/95 border border-[#1E232E] rounded-3xl p-6 sm:p-8 shadow-[0_0_50px_rgba(66,232,255,0.18)] overflow-hidden"
+            className="relative w-full max-w-lg bg-[#18181b]/95 border border-[#27272a] rounded-3xl p-6 sm:p-8 shadow-[0_0_50px_rgba(34,211,238,0.18)] overflow-hidden"
           >
             {/* Top Accent Gradient Border */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#42E8FF] via-[#8B5CF6] to-[#F59E0B]" />
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#22d3ee] via-[#6366f1] to-[#fb923c]" />
 
             {/* Close Button */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 rtl:right-auto rtl:left-4 p-2 rounded-xl bg-[#161922] hover:bg-[#1E232E] text-slate-400 hover:text-[#F4F7FA] transition-colors cursor-pointer"
+              className="absolute top-4 right-4 rtl:right-auto rtl:left-4 p-2 rounded-xl bg-[#111113] hover:bg-[#27272a] text-[#71717a] hover:text-[#f4f4f5] transition-colors cursor-pointer"
               aria-label="Close modal"
             >
               <X className="w-5 h-5" />
@@ -140,10 +140,10 @@ export const LevelUpModal: React.FC<LevelUpModalProps> = ({
             {/* Re-celebrate FX Trigger */}
             <button
               onClick={handleCelebrateAgain}
-              className="absolute top-4 left-4 rtl:left-auto rtl:right-4 flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#161922] hover:bg-[#1E232E] text-slate-400 hover:text-[#42E8FF] text-xs font-semibold transition-colors cursor-pointer"
+              className="absolute top-4 left-4 rtl:left-auto rtl:right-4 flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#111113] hover:bg-[#27272a] text-[#a1a1aa] hover:text-[#22d3ee] text-xs font-semibold transition-colors cursor-pointer"
               title={isRtl ? "إعادة تشغيل الاحتفال" : "Re-trigger confetti"}
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#42E8FF]" />
+              <Sparkles className="w-3.5 h-3.5 text-[#22d3ee]" />
               <span className="text-[11px] font-mono hidden sm:inline">
                 {isRtl ? "احتفال" : "Confetti"}
               </span>
@@ -163,7 +163,7 @@ export const LevelUpModal: React.FC<LevelUpModalProps> = ({
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="absolute w-36 h-36 rounded-full border border-[#42E8FF]/30 blur-sm pointer-events-none"
+                  className="absolute w-36 h-36 rounded-full border border-[#22d3ee]/30 blur-sm pointer-events-none"
                 />
                 <motion.div
                   animate={{
@@ -176,14 +176,14 @@ export const LevelUpModal: React.FC<LevelUpModalProps> = ({
                     ease: "easeInOut",
                     delay: 0.4,
                   }}
-                  className="absolute w-44 h-44 rounded-full border border-[#8B5CF6]/30 blur-md pointer-events-none"
+                  className="absolute w-44 h-44 rounded-full border border-[#6366f1]/30 blur-md pointer-events-none"
                 />
 
                 {/* Level Up Badge Centerpiece */}
-                <div className="relative z-10 w-28 h-28 rounded-3xl bg-gradient-to-b from-[#181B24] to-[#0D0F14] border-2 border-[#42E8FF]/60 shadow-[0_0_35px_rgba(66,232,255,0.35)] flex flex-col items-center justify-center p-2">
+                <div className="relative z-10 w-28 h-28 rounded-3xl bg-gradient-to-b from-[#18181b] to-[#09090b] border-2 border-[#22d3ee]/60 shadow-[0_0_35px_rgba(34,211,238,0.35)] flex flex-col items-center justify-center p-2">
                   <span className="text-2xl select-none">{tierInfo.badge}</span>
                   <div className="flex items-center gap-1 mt-1">
-                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#42E8FF] font-bold">
+                    <span className="text-[10px] font-mono uppercase tracking-widest text-[#22d3ee] font-bold">
                       LVL
                     </span>
                     <motion.span
@@ -191,7 +191,7 @@ export const LevelUpModal: React.FC<LevelUpModalProps> = ({
                       initial={{ scale: 0.5, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                      className="text-3xl font-black text-[#F4F7FA] font-display"
+                      className="text-3xl font-black text-[#f4f4f5] font-display"
                     >
                       {newLevel}
                     </motion.span>
@@ -207,33 +207,33 @@ export const LevelUpModal: React.FC<LevelUpModalProps> = ({
               </div>
 
               {/* Celebration Headers */}
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#42E8FF]/10 border border-[#42E8FF]/30 text-[#42E8FF] text-xs font-bold tracking-widest uppercase mb-2 shadow-[0_0_12px_rgba(66,232,255,0.15)]">
-                <Sparkles className="w-3.5 h-3.5 fill-[#42E8FF]" />
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#22d3ee]/10 border border-[#22d3ee]/30 text-[#22d3ee] text-xs font-bold tracking-widest uppercase mb-2 shadow-[0_0_12px_rgba(34,211,238,0.15)]">
+                <Sparkles className="w-3.5 h-3.5 fill-[#22d3ee]" />
                 <span>{isRtl ? "ترقية المستوى!" : "LEVEL UP REACHED!"}</span>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl font-black text-[#F4F7FA] font-display">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#f4f4f5] font-display">
                 {tierInfo.title[locale]}
               </h2>
 
-              <p className="text-xs sm:text-sm text-slate-300 mt-2 max-w-sm leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#a1a1aa] mt-2 max-w-sm leading-relaxed">
                 {tierInfo.auraDescription[locale]}
               </p>
 
               {/* Total XP Highlight */}
-              <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#161922] border border-[#1E232E] text-xs">
-                <Zap className="w-3.5 h-3.5 text-[#8B5CF6] fill-[#8B5CF6]" />
-                <span className="text-slate-400 font-medium">
+              <div className="mt-3 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#111113] border border-[#27272a] text-xs">
+                <Zap className="w-3.5 h-3.5 text-[#818cf8] fill-[#818cf8]" />
+                <span className="text-[#a1a1aa] font-medium">
                   {isRtl ? "إجمالي الخبرة المكتسبة:" : "Total Aesthetic XP:"}
                 </span>
-                <span className="font-mono font-bold text-[#F4F7FA]">
+                <span className="font-mono font-bold text-[#f4f4f5]">
                   {totalXp.toLocaleString()} XP
                 </span>
               </div>
 
               {/* Unlocked Perks Grid */}
               <div className="w-full mt-6 space-y-2 text-start">
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 px-1 block">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#a1a1aa] px-1 block">
                   {isRtl ? "مكافآت الترقية المكتسبة" : "Ascension Rewards Unlocked"}
                 </span>
 
@@ -244,16 +244,16 @@ export const LevelUpModal: React.FC<LevelUpModalProps> = ({
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.15 + i * 0.08 }}
-                      className="p-3 rounded-2xl bg-[#161922]/80 border border-[#1E232E] flex items-start gap-2.5"
+                      className="p-3 rounded-2xl bg-[#111113]/80 border border-[#27272a] flex items-start gap-2.5"
                     >
-                      <div className="p-1.5 rounded-xl bg-[#111318] shrink-0 border border-[#2A303F]">
+                      <div className="p-1.5 rounded-xl bg-[#18181b] shrink-0 border border-[#27272a]">
                         {perk.icon}
                       </div>
                       <div className="overflow-hidden">
-                        <h4 className="text-xs font-bold text-[#F4F7FA] truncate">
+                        <h4 className="text-xs font-bold text-[#f4f4f5] truncate">
                           {perk.title}
                         </h4>
-                        <p className="text-[11px] text-slate-400 truncate mt-0.5">
+                        <p className="text-[11px] text-[#a1a1aa] truncate mt-0.5">
                           {perk.desc}
                         </p>
                       </div>
@@ -266,9 +266,9 @@ export const LevelUpModal: React.FC<LevelUpModalProps> = ({
               <div className="w-full mt-6 flex flex-col sm:flex-row gap-2.5">
                 <button
                   onClick={handleClaim}
-                  className="flex-1 py-3 px-6 rounded-2xl bg-gradient-to-r from-[#42E8FF] via-[#38bdf8] to-[#8B5CF6] hover:opacity-95 text-[#08090C] font-black text-sm tracking-wide shadow-[0_0_25px_rgba(66,232,255,0.3)] transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
+                  className="flex-1 py-3 px-6 rounded-2xl bg-gradient-to-r from-[#6366f1] via-[#818cf8] to-[#22d3ee] hover:opacity-95 text-[#09090b] font-black text-sm tracking-wide shadow-[0_0_25px_rgba(34,211,238,0.3)] transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-2"
                 >
-                  <Sparkles className="w-4 h-4 fill-[#08090C]" />
+                  <Sparkles className="w-4 h-4 fill-[#09090b]" />
                   <span>
                     {isRtl ? "استلام المكافآت والمتابعة" : "Claim Rewards & Ascend"}
                   </span>

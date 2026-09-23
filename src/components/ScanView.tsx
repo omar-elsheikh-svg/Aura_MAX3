@@ -254,23 +254,23 @@ export const ScanView: React.FC<ScanViewProps> = ({
 
   return (
     <div 
-      className="max-w-6xl mx-auto px-4 py-6 space-y-8 animate-in fade-in duration-200"
+      className="max-w-6xl mx-auto px-4 py-6 space-y-6 animate-in fade-in duration-200"
       dir={isRtl ? "rtl" : "ltr"}
     >
       <canvas ref={canvasRef} className="hidden" />
 
       {/* 1. STATE: SCAN PREPARATION CHECKLIST */}
       {scanState === "prep" && (
-        <div className="max-w-xl mx-auto p-6 sm:p-8 rounded-3xl bg-[#111318] border border-[#252A33] text-start space-y-6">
+        <div className="max-w-xl mx-auto p-6 sm:p-8 rounded-3xl bg-[#18181b] border border-[#27272a] text-start space-y-6">
           <div className="text-center space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#42E8FF]/10 text-[#42E8FF] text-xs font-bold uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#22d3ee]/10 text-[#22d3ee] text-xs font-bold uppercase tracking-wider">
               <Camera className="w-3.5 h-3.5" />
               <span>{isRtl ? "تجهيز الفحص" : "Scan Preparation"}</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#F4F7FA] font-display">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#f4f4f5] font-display">
               {isRtl ? "فحص ملامح الوجه" : "Biometric Face Scan"}
             </h1>
-            <p className="text-xs sm:text-sm text-[#A5AEBC]">
+            <p className="text-xs sm:text-sm text-[#a1a1aa]">
               {isRtl 
                 ? "اتبع الإرشادات البسيطة التالية للحصول على أدق تقييم ممكن لملامحك." 
                 : "Follow these 4 simple conditions for high-fidelity geometric accuracy."}
@@ -297,19 +297,19 @@ export const ScanView: React.FC<ScanViewProps> = ({
                 desc: isRtl ? "ارفع خصلات الشعر عن الجبين والفك، وانزع النظارات الشمسية." : "Push hair away from forehead and jawline. Remove sunglasses."
               },
             ].map((item, idx) => (
-              <div key={idx} className="p-3.5 rounded-xl bg-[#171A21] border border-[#252A33] flex items-start gap-3">
-                <CheckCircle2 className="w-4 h-4 text-[#42E8FF] shrink-0 mt-0.5" />
+              <div key={idx} className="p-3.5 rounded-xl bg-[#111113] border border-[#27272a] flex items-start gap-3">
+                <CheckCircle2 className="w-4 h-4 text-[#22d3ee] shrink-0 mt-0.5" />
                 <div>
-                  <div className="text-xs font-bold text-[#F4F7FA]">{item.title}</div>
-                  <div className="text-xs text-[#A5AEBC] mt-0.5">{item.desc}</div>
+                  <div className="text-xs font-bold text-[#f4f4f5]">{item.title}</div>
+                  <div className="text-xs text-[#a1a1aa] mt-0.5">{item.desc}</div>
                 </div>
               </div>
             ))}
           </div>
 
           {/* Privacy Note */}
-          <div className="p-3 rounded-xl bg-[#08090C] border border-[#252A33] flex items-center gap-2.5 text-xs text-[#6B7484]">
-            <Lock className="w-4 h-4 text-[#42E8FF] shrink-0" />
+          <div className="p-3 rounded-xl bg-[#09090b] border border-[#27272a] flex items-center gap-2.5 text-xs text-[#71717a]">
+            <Lock className="w-4 h-4 text-[#22d3ee] shrink-0" />
             <span>
               {isRtl 
                 ? "تنبيه الخصوصية: الفحص يبدأ ويعالج على جهازك مباشرة دون إرسال صورك." 
@@ -321,14 +321,14 @@ export const ScanView: React.FC<ScanViewProps> = ({
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <button
               onClick={startCamera}
-              className="flex-1 py-3.5 rounded-xl bg-[#42E8FF] hover:bg-[#38BDF8] text-[#08090C] text-xs font-bold flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(66,232,255,0.25)] active:scale-95 transition-all cursor-pointer"
+              className="flex-1 py-3.5 rounded-xl bg-gradient-to-r from-[#6366f1] to-[#22d3ee] hover:opacity-95 text-[#09090b] text-xs font-bold flex items-center justify-center gap-2 shadow-[0_0_16px_rgba(99,102,241,0.35)] active:scale-95 transition-all cursor-pointer"
             >
-              <Camera className="w-4 h-4" />
+              <Camera className="w-4 h-4 text-[#09090b]" />
               <span>{isRtl ? "تشغيل الكاميرا والتقاط صورة" : "Start Live Camera"}</span>
             </button>
 
-            <label className="flex-1 py-3.5 rounded-xl bg-[#171A21] hover:bg-[#1E232E] border border-[#252A33] text-xs font-semibold text-[#F4F7FA] flex items-center justify-center gap-2 cursor-pointer transition-colors">
-              <Upload className="w-4 h-4 text-[#A5AEBC]" />
+            <label className="flex-1 py-3.5 rounded-xl bg-[#111113] hover:bg-[#27272a] border border-[#27272a] text-xs font-semibold text-[#f4f4f5] flex items-center justify-center gap-2 cursor-pointer transition-colors">
+              <Upload className="w-4 h-4 text-[#a1a1aa]" />
               <span>{isRtl ? "اختيار صورة من الجهاز" : "Upload Portrait"}</span>
               <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
             </label>
@@ -337,7 +337,7 @@ export const ScanView: React.FC<ScanViewProps> = ({
           <div className="text-center">
             <button
               onClick={() => setScanState("result")}
-              className="text-xs text-[#6B7484] hover:text-[#A5AEBC] transition-colors cursor-pointer"
+              className="text-xs text-[#71717a] hover:text-[#a1a1aa] transition-colors cursor-pointer"
             >
               {isRtl ? "العودة إلى نتيجة الفحص السابقة" : "Back to current scan overview"}
             </button>
@@ -347,10 +347,10 @@ export const ScanView: React.FC<ScanViewProps> = ({
 
       {/* 2. STATE: CAMERA VIEWFINDER */}
       {scanState === "camera" && (
-        <div className="max-w-xl mx-auto p-6 rounded-3xl bg-[#111318] border border-[#252A33] space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-[#252A33]">
-            <span className="text-xs font-bold text-[#F4F7FA] flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
+        <div className="max-w-xl mx-auto p-6 rounded-3xl bg-[#18181b] border border-[#27272a] space-y-4">
+          <div className="flex items-center justify-between pb-3 border-b border-[#27272a]">
+            <span className="text-xs font-bold text-[#f4f4f5] flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
               {isRtl ? "الكاميرا نشطة · اضبط محاذاة الوجه" : "Live View · Align Face Inside Oval"}
             </span>
             <button
@@ -358,13 +358,13 @@ export const ScanView: React.FC<ScanViewProps> = ({
                 stopCamera();
                 setScanState("prep");
               }}
-              className="text-xs text-[#A5AEBC] hover:text-[#F4F7FA] cursor-pointer"
+              className="text-xs text-[#a1a1aa] hover:text-[#f4f4f5] cursor-pointer"
             >
               {isRtl ? "إلغاء" : "Cancel"}
             </button>
           </div>
 
-          <div className="relative w-full aspect-4/3 sm:aspect-square rounded-2xl overflow-hidden bg-black border border-[#252A33] flex items-center justify-center">
+          <div className="relative w-full aspect-4/3 sm:aspect-square rounded-2xl overflow-hidden bg-black border border-[#27272a] flex items-center justify-center">
             <video 
               ref={videoRef} 
               autoPlay 
@@ -375,27 +375,27 @@ export const ScanView: React.FC<ScanViewProps> = ({
 
             {/* Subtle Alignment Guide Overlay */}
             <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-              <div className="w-48 h-64 sm:w-56 sm:h-76 rounded-[50%] border-2 border-[#42E8FF]/60 border-dashed animate-pulse relative">
-                <div className="absolute top-1/3 left-0 right-0 h-px bg-[#42E8FF]/30" />
-                <div className="absolute top-1/2 left-0 right-0 h-px bg-[#42E8FF]/30" />
+              <div className="w-48 h-64 sm:w-56 sm:h-76 rounded-[50%] border-2 border-[#22d3ee]/60 border-dashed animate-pulse relative">
+                <div className="absolute top-1/3 left-0 right-0 h-px bg-[#22d3ee]/30" />
+                <div className="absolute top-1/2 left-0 right-0 h-px bg-[#22d3ee]/30" />
               </div>
             </div>
 
             {/* Subtle Radar sweep line */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
-              <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-[#42E8FF] to-transparent animate-radar" />
+              <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-[#22d3ee] to-transparent animate-radar" />
             </div>
           </div>
 
           <div className="flex items-center justify-between pt-2">
-            <span className="text-xs text-[#A5AEBC]">
+            <span className="text-xs text-[#a1a1aa]">
               {isRtl ? "ثبت رأسك واضغط التقاط" : "Hold still and tap capture"}
             </span>
             <button
               onClick={capturePhoto}
-              className="px-6 py-3 rounded-xl bg-[#42E8FF] hover:bg-[#38BDF8] text-[#08090C] text-xs font-bold flex items-center gap-2 shadow-[0_0_20px_rgba(66,232,255,0.3)] active:scale-95 transition-all cursor-pointer"
+              className="px-6 py-3 rounded-xl bg-gradient-to-r from-[#6366f1] to-[#22d3ee] hover:opacity-95 text-[#09090b] text-xs font-bold flex items-center gap-2 shadow-[0_0_16px_rgba(99,102,241,0.35)] active:scale-95 transition-all cursor-pointer"
             >
-              <Camera className="w-4 h-4" />
+              <Camera className="w-4 h-4 text-[#09090b]" />
               <span>{isRtl ? "التقاط وتحليل" : "Capture & Analyze"}</span>
             </button>
           </div>
@@ -404,23 +404,23 @@ export const ScanView: React.FC<ScanViewProps> = ({
 
       {/* 3. STATE: ANALYZING SKELETON */}
       {scanState === "analyzing" && (
-        <div className="max-w-md mx-auto p-8 rounded-3xl bg-[#111318] border border-[#252A33] text-center space-y-6">
-          <div className="w-16 h-16 rounded-full bg-[#171A21] border border-[#42E8FF]/40 text-[#42E8FF] flex items-center justify-center mx-auto animate-spin">
+        <div className="max-w-md mx-auto p-8 rounded-3xl bg-[#18181b] border border-[#27272a] text-center space-y-6">
+          <div className="w-16 h-16 rounded-full bg-[#111113] border border-[#22d3ee]/40 text-[#22d3ee] flex items-center justify-center mx-auto animate-spin">
             <AuraMaxEmblem width={32} height={32} glow={false} />
           </div>
 
           <div className="space-y-2">
-            <h2 className="text-xl font-bold text-[#F4F7FA] font-display">
+            <h2 className="text-xl font-bold text-[#f4f4f5] font-display">
               {isRtl ? "جاري معالجة الفحص..." : "Analyzing Biometric Geometry..."}
             </h2>
-            <p className="text-xs text-[#A5AEBC] min-h-[20px]">
+            <p className="text-xs text-[#a1a1aa] min-h-[20px]">
               {analysisPhaseText}
             </p>
           </div>
 
-          <div className="w-full bg-[#171A21] h-2 rounded-full overflow-hidden">
+          <div className="w-full bg-[#111113] h-2 rounded-full overflow-hidden">
             <div 
-              className="h-full bg-gradient-to-r from-[#42E8FF] to-[#38BDF8] transition-all duration-300"
+              className="h-full bg-gradient-to-r from-[#6366f1] to-[#22d3ee] transition-all duration-300"
               style={{ width: `${analysisProgress}%` }}
             />
           </div>
@@ -429,19 +429,19 @@ export const ScanView: React.FC<ScanViewProps> = ({
 
       {/* 4. STATE: RESULT VIEWPORT (STREAMLINED HIERARCHY) */}
       {scanState === "result" && scanResult && (
-        <div className="space-y-8">
+        <div className="space-y-6">
           {/* Top Row: First Viewport Aura Overview */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-[#111318] border border-[#252A33] relative overflow-hidden">
-            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-[#252A33]">
+          <div className="p-6 sm:p-8 rounded-3xl bg-[#18181b] border border-[#27272a] relative overflow-hidden">
+            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-[#27272a]">
               <div>
-                <div className="flex items-center gap-2 text-xs font-bold text-[#42E8FF] uppercase tracking-wider mb-2">
+                <div className="flex items-center gap-2 text-xs font-bold text-[#22d3ee] uppercase tracking-wider mb-2">
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>{isRtl ? "نظرة أورا الشاملة" : "Your Aura Overview"}</span>
                 </div>
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-[#F4F7FA] font-display">
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-[#f4f4f5] font-display">
                   {isRtl ? "ملخص تقييم الملامح" : "Facial Symmetry & Architecture"}
                 </h1>
-                <p className="text-xs sm:text-sm text-[#A5AEBC] mt-1 max-w-xl">
+                <p className="text-xs sm:text-sm text-[#a1a1aa] mt-1 max-w-xl">
                   {isRtl 
                     ? "تحليل ملامحي يحدد مواضع القوة التي تميزك ومجالات التركيز لتحقيق أعلى تناسق." 
                     : "Objective assessment identifying your natural architectural strengths and high-leverage focus areas."}
@@ -452,16 +452,16 @@ export const ScanView: React.FC<ScanViewProps> = ({
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
                 <button
                   onClick={() => onBuildPlan?.(scanResult)}
-                  className="px-7 py-3.5 rounded-xl bg-[#42E8FF] hover:bg-[#38BDF8] text-[#08090C] text-xs font-bold flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(66,232,255,0.25)] active:scale-98 transition-all cursor-pointer whitespace-nowrap"
+                  className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#6366f1] to-[#22d3ee] hover:opacity-95 text-[#09090b] text-xs font-bold flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(99,102,241,0.35)] active:scale-98 transition-all cursor-pointer whitespace-nowrap"
                 >
-                  <Target className="w-4 h-4" />
+                  <Target className="w-4 h-4 text-[#09090b]" />
                   <span>{isRtl ? "ابنِ خطتي الشخصية" : "Build My Plan"}</span>
-                  <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+                  <ArrowRight className="w-4 h-4 rtl:rotate-180 text-[#09090b]" />
                 </button>
 
                 <button
                   onClick={() => setScanState("prep")}
-                  className="px-4 py-3.5 rounded-xl bg-[#171A21] hover:bg-[#1E232E] border border-[#252A33] text-xs font-semibold text-[#A5AEBC] hover:text-[#F4F7FA] transition-colors cursor-pointer whitespace-nowrap"
+                  className="px-4 py-3.5 rounded-xl bg-[#18181b] hover:bg-[#27272a] border border-[#27272a] text-xs font-semibold text-[#a1a1aa] hover:text-[#f4f4f5] transition-colors cursor-pointer whitespace-nowrap"
                 >
                   {isRtl ? "فحص جديد" : "Retake Scan"}
                 </button>
@@ -471,51 +471,51 @@ export const ScanView: React.FC<ScanViewProps> = ({
             {/* Metrics Overview Grid */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
               {/* Card 1: Aura Score */}
-              <div className="p-5 rounded-2xl bg-[#171A21] border border-[#252A33] flex flex-col justify-between">
+              <div className="p-5 rounded-2xl bg-[#111113] border border-[#27272a] flex flex-col justify-between">
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#A5AEBC]">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#a1a1aa]">
                     {isRtl ? "نتيجة أورا" : "Aura Score"}
                   </span>
                   <div className="flex items-baseline gap-2 my-1">
-                    <span className="text-4xl font-black text-[#42E8FF] font-display">
+                    <span className="text-4xl font-black text-[#22d3ee] font-display">
                       {scanResult.overallScore}
                     </span>
-                    <span className="text-xs text-[#A5AEBC]">/ 100</span>
+                    <span className="text-xs text-[#a1a1aa]">/ 100</span>
                   </div>
                 </div>
-                <div className="text-[11px] text-[#10B981] font-semibold mt-2">
+                <div className="text-[11px] text-[#10b981] font-semibold mt-2">
                   {isRtl ? "إمكانية وصول: 92+" : "Aesthetic Potential: 92+"}
                 </div>
               </div>
 
               {/* Card 2: Detected Face Shape */}
-              <div className="p-5 rounded-2xl bg-[#171A21] border border-[#252A33] flex flex-col justify-between">
+              <div className="p-5 rounded-2xl bg-[#111113] border border-[#27272a] flex flex-col justify-between">
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#A5AEBC]">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#a1a1aa]">
                     {isRtl ? "شكل الوجه" : "Face Shape"}
                   </span>
-                  <div className="text-xl font-bold text-[#F4F7FA] font-display my-1 capitalize">
+                  <div className="text-xl font-bold text-[#f4f4f5] font-display my-1 capitalize">
                     {scanResult.faceShape?.shape || "Oval"}
                   </div>
                 </div>
-                <div className="text-[11px] text-[#A5AEBC]">
+                <div className="text-[11px] text-[#a1a1aa]">
                   {scanResult.faceShape?.description[locale] || (isRtl ? "تناسق كلاسيكي متوازن" : "Balanced proportions")}
                 </div>
               </div>
 
               {/* Card 3: Strong Areas */}
-              <div className="p-5 rounded-2xl bg-[#171A21] border border-[#252A33] flex flex-col justify-between">
+              <div className="p-5 rounded-2xl bg-[#111113] border border-[#27272a] flex flex-col justify-between">
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#10B981]">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#10b981]">
                     {isRtl ? "نقاط القوة" : "Strong Areas"}
                   </span>
-                  <div className="space-y-1 mt-2 text-xs font-semibold text-[#F4F7FA]">
+                  <div className="space-y-1 mt-2 text-xs font-semibold text-[#f4f4f5]">
                     <div className="flex items-center gap-1.5">
-                      <Check className="w-3.5 h-3.5 text-[#10B981]" />
+                      <Check className="w-3.5 h-3.5 text-[#10b981]" />
                       <span>{isRtl ? "كثافة الشعر وتأطير الوجه" : "Hair Framing & Symmetry"}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Check className="w-3.5 h-3.5 text-[#10B981]" />
+                      <Check className="w-3.5 h-3.5 text-[#10b981]" />
                       <span>{isRtl ? "استقامة بنية الفك" : "Mandibular Jawline Poise"}</span>
                     </div>
                   </div>
@@ -523,18 +523,18 @@ export const ScanView: React.FC<ScanViewProps> = ({
               </div>
 
               {/* Card 4: Focus Areas */}
-              <div className="p-5 rounded-2xl bg-[#171A21] border border-[#252A33] flex flex-col justify-between">
+              <div className="p-5 rounded-2xl bg-[#111113] border border-[#27272a] flex flex-col justify-between">
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#42E8FF]">
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-[#22d3ee]">
                     {isRtl ? "مجالات التركيز" : "Focus Areas"}
                   </span>
-                  <div className="space-y-1 mt-2 text-xs font-semibold text-[#F4F7FA]">
+                  <div className="space-y-1 mt-2 text-xs font-semibold text-[#f4f4f5]">
                     <div className="flex items-center gap-1.5">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#42E8FF]" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#22d3ee]" />
                       <span>{isRtl ? "طرد السوائل الصباحي (Debloat)" : "Morning Debloating Ritual"}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#42E8FF]" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#22d3ee]" />
                       <span>{isRtl ? "ترميم حاجز البشرة والواقي" : "Barrier Hydration & SPF"}</span>
                     </div>
                   </div>
@@ -543,8 +543,8 @@ export const ScanView: React.FC<ScanViewProps> = ({
             </div>
           </div>
 
-          {/* Desktop Responsive 2-Column Section: Left = Recommendations & Hair/Beard, Right = Image & Collapsible Tech Details */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Desktop Responsive 2-Column Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
             {/* Left Column: Recommendations & Face Shape Suite (7 cols) */}
             <div className="lg:col-span-7 space-y-6">
               <FaceShapeSuite
@@ -558,15 +558,15 @@ export const ScanView: React.FC<ScanViewProps> = ({
             {/* Right Column: Scan Portrait & Collapsible Technical Biometrics & Visualizer Teaser (5 cols) */}
             <div className="lg:col-span-5 space-y-6">
               {/* Scan Portrait Card */}
-              <div className="p-6 rounded-3xl bg-[#111318] border border-[#252A33] space-y-4">
+              <div className="p-6 rounded-3xl bg-[#18181b] border border-[#27272a] space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#A5AEBC]">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#a1a1aa]">
                     {isRtl ? "صورة الفحص المحفوظة" : "Verified Scan Image"}
                   </span>
-                  <span className="text-xs text-[#6B7484]">{scanResult.date}</span>
+                  <span className="text-xs text-[#71717a]">{scanResult.date}</span>
                 </div>
 
-                <div className="relative aspect-4/3 rounded-2xl overflow-hidden bg-black border border-[#252A33]">
+                <div className="relative aspect-4/3 rounded-2xl overflow-hidden bg-black border border-[#27272a]">
                   {selectedImage ? (
                     <img 
                       src={selectedImage} 
@@ -575,7 +575,7 @@ export const ScanView: React.FC<ScanViewProps> = ({
                       referrerPolicy="no-referrer"
                     />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-xs text-[#6B7484]">
+                    <div className="w-full h-full flex items-center justify-center text-xs text-[#71717a]">
                       {isRtl ? "لا توجد صورة محملة" : "No image available"}
                     </div>
                   )}
@@ -584,12 +584,12 @@ export const ScanView: React.FC<ScanViewProps> = ({
                 {/* Makeover Visualizer Trigger */}
                 <button
                   onClick={() => setShowMakeoverModal(true)}
-                  className="w-full py-3 rounded-xl bg-[#171A21] hover:bg-[#1E232E] border border-[#252A33] hover:border-[#8B5CF6]/50 text-xs font-bold text-[#F4F7FA] flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                  className="w-full py-3 rounded-xl bg-[#111113] hover:bg-[#27272a] border border-[#27272a] hover:border-[#818cf8]/50 text-xs font-bold text-[#f4f4f5] flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
-                  <Wand2 className="w-4 h-4 text-[#8B5CF6]" />
+                  <Wand2 className="w-4 h-4 text-[#818cf8]" />
                   <span>{isRtl ? "معاينة المظهر التقديرية (Visualizer)" : "Open Aesthetic Visualizer Preview"}</span>
                 </button>
-                <div className="text-[10px] text-[#6B7484] text-center">
+                <div className="text-[10px] text-[#71717a] text-center">
                   {isRtl 
                     ? "المعاينة هي محاكاة بصرية لمساعدتك في تخيل النتيجة وليست تنبؤاً جراحياً." 
                     : "The visualizer is an aesthetic simulation preview, not a scientific guarantee."}
@@ -597,49 +597,49 @@ export const ScanView: React.FC<ScanViewProps> = ({
               </div>
 
               {/* Technical Metrics (Collapsible as per prompt 10.F) */}
-              <div className="rounded-3xl bg-[#111318] border border-[#252A33] overflow-hidden">
+              <div className="rounded-3xl bg-[#18181b] border border-[#27272a] overflow-hidden">
                 <button
                   onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
-                  className="w-full p-5 flex items-center justify-between text-start cursor-pointer hover:bg-[#171A21]/50 transition-colors focus-visible:outline-none"
+                  className="w-full p-5 flex items-center justify-between text-start cursor-pointer hover:bg-[#27272a]/50 transition-colors focus-visible:outline-none"
                   aria-expanded={showTechnicalDetails}
                 >
                   <div className="flex items-center gap-2">
-                    <Sliders className="w-4 h-4 text-[#42E8FF]" />
-                    <span className="text-xs font-bold text-[#F4F7FA]">
+                    <Sliders className="w-4 h-4 text-[#22d3ee]" />
+                    <span className="text-xs font-bold text-[#f4f4f5]">
                       {isRtl ? "التفاصيل والمقاييس البيومترية المتقدمة" : "View Technical Biometric Details"}
                     </span>
                   </div>
                   {showTechnicalDetails ? (
-                    <ChevronUp className="w-4 h-4 text-[#A5AEBC]" />
+                    <ChevronUp className="w-4 h-4 text-[#a1a1aa]" />
                   ) : (
-                    <ChevronDown className="w-4 h-4 text-[#A5AEBC]" />
+                    <ChevronDown className="w-4 h-4 text-[#a1a1aa]" />
                   )}
                 </button>
 
                 {showTechnicalDetails && (
-                  <div className="p-5 pt-0 space-y-3 border-t border-[#252A33]/50 animate-in fade-in duration-200">
-                    <p className="text-xs text-[#A5AEBC] leading-relaxed pt-3">
+                  <div className="p-5 pt-0 space-y-3 border-t border-[#27272a]/50 animate-in fade-in duration-200">
+                    <p className="text-xs text-[#a1a1aa] leading-relaxed pt-3">
                       {isRtl 
                         ? "هذه المقاييس الهندسية تُستعمل خلف الكواليس لضبط زوايا التوصيات وتصفيف الشعر." 
                         : "These geometric ratios guide algorithmic routine customization and haircut geometry."}
                     </p>
 
                     <div className="space-y-2 text-xs">
-                      <div className="p-2.5 rounded-lg bg-[#171A21] flex justify-between items-center">
-                        <span className="text-[#A5AEBC]">{isRtl ? "نسبة الأثلاث الوجهية (Thirds):" : "Facial Thirds Ratio:"}</span>
-                        <span className="font-mono text-[#F4F7FA] font-bold">{scanResult.facialThirds || "1.0 : 1.0 : 0.98"}</span>
+                      <div className="p-2.5 rounded-lg bg-[#111113] flex justify-between items-center">
+                        <span className="text-[#a1a1aa]">{isRtl ? "نسبة الأثلاث الوجهية (Thirds):" : "Facial Thirds Ratio:"}</span>
+                        <span className="font-mono text-[#f4f4f5] font-bold">{scanResult.facialThirds || "1.0 : 1.0 : 0.98"}</span>
                       </div>
-                      <div className="p-2.5 rounded-lg bg-[#171A21] flex justify-between items-center">
-                        <span className="text-[#A5AEBC]">{isRtl ? "تناسق زاوية الفك (Gonial Definition):" : "Jawline Definition Index:"}</span>
-                        <span className="font-mono text-[#42E8FF] font-bold">{scanResult.jawlineScore}/100</span>
+                      <div className="p-2.5 rounded-lg bg-[#111113] flex justify-between items-center">
+                        <span className="text-[#a1a1aa]">{isRtl ? "تناسق زاوية الفك (Gonial Definition):" : "Jawline Definition Index:"}</span>
+                        <span className="font-mono text-[#22d3ee] font-bold">{scanResult.jawlineScore}/100</span>
                       </div>
-                      <div className="p-2.5 rounded-lg bg-[#171A21] flex justify-between items-center">
-                        <span className="text-[#A5AEBC]">{isRtl ? "مؤشر التماثل الثنائي (Symmetry):" : "Bilateral Symmetry:"}</span>
-                        <span className="font-mono text-[#F4F7FA] font-bold">{scanResult.symmetryScore}%</span>
+                      <div className="p-2.5 rounded-lg bg-[#111113] flex justify-between items-center">
+                        <span className="text-[#a1a1aa]">{isRtl ? "مؤشر التماثل الثنائي (Symmetry):" : "Bilateral Symmetry:"}</span>
+                        <span className="font-mono text-[#f4f4f5] font-bold">{scanResult.symmetryScore}%</span>
                       </div>
-                      <div className="p-2.5 rounded-lg bg-[#171A21] flex justify-between items-center">
-                        <span className="text-[#A5AEBC]">{isRtl ? "سحبة العين والخد (Canthal / Zygomatic):" : "Canthal & Zygomatic Index:"}</span>
-                        <span className="font-mono text-[#8B5CF6] font-bold">{scanResult.canthalTilt || "+4°"}</span>
+                      <div className="p-2.5 rounded-lg bg-[#111113] flex justify-between items-center">
+                        <span className="text-[#a1a1aa]">{isRtl ? "سحبة العين والخد (Canthal / Zygomatic):" : "Canthal & Zygomatic Index:"}</span>
+                        <span className="font-mono text-[#818cf8] font-bold">{scanResult.canthalTilt || "+4°"}</span>
                       </div>
                     </div>
                   </div>

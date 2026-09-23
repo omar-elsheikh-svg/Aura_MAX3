@@ -75,20 +75,20 @@ export const LibraryView: React.FC<LibraryViewProps> = ({
 
   return (
     <div 
-      className="max-w-6xl mx-auto px-4 py-6 space-y-8 animate-in fade-in duration-200"
+      className="max-w-6xl mx-auto px-4 py-6 space-y-6 animate-in fade-in duration-200"
       dir={isRtl ? "rtl" : "ltr"}
     >
       {/* 1. Header */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-[#111318] border border-[#252A33] flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="p-6 sm:p-8 rounded-3xl bg-[#18181b] border border-[#27272a] flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-bold text-[#42E8FF] uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-xs font-bold text-[#22d3ee] uppercase tracking-wider mb-1">
             <BookOpen className="w-3.5 h-3.5" />
             <span>{isRtl ? "المكتبة العلمية والبروتوكولات" : "Knowledge System"}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#F4F7FA] font-display">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#f4f4f5] font-display">
             {isRtl ? "دليل التحول الشامل" : "Science-Backed Transformation Library"}
           </h1>
-          <p className="text-xs sm:text-sm text-[#A5AEBC] mt-0.5">
+          <p className="text-xs sm:text-sm text-[#a1a1aa] mt-0.5">
             {isRtl 
               ? "بروتوكولات سريرية مجربة لتحسين هندسة الفك، نضارة البشرة، وتأطير الشعر." 
               : "Actionable editorial protocols covering facial contouring, dermal health, and structural framing."}
@@ -97,13 +97,13 @@ export const LibraryView: React.FC<LibraryViewProps> = ({
 
         {/* Search bar */}
         <div className="relative w-full md:w-64">
-          <Search className="w-4 h-4 text-[#6B7484] absolute start-3 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-[#71717a] absolute start-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={isRtl ? "بحث في البروتوكولات..." : "Search protocols..."}
-            className="w-full ps-9 pe-3 py-2 rounded-xl bg-[#171A21] border border-[#252A33] text-xs text-[#F4F7FA] focus:outline-none focus:border-[#42E8FF]"
+            className="w-full ps-9 pe-3 py-2 rounded-xl bg-[#111113] border border-[#27272a] text-xs text-[#f4f4f5] focus:outline-none focus:border-[#22d3ee]"
           />
         </div>
       </div>
@@ -116,8 +116,8 @@ export const LibraryView: React.FC<LibraryViewProps> = ({
             onClick={() => setActiveCat(c.id)}
             className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap cursor-pointer transition-colors ${
               activeCat === c.id
-                ? "bg-[#171A21] text-[#42E8FF] border border-[#252A33]"
-                : "text-[#A5AEBC] hover:text-[#F4F7FA]"
+                ? "bg-[#18181b] text-[#22d3ee] border border-[#27272a] shadow-xs"
+                : "text-[#a1a1aa] hover:text-[#f4f4f5]"
             }`}
           >
             {c.label}
@@ -132,78 +132,78 @@ export const LibraryView: React.FC<LibraryViewProps> = ({
           return (
             <div
               key={g.id}
-              className="rounded-3xl bg-[#111318] border border-[#252A33] overflow-hidden transition-all duration-200"
+              className="rounded-3xl bg-[#18181b] border border-[#27272a] overflow-hidden transition-all duration-200"
             >
               <button
                 onClick={() => toggleExpand(g.id)}
-                className="w-full p-6 text-start flex items-center justify-between gap-4 cursor-pointer hover:bg-[#171A21]/50 transition-colors focus-visible:outline-none"
+                className="w-full p-6 text-start flex items-center justify-between gap-4 cursor-pointer hover:bg-[#27272a]/40 transition-colors focus-visible:outline-none"
                 aria-expanded={isExpanded}
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#171A21] text-[#42E8FF] border border-[#252A33] font-bold uppercase">
+                    <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#111113] text-[#22d3ee] border border-[#27272a] font-bold uppercase">
                       {g.category}
                     </span>
-                    <span className="text-xs text-[#6B7484] flex items-center gap-1">
-                      <Clock className="w-3 h-3 text-[#42E8FF]" />
+                    <span className="text-xs text-[#71717a] flex items-center gap-1">
+                      <Clock className="w-3 h-3 text-[#22d3ee]" />
                       <span>{g.duration}</span>
                     </span>
                   </div>
-                  <h3 className="text-base sm:text-lg font-bold text-[#F4F7FA] font-display">
+                  <h3 className="text-base sm:text-lg font-bold text-[#f4f4f5] font-display">
                     {g.title[locale]}
                   </h3>
-                  <p className="text-xs text-[#A5AEBC]">
+                  <p className="text-xs text-[#a1a1aa]">
                     {g.subtitle[locale]}
                   </p>
                 </div>
 
-                <div className="shrink-0 p-2 rounded-xl bg-[#171A21] text-[#A5AEBC]">
+                <div className="shrink-0 p-2 rounded-xl bg-[#111113] text-[#a1a1aa]">
                   {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </div>
               </button>
 
               {isExpanded && (
-                <div className="p-6 pt-0 space-y-5 border-t border-[#252A33]/50 animate-in fade-in duration-200">
+                <div className="p-6 pt-0 space-y-5 border-t border-[#27272a]/50 animate-in fade-in duration-200">
                   {/* Scientific Rationale */}
-                  <div className="p-4 rounded-2xl bg-[#171A21] border border-[#252A33] space-y-1.5 mt-4">
-                    <div className="text-[11px] font-bold text-[#42E8FF] uppercase tracking-wider flex items-center gap-1.5">
+                  <div className="p-4 rounded-2xl bg-[#111113] border border-[#27272a] space-y-1.5 mt-4">
+                    <div className="text-[11px] font-bold text-[#22d3ee] uppercase tracking-wider flex items-center gap-1.5">
                       <ShieldCheck className="w-3.5 h-3.5" />
                       <span>{isRtl ? "الأساس العلمي والفسيولوجي" : "Scientific Mechanism"}</span>
                     </div>
-                    <p className="text-xs text-[#A5AEBC] leading-relaxed">
+                    <p className="text-xs text-[#a1a1aa] leading-relaxed">
                       {g.scienceNote[locale]}
                     </p>
                   </div>
 
                   {/* Step-by-Step execution */}
                   <div className="space-y-2">
-                    <div className="text-xs font-bold uppercase tracking-wider text-[#F4F7FA]">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#f4f4f5]">
                       {isRtl ? "خطوات التطبيق العملي" : "Step-by-Step Execution"}
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
                       {g.steps.map((st, idx) => (
-                        <div key={idx} className="p-3.5 rounded-xl bg-[#171A21] border border-[#252A33] space-y-1">
-                          <span className="text-xs font-mono font-bold text-[#42E8FF]">
+                        <div key={idx} className="p-3.5 rounded-xl bg-[#111113] border border-[#27272a] space-y-1">
+                          <span className="text-xs font-mono font-bold text-[#22d3ee]">
                             Step {idx + 1}
                           </span>
-                          <div className="text-xs font-bold text-[#F4F7FA]">{st.title[locale]}</div>
-                          <p className="text-[11px] text-[#A5AEBC] leading-relaxed">{st.detail[locale]}</p>
+                          <div className="text-xs font-bold text-[#f4f4f5]">{st.title[locale]}</div>
+                          <p className="text-[11px] text-[#a1a1aa] leading-relaxed">{st.detail[locale]}</p>
                         </div>
                       ))}
                     </div>
                   </div>
 
                   {/* Key Takeaway */}
-                  <div className="p-4 rounded-2xl bg-[#111318] border border-[#42E8FF]/20 flex items-center justify-between gap-4">
-                    <div className="text-xs text-[#A5AEBC]">
-                      <strong className="text-[#42E8FF]">{isRtl ? "البروتوكول: " : "Protocol: "}</strong>
+                  <div className="p-4 rounded-2xl bg-[#18181b] border border-[#22d3ee]/25 flex items-center justify-between gap-4">
+                    <div className="text-xs text-[#a1a1aa]">
+                      <strong className="text-[#22d3ee]">{isRtl ? "البروتوكول: " : "Protocol: "}</strong>
                       {g.scienceNote[locale]}
                     </div>
 
                     {onAddGuideToQuests && (
                       <button
                         onClick={() => onAddGuideToQuests(g.title[locale])}
-                        className="px-4 py-2 rounded-xl bg-[#42E8FF] hover:bg-[#38BDF8] text-[#08090C] text-xs font-bold shrink-0 cursor-pointer shadow-xs transition-all"
+                        className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#6366f1] to-[#22d3ee] hover:opacity-95 text-[#09090b] text-xs font-bold shrink-0 cursor-pointer shadow-xs transition-all"
                       >
                         {isRtl ? "إضافة لمهامي اليوم" : "Add to Today"}
                       </button>

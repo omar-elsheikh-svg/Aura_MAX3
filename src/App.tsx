@@ -416,23 +416,23 @@ export default function App() {
 
   return (
     <div 
-      className="min-h-screen bg-[#08090C] text-[#F4F7FA] flex flex-col selection:bg-[#42E8FF]/25 selection:text-[#42E8FF] relative overflow-x-hidden"
+      className="min-h-screen bg-[#09090b] text-[#f4f4f5] flex flex-col selection:bg-[#22d3ee]/25 selection:text-[#22d3ee] relative overflow-x-hidden"
       dir={locale === "ar" ? "rtl" : "ltr"}
     >
       {/* Background Ambient Dark Luxury Lighting */}
       <div 
         aria-hidden="true" 
-        className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] max-w-[100vw] h-[400px] bg-gradient-to-b from-[#42E8FF]/6 via-[#8B5CF6]/4 to-transparent blur-[140px] pointer-events-none -z-10" 
+        className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] max-w-[100vw] h-[400px] bg-gradient-to-b from-[#6366f1]/10 via-[#22d3ee]/6 to-transparent blur-[140px] pointer-events-none -z-10" 
       />
 
       {/* Toast Notification Banner */}
       {toastMessage && (
         <div 
           role="status"
-          className="fixed top-16 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl bg-[#111318]/95 border border-[#42E8FF]/40 shadow-xl backdrop-blur-xl flex items-center gap-2.5 text-xs font-semibold text-[#42E8FF] animate-in fade-in slide-in-from-top-4 duration-300"
+          className="fixed top-16 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-2xl bg-[#18181b]/95 border border-[#22d3ee]/40 shadow-xl backdrop-blur-xl flex items-center gap-2.5 text-xs font-semibold text-[#22d3ee] animate-in fade-in slide-in-from-top-4 duration-300"
         >
-          <Sparkles className="w-4 h-4 shrink-0 animate-spin text-[#42E8FF]" />
-          <span className="text-[#F4F7FA] font-medium">{toastMessage}</span>
+          <Sparkles className="w-4 h-4 shrink-0 animate-spin text-[#22d3ee]" />
+          <span className="text-[#f4f4f5] font-medium">{toastMessage}</span>
         </div>
       )}
 

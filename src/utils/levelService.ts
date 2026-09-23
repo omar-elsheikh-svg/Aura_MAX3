@@ -32,8 +32,8 @@ export const LEVEL_TIERS: Record<number, LevelTierInfo> = {
   3: {
     title: { en: "Jawline Striker", ar: "محدد الفك" },
     badge: "⚡",
-    color: "#42E8FF",
-    glowColor: "rgba(66, 232, 255, 0.45)",
+    color: "#22d3ee",
+    glowColor: "rgba(34, 211, 238, 0.45)",
     auraDescription: {
       en: "Mandibular angle definition taking shape via disciplined mewing.",
       ar: "بروز زاوية الفك السفلي بفضل الاستمرار في وضعية الميونج."
@@ -52,8 +52,8 @@ export const LEVEL_TIERS: Record<number, LevelTierInfo> = {
   5: {
     title: { en: "Symmetry Artisan", ar: "فنان التناظر" },
     badge: "💎",
-    color: "#8B5CF6",
-    glowColor: "rgba(139, 92, 246, 0.45)",
+    color: "#6366f1",
+    glowColor: "rgba(99, 102, 241, 0.45)",
     auraDescription: {
       en: "Balanced facial thirds and controlled masticatory symmetry.",
       ar: "توازن الثلث السفلي والأوسط للوجه مع تماثل عضلات الفك."
@@ -102,8 +102,8 @@ export const LEVEL_TIERS: Record<number, LevelTierInfo> = {
   10: {
     title: { en: "Aura Immortal", ar: "أسطورة الأورا الخالدة" },
     badge: "🌟",
-    color: "#42E8FF",
-    glowColor: "rgba(66, 232, 255, 0.6)",
+    color: "#22d3ee",
+    glowColor: "rgba(34, 211, 238, 0.6)",
     auraDescription: {
       en: "Peak aesthetic potential unlocked through unwavering dedication.",
       ar: "تحقيق أقصى إمكانات الجمال والجاذبية الطبيعية بدون انقطاع."
@@ -119,8 +119,8 @@ export function getTierInfo(level: number): LevelTierInfo {
     return {
       title: { en: `Aura Grandmaster Lv.${level}`, ar: `أستاذ الأورا الأعظم رتبة ${level}` },
       badge: "⚜️",
-      color: "#42E8FF",
-      glowColor: "rgba(66, 232, 255, 0.6)",
+      color: "#22d3ee",
+      glowColor: "rgba(34, 211, 238, 0.6)",
       auraDescription: {
         en: "Transcendental discipline in daily looksmaxing and wellness.",
         ar: "انضباط أسطوري واستمرارية استثنائية في العناية والتطوير."

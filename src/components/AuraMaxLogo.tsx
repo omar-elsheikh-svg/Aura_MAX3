@@ -29,12 +29,12 @@ export const AuraMaxEmblem: React.FC<{
       className={`shrink-0 transition-transform duration-300 ${className}`}
       style={{
         filter: glow
-          ? "drop-shadow(0 0 12px rgba(66,232,255,0.45)) drop-shadow(0 0 20px rgba(139,92,246,0.3))"
+          ? "drop-shadow(0 0 12px rgba(34,211,238,0.45)) drop-shadow(0 0 20px rgba(99,102,241,0.35))"
           : undefined,
       }}
     >
       <defs>
-        {/* Main "A" gradient: Electric Cyan to Aura Violet */}
+        {/* Main "A" gradient: Cyan to Indigo */}
         <linearGradient
           id={gradAId}
           x1="22"
@@ -43,10 +43,10 @@ export const AuraMaxEmblem: React.FC<{
           y2="100"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0%" stopColor="#42E8FF" />
-          <stop offset="35%" stopColor="#38BDF8" />
-          <stop offset="70%" stopColor="#818CF8" />
-          <stop offset="100%" stopColor="#8B5CF6" />
+          <stop offset="0%" stopColor="#22d3ee" />
+          <stop offset="35%" stopColor="#38bdf8" />
+          <stop offset="70%" stopColor="#818cf8" />
+          <stop offset="100%" stopColor="#6366f1" />
         </linearGradient>
 
         {/* Orbital Ring gradient */}
@@ -58,10 +58,10 @@ export const AuraMaxEmblem: React.FC<{
           y2="35"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0%" stopColor="#42E8FF" />
-          <stop offset="45%" stopColor="#38BDF8" />
-          <stop offset="75%" stopColor="#A78BFA" />
-          <stop offset="100%" stopColor="#8B5CF6" />
+          <stop offset="0%" stopColor="#22d3ee" />
+          <stop offset="45%" stopColor="#38bdf8" />
+          <stop offset="75%" stopColor="#818cf8" />
+          <stop offset="100%" stopColor="#6366f1" />
         </linearGradient>
 
         {/* Subtle radial inner glow */}
@@ -72,9 +72,9 @@ export const AuraMaxEmblem: React.FC<{
           r="45"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0%" stopColor="#42E8FF" stopOpacity="0.25" />
-          <stop offset="60%" stopColor="#8B5CF6" stopOpacity="0.1" />
-          <stop offset="100%" stopColor="#08090C" stopOpacity="0" />
+          <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.25" />
+          <stop offset="60%" stopColor="#6366f1" stopOpacity="0.1" />
+          <stop offset="100%" stopColor="#09090b" stopOpacity="0" />
         </radialGradient>
 
         {/* Outer ambient glow filter */}
@@ -217,14 +217,14 @@ export const AuraMaxLogo: React.FC<AuraMaxLogoProps> = ({
         <div className={`flex flex-col ${isVertical ? "items-center" : "items-start"}`}>
           <div className="flex items-center tracking-[0.2em] font-display font-extrabold leading-tight">
             {/* "AURA" in pure Ice/White */}
-            <span className={`${dimensions.text} text-[#F4F7FA] transition-colors group-hover:text-white`}>
+            <span className={`${dimensions.text} text-[#f4f4f5] transition-colors group-hover:text-white`}>
               AURA
             </span>
             {/* Space */}
             <span className="w-1.5" />
-            {/* "MAX" with Electric Cyan to Aura Violet Luxury Gradient */}
+            {/* "MAX" with Electric Cyan to Indigo Gradient */}
             <span
-              className={`${dimensions.text} bg-gradient-to-r from-[#42E8FF] via-[#38bdf8] to-[#8B5CF6] bg-clip-text text-transparent font-black drop-shadow-[0_0_8px_rgba(66,232,255,0.3)]`}
+              className={`${dimensions.text} bg-gradient-to-r from-[#22d3ee] via-[#38bdf8] to-[#6366f1] bg-clip-text text-transparent font-black drop-shadow-[0_0_8px_rgba(34,211,238,0.35)]`}
             >
               MAX
             </span>

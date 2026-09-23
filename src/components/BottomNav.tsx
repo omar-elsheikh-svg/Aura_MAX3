@@ -51,7 +51,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
   return (
     <nav 
       aria-label="Mobile Navigation"
-      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#08090C]/95 backdrop-blur-xl border-t border-[#252A33] px-2 py-1 safe-area-bottom"
+      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#111113]/95 backdrop-blur-xl border-t border-[#27272a] px-2 py-1 safe-area-bottom"
     >
       <div className="grid grid-cols-5 gap-1 max-w-md mx-auto items-center">
         {tabs.map((tab) => {
@@ -67,12 +67,12 @@ export const BottomNav: React.FC<BottomNavProps> = ({
               >
                 <div className={`w-12 h-12 rounded-full flex items-center justify-center transition-transform active:scale-95 shadow-md ${
                   isActive
-                    ? "bg-[#42E8FF] text-[#08090C] shadow-[0_0_18px_rgba(66,232,255,0.3)]"
-                    : "bg-[#111318] border border-[#42E8FF]/60 text-[#42E8FF] hover:bg-[#171A21]"
+                    ? "bg-gradient-to-tr from-[#6366f1] to-[#22d3ee] text-[#09090b] shadow-[0_0_18px_rgba(34,211,238,0.45)]"
+                    : "bg-[#18181b] border border-[#22d3ee]/60 text-[#22d3ee] hover:bg-[#27272a]"
                 }`}>
                   <Camera className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] mt-0.5 font-semibold text-[#F4F7FA]">
+                <span className="text-[10px] mt-0.5 font-semibold text-[#f4f4f5]">
                   {tab.label}
                 </span>
               </button>
@@ -85,19 +85,25 @@ export const BottomNav: React.FC<BottomNavProps> = ({
               onClick={() => setActiveTab(tab.id)}
               className={`relative flex flex-col items-center justify-center min-h-[48px] py-1 px-1 rounded-xl transition-colors cursor-pointer ${
                 isActive
-                  ? "text-[#42E8FF] font-semibold"
-                  : "text-[#A5AEBC] hover:text-[#F4F7FA]"
+                  ? "text-[#22d3ee] font-semibold"
+                  : "text-[#a1a1aa] hover:text-[#f4f4f5]"
               }`}
             >
-              <div className="relative">
+              <div 
+                className="relative transition-transform duration-200"
+                style={isActive ? { filter: "drop-shadow(0 0 6px rgba(34, 211, 238, 0.65))" } : undefined}
+              >
                 {tab.icon}
                 {tab.badge && !isActive && (
-                  <span className="absolute -top-1 -end-2 w-4 h-4 rounded-full bg-[#8B5CF6] text-white text-[9px] font-bold flex items-center justify-center">
+                  <span className="absolute -top-1 -end-2 w-4 h-4 rounded-full bg-[#818cf8] text-white text-[9px] font-bold flex items-center justify-center">
                     {tab.badge}
                   </span>
                 )}
               </div>
-              <span className="text-[10px] mt-1 font-medium truncate max-w-full leading-tight">
+              <span 
+                className="text-[9px] mt-1 font-medium truncate max-w-full leading-tight"
+                style={{ color: isActive ? "#22d3ee" : "#a1a1aa" }}
+              >
                 {tab.label}
               </span>
             </button>

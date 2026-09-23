@@ -309,11 +309,11 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             {icon}
-            <h3 className="text-sm font-bold text-slate-200 tracking-wide">
+            <h3 className="text-sm font-bold text-[#f4f4f5] tracking-wide">
               {title}
             </h3>
           </div>
-          <span className="text-xs font-mono text-slate-400">
+          <span className="text-xs font-mono text-[#a1a1aa]">
             {items.filter((i) => i.completed).length} / {items.length}
           </span>
         </div>
@@ -337,16 +337,16 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
                 }}
                 className={`group p-4 rounded-2xl border transition-all duration-200 flex items-start justify-between gap-3 cursor-pointer select-none ${
                   isDone
-                    ? "bg-[#08090C]/80 border-emerald-500/30 opacity-80"
-                    : "bg-[#111318] hover:bg-[#161922] border-[#1E232E] hover:border-[#42E8FF]/30 shadow-sm"
+                    ? "bg-[#09090b]/80 border-emerald-500/30 opacity-80"
+                    : "bg-[#18181b] hover:bg-[#1f1f23] border-[#27272a] hover:border-[#22d3ee]/40 shadow-sm"
                 }`}
               >
                 <div className="flex items-start gap-3.5">
-                  <button className="mt-0.5 text-slate-400 group-hover:text-[#42E8FF] transition-colors">
+                  <button className="mt-0.5 text-[#a1a1aa] group-hover:text-[#22d3ee] transition-colors cursor-pointer">
                     {isDone ? (
                       <CheckCircle2 className="w-5 h-5 text-emerald-400 fill-emerald-500/20" />
                     ) : (
-                      <Circle className="w-5 h-5 text-slate-500 hover:text-[#42E8FF]" />
+                      <Circle className="w-5 h-5 text-[#71717a] hover:text-[#22d3ee]" />
                     )}
                   </button>
 
@@ -354,20 +354,20 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
                     <h4
                       className={`text-xs sm:text-sm font-bold transition-all ${
                         isDone
-                          ? "text-slate-400 line-through"
-                          : "text-[#F4F7FA] group-hover:text-[#42E8FF]"
+                          ? "text-[#71717a] line-through"
+                          : "text-[#f4f4f5] group-hover:text-[#22d3ee]"
                       }`}
                     >
                       {quest.title[locale]}
                     </h4>
-                    <p className="text-xs text-slate-400 leading-relaxed line-clamp-2">
+                    <p className="text-xs text-[#a1a1aa] leading-relaxed line-clamp-2">
                       {quest.description[locale]}
                     </p>
                   </div>
                 </div>
 
-                <div className="shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#8B5CF6]/15 border border-[#8B5CF6]/30 text-[#8B5CF6] text-xs font-mono font-bold shadow-sm shadow-[#8B5CF6]/10">
-                  <Zap className="w-3.5 h-3.5 fill-[#8B5CF6]" />
+                <div className="shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#6366f1]/15 border border-[#6366f1]/30 text-[#818cf8] text-xs font-mono font-bold shadow-sm shadow-[#6366f1]/10">
+                  <Zap className="w-3.5 h-3.5 fill-[#818cf8]" />
                   <span>+{quest.xp}</span>
                 </div>
               </div>
@@ -375,7 +375,7 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
           })}
 
           {items.length === 0 && (
-            <div className="p-4 rounded-2xl border border-dashed border-[#232a3b] text-center text-xs text-slate-500">
+            <div className="p-4 rounded-2xl border border-dashed border-[#27272a] text-center text-xs text-[#71717a]">
               {isRtl ? "لا توجد مهام في هذا القسم حالياً." : "No quests active in this section."}
             </div>
           )}
@@ -389,21 +389,21 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
       {/* Title & Eyebrow */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#8B5CF6]/15 border border-[#8B5CF6]/30 text-[#8B5CF6] text-xs font-bold tracking-wider uppercase mb-2 shadow-[0_0_12px_rgba(139,92,246,0.15)]">
-            <Flame className="w-3.5 h-3.5 fill-[#8B5CF6]" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#6366f1]/15 border border-[#6366f1]/30 text-[#818cf8] text-xs font-bold tracking-wider uppercase mb-2 shadow-[0_0_12px_rgba(99,102,241,0.15)]">
+            <Flame className="w-3.5 h-3.5 fill-[#fb923c] text-[#fb923c]" />
             <span>{t.quests.badge}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#F4F7FA] font-display">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#f4f4f5] font-display">
             {t.quests.title}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl">
+          <p className="text-xs sm:text-sm text-[#a1a1aa] mt-1 max-w-xl">
             {t.quests.subtitle}
           </p>
         </div>
 
         <button
           onClick={() => setShowAddModal(true)}
-          className="self-start sm:self-center flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#42E8FF] to-[#38bdf8] hover:from-[#38bdf8] hover:to-[#42E8FF] text-[#08090C] font-extrabold text-xs shadow-lg shadow-[#42E8FF]/20 transition-all cursor-pointer active:scale-95"
+          className="self-start sm:self-center flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#6366f1] via-[#818cf8] to-[#22d3ee] text-[#09090b] font-extrabold text-xs shadow-lg shadow-[#22d3ee]/20 transition-all cursor-pointer active:scale-95 hover:brightness-110"
         >
           <Plus className="w-4 h-4 stroke-[3]" />
           <span>{t.quests.addCustom}</span>
@@ -411,37 +411,37 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
       </div>
 
       {/* Level Progression & Aesthetic Tier Ascension Banner */}
-      <div className="relative rounded-3xl bg-gradient-to-br from-[#111318] via-[#151821] to-[#111318] border border-[#1E232E] hover:border-[#42E8FF]/30 p-5 sm:p-6 shadow-[0_0_30px_rgba(0,0,0,0.4)] overflow-hidden transition-all duration-300">
+      <div className="relative rounded-3xl bg-gradient-to-br from-[#18181b] via-[#111113] to-[#18181b] border border-[#27272a] hover:border-[#22d3ee]/30 p-5 sm:p-6 shadow-[0_0_30px_rgba(0,0,0,0.4)] overflow-hidden transition-all duration-300">
         {/* Subtle Ambient Radial Lighting */}
         <div 
           aria-hidden="true" 
-          className="absolute top-0 right-0 w-72 h-72 bg-[#42E8FF]/5 blur-3xl pointer-events-none -z-10" 
+          className="absolute top-0 right-0 w-72 h-72 bg-[#22d3ee]/5 blur-3xl pointer-events-none -z-10" 
         />
         <div 
           aria-hidden="true" 
-          className="absolute bottom-0 left-0 w-72 h-72 bg-[#8B5CF6]/5 blur-3xl pointer-events-none -z-10" 
+          className="absolute bottom-0 left-0 w-72 h-72 bg-[#6366f1]/5 blur-3xl pointer-events-none -z-10" 
         />
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3.5">
             {/* Animated Level Icon Badge */}
-            <div className="relative shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-b from-[#181B24] to-[#0D0F14] border border-[#42E8FF]/40 shadow-[0_0_20px_rgba(66,232,255,0.2)] flex flex-col items-center justify-center select-none">
+            <div className="relative shrink-0 w-14 h-14 rounded-2xl bg-gradient-to-b from-[#1f1f23] to-[#09090b] border border-[#22d3ee]/40 shadow-[0_0_20px_rgba(34,211,238,0.2)] flex flex-col items-center justify-center select-none">
               <span className="text-xl leading-none">{levelData.tierInfo.badge}</span>
-              <span className="text-[10px] font-mono font-black text-[#42E8FF] mt-0.5">
+              <span className="text-[10px] font-mono font-black text-[#22d3ee] mt-0.5">
                 LVL {levelData.level}
               </span>
             </div>
 
             <div className="space-y-1">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-xs font-mono font-bold text-[#8B5CF6] uppercase tracking-wider">
+                <span className="text-xs font-mono font-bold text-[#818cf8] uppercase tracking-wider">
                   {t.quests.tierLabel || "Aura Tier"}:
                 </span>
-                <h3 className="text-base sm:text-lg font-black text-[#F4F7FA] font-display">
+                <h3 className="text-base sm:text-lg font-black text-[#f4f4f5] font-display">
                   {levelData.tierInfo.title[locale]}
                 </h3>
               </div>
-              <p className="text-xs text-slate-400 max-w-md">
+              <p className="text-xs text-[#a1a1aa] max-w-md">
                 {levelData.tierInfo.auraDescription[locale]}
               </p>
             </div>
@@ -451,7 +451,7 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
           {onTriggerLevelUpPreview && (
             <button
               onClick={onTriggerLevelUpPreview}
-              className="self-start sm:self-center flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#161922] hover:bg-[#1E232E] border border-[#42E8FF]/30 hover:border-[#42E8FF] text-[#42E8FF] text-xs font-bold transition-all shadow-sm shadow-[#42E8FF]/10 active:scale-95 cursor-pointer"
+              className="self-start sm:self-center flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#111113] hover:bg-[#1f1f23] border border-[#22d3ee]/30 hover:border-[#22d3ee] text-[#22d3ee] text-xs font-bold transition-all shadow-sm shadow-[#22d3ee]/10 active:scale-95 cursor-pointer"
               title={t.quests.previewLevelUp || "Preview Level-Up FX"}
             >
               <Sparkles className="w-3.5 h-3.5 animate-pulse" />
@@ -463,29 +463,29 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
         {/* Dynamic Progress Bar */}
         <div className="mt-5 space-y-2">
           <div className="flex items-center justify-between text-xs font-mono">
-            <span className="text-slate-300 font-semibold flex items-center gap-1.5">
+            <span className="text-[#e4e4e7] font-semibold flex items-center gap-1.5">
               <span>{xp.toLocaleString()} XP</span>
-              <span className="text-slate-500 font-normal">/</span>
-              <span className="text-slate-400 font-normal">{levelData.nextLevelXp.toLocaleString()} XP</span>
+              <span className="text-[#71717a] font-normal">/</span>
+              <span className="text-[#a1a1aa] font-normal">{levelData.nextLevelXp.toLocaleString()} XP</span>
             </span>
-            <span className="text-[#42E8FF] font-bold">
+            <span className="text-[#22d3ee] font-bold">
               {levelData.progressPercent}%
             </span>
           </div>
 
-          <div className="relative w-full h-2.5 bg-[#0D0F14] rounded-full overflow-hidden border border-[#1E232E]">
+          <div className="relative w-full h-2.5 bg-[#09090b] rounded-full overflow-hidden border border-[#27272a]">
             <motion.div
               initial={{ width: 0 }}
               animate={{ width: `${levelData.progressPercent}%` }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="h-full bg-gradient-to-r from-[#42E8FF] via-[#38BDF8] to-[#8B5CF6] rounded-full relative"
+              className="h-full bg-gradient-to-r from-[#6366f1] via-[#818cf8] to-[#22d3ee] rounded-full relative"
             >
               {/* Shimmer overlay line */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent animate-pulse" />
             </motion.div>
           </div>
 
-          <div className="flex items-center justify-between text-[11px] text-slate-400">
+          <div className="flex items-center justify-between text-[11px] text-[#a1a1aa]">
             <span className="text-emerald-400 flex items-center gap-1 font-medium">
               <Zap className="w-3 h-3" />
               <span>
@@ -494,7 +494,7 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
                   : `${levelData.xpRemaining} XP needed to reach Level ${levelData.level + 1}`}
               </span>
             </span>
-            <span className="font-mono text-slate-500">
+            <span className="font-mono text-[#71717a]">
               Next: Level {levelData.level + 1}
             </span>
           </div>
@@ -503,40 +503,40 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
 
       {/* Progress & Stats Bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="bg-[#111318] rounded-2xl p-4 border border-[#1E232E]">
-          <span className="text-[11px] uppercase font-bold text-slate-400">
+        <div className="bg-[#18181b] rounded-2xl p-4 border border-[#27272a]">
+          <span className="text-[11px] uppercase font-bold text-[#a1a1aa]">
             {t.quests.completedCount}
           </span>
-          <div className="text-xl font-extrabold text-[#F4F7FA] mt-1 font-display">
-            {completedQuests.length} <span className="text-xs text-slate-400 font-normal">/ {quests.length}</span>
+          <div className="text-xl font-extrabold text-[#f4f4f5] mt-1 font-display">
+            {completedQuests.length} <span className="text-xs text-[#a1a1aa] font-normal">/ {quests.length}</span>
           </div>
-          <div className="w-full h-1.5 bg-[#181B22] rounded-full overflow-hidden mt-2">
+          <div className="w-full h-1.5 bg-[#111113] rounded-full overflow-hidden mt-2">
             <div
-              className="h-full bg-gradient-to-r from-[#42E8FF] to-[#8B5CF6] rounded-full transition-all duration-500"
+              className="h-full bg-gradient-to-r from-[#22d3ee] to-[#6366f1] rounded-full transition-all duration-500"
               style={{ width: `${completionRate}%` }}
             />
           </div>
         </div>
 
-        <div className="bg-[#111318] rounded-2xl p-4 border border-[#1E232E]">
-          <span className="text-[11px] uppercase font-bold text-slate-400">
+        <div className="bg-[#18181b] rounded-2xl p-4 border border-[#27272a]">
+          <span className="text-[11px] uppercase font-bold text-[#a1a1aa]">
             {t.quests.earnedToday}
           </span>
-          <div className="text-xl font-extrabold text-[#8B5CF6] mt-1 font-display flex items-center gap-1.5">
-            <Zap className="w-5 h-5 fill-[#8B5CF6]" />
+          <div className="text-xl font-extrabold text-[#818cf8] mt-1 font-display flex items-center gap-1.5">
+            <Zap className="w-5 h-5 fill-[#818cf8]" />
             <span>+{totalXpEarned} XP</span>
           </div>
-          <span className="text-[10px] text-slate-500 block mt-1">
+          <span className="text-[10px] text-[#71717a] block mt-1">
             {completionRate}% {isRtl ? "معدل الإنجاز" : "completed"}
           </span>
         </div>
 
-        <div className="bg-[#111318] rounded-2xl p-4 border border-[#1E232E]">
-          <span className="text-[11px] uppercase font-bold text-slate-400">
+        <div className="bg-[#18181b] rounded-2xl p-4 border border-[#27272a]">
+          <span className="text-[11px] uppercase font-bold text-[#a1a1aa]">
             {t.app.streak}
           </span>
-          <div className="text-xl font-extrabold text-[#F4F7FA] mt-1 font-display flex items-center gap-1.5">
-            <Flame className="w-5 h-5 text-[#42E8FF] fill-[#42E8FF]" />
+          <div className="text-xl font-extrabold text-[#f4f4f5] mt-1 font-display flex items-center gap-1.5">
+            <Flame className="w-5 h-5 text-[#fb923c] fill-[#fb923c]" />
             <span>{streakDays} {isRtl ? "أيام" : "Days"}</span>
           </div>
           <span className="text-[10px] text-emerald-400 block mt-1">
@@ -544,14 +544,14 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
           </span>
         </div>
 
-        <div className="bg-[#111318] rounded-2xl p-4 border border-[#1E232E]">
-          <span className="text-[11px] uppercase font-bold text-slate-400">
+        <div className="bg-[#18181b] rounded-2xl p-4 border border-[#27272a]">
+          <span className="text-[11px] uppercase font-bold text-[#a1a1aa]">
             {isRtl ? "انضباط الأورا" : "Aura Discipline"}
           </span>
-          <div className="text-xl font-extrabold text-[#42E8FF] mt-1 font-display">
+          <div className="text-xl font-extrabold text-[#22d3ee] mt-1 font-display">
             {completionRate === 100 ? "MAX (100%)" : `${completionRate}%`}
           </div>
-          <span className="text-[10px] text-slate-400 block mt-1">
+          <span className="text-[10px] text-[#a1a1aa] block mt-1">
             {completionRate === 100 ? (isRtl ? "اكتمل الروتين بالكامل" : "All rituals completed") : (isRtl ? "قيد التنفيذ اليومي" : "In progress today")}
           </span>
         </div>
@@ -559,18 +559,18 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
 
       {/* Daily Quest Browser Notifications Reminder Banner */}
       {onOpenSettings && (
-        <div className="bg-[#111318] hover:bg-[#141720] border border-[#1E232E] hover:border-[#42E8FF]/30 transition-all rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-lg">
+        <div className="bg-[#18181b] hover:bg-[#1f1f23] border border-[#27272a] hover:border-[#22d3ee]/30 transition-all rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-lg">
           <div className="flex items-center gap-3.5">
             <div className={`w-11 h-11 rounded-2xl flex items-center justify-center shrink-0 transition-colors ${
               notificationsEnabled 
-                ? "bg-[#42E8FF]/15 border border-[#42E8FF]/40 text-[#42E8FF] shadow-[0_0_15px_rgba(66,232,255,0.2)]" 
-                : "bg-[#181B22] border border-[#1E232E] text-slate-400"
+                ? "bg-[#22d3ee]/15 border border-[#22d3ee]/40 text-[#22d3ee] shadow-[0_0_15px_rgba(34,211,238,0.2)]" 
+                : "bg-[#111113] border border-[#27272a] text-[#a1a1aa]"
             }`}>
-              {notificationsEnabled ? <BellRing className="w-5 h-5 text-[#42E8FF] animate-pulse" /> : <Bell className="w-5 h-5" />}
+              {notificationsEnabled ? <BellRing className="w-5 h-5 text-[#22d3ee] animate-pulse" /> : <Bell className="w-5 h-5" />}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-bold text-[#F4F7FA] font-display">
+                <h3 className="text-sm font-bold text-[#f4f4f5] font-display">
                   {t.settings.notificationsSection}
                 </h3>
                 {notificationsEnabled ? (
@@ -578,12 +578,12 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
                     {t.settings.granted}
                   </span>
                 ) : (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-[#1E232E]">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#111113] text-[#71717a] border border-[#27272a]">
                     {isRtl ? "غير مفعل" : "Disabled"}
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-400 mt-0.5 max-w-lg leading-relaxed">
+              <p className="text-xs text-[#a1a1aa] mt-0.5 max-w-lg leading-relaxed">
                 {t.settings.notificationsDesc}
               </p>
             </div>
@@ -593,8 +593,8 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
             onClick={onOpenSettings}
             className={`flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all shrink-0 cursor-pointer shadow-sm ${
               notificationsEnabled
-                ? "bg-[#181B22] hover:bg-[#202530] text-slate-200 border border-[#1E232E] hover:border-[#42E8FF]/40"
-                : "bg-gradient-to-r from-[#42E8FF] to-[#38bdf8] text-[#08090C] hover:opacity-95 shadow-[#42E8FF]/20"
+                ? "bg-[#111113] hover:bg-[#1f1f23] text-[#e4e4e7] border border-[#27272a] hover:border-[#22d3ee]/40"
+                : "bg-gradient-to-r from-[#6366f1] via-[#818cf8] to-[#22d3ee] text-[#09090b] hover:opacity-95 shadow-[#22d3ee]/20"
             }`}
           >
             <Bell className="w-3.5 h-3.5" />
@@ -604,17 +604,17 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
       )}
 
       {/* Hydration & Debloat Counter Card */}
-      <div className="bg-gradient-to-br from-[#12151c] via-[#141924] to-[#12151c] rounded-3xl p-5 border border-cyan-500/20 shadow-lg relative overflow-hidden">
+      <div className="bg-gradient-to-br from-[#18181b] via-[#111113] to-[#18181b] rounded-3xl p-5 border border-[#22d3ee]/20 shadow-lg relative overflow-hidden">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center shrink-0">
-              <Droplets className="w-5 h-5 text-cyan-400" />
+            <div className="w-10 h-10 rounded-2xl bg-[#22d3ee]/15 border border-[#22d3ee]/40 flex items-center justify-center shrink-0">
+              <Droplets className="w-5 h-5 text-[#22d3ee]" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-slate-100 font-display">
+              <h3 className="text-sm font-bold text-[#f4f4f5] font-display">
                 {t.quests.waterTitle}
               </h3>
-              <p className="text-xs text-slate-400 mt-0.5 max-w-md">
+              <p className="text-xs text-[#a1a1aa] mt-0.5 max-w-md">
                 {t.quests.waterSubtitle}
               </p>
             </div>
@@ -622,24 +622,24 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
 
           <div className="flex items-center gap-3 self-end sm:self-center">
             <div className="text-end">
-              <div className="text-lg font-black text-cyan-400 font-mono">
-                {waterCount} / 8 <span className="text-xs text-slate-400 font-normal">{t.quests.glasses}</span>
+              <div className="text-lg font-black text-[#22d3ee] font-mono">
+                {waterCount} / 8 <span className="text-xs text-[#a1a1aa] font-normal">{t.quests.glasses}</span>
               </div>
-              <span className="text-[10px] text-slate-400">
+              <span className="text-[10px] text-[#a1a1aa]">
                 {waterCount >= 8 ? (isRtl ? "طرد الصوديوم مثالي" : "Debloat Target Achieved") : (isRtl ? "متبقي لتصريف السوائل" : "Keep drinking to debloat")}
               </span>
             </div>
 
-            <div className="flex items-center gap-1 bg-[#0a0b0e] p-1 rounded-xl border border-[#232a3b]">
+            <div className="flex items-center gap-1 bg-[#09090b] p-1 rounded-xl border border-[#27272a]">
               <button
                 onClick={() => updateWater(-1)}
-                className="w-8 h-8 rounded-lg bg-[#181d28] hover:bg-[#202736] text-slate-300 font-bold flex items-center justify-center transition-colors text-sm"
+                className="w-8 h-8 rounded-lg bg-[#18181b] hover:bg-[#27272a] text-[#e4e4e7] font-bold flex items-center justify-center transition-colors text-sm cursor-pointer"
               >
                 -
               </button>
               <button
                 onClick={() => updateWater(1)}
-                className="w-8 h-8 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black font-bold flex items-center justify-center transition-colors text-sm"
+                className="w-8 h-8 rounded-lg bg-[#22d3ee] hover:bg-[#38bdf8] text-[#09090b] font-bold flex items-center justify-center transition-colors text-sm cursor-pointer"
               >
                 +
               </button>
@@ -653,7 +653,7 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
             <div
               key={idx}
               className={`h-2 rounded-full transition-all duration-300 ${
-                idx < waterCount ? "bg-cyan-400 shadow-sm shadow-cyan-400/50" : "bg-[#1f2533]"
+                idx < waterCount ? "bg-[#22d3ee] shadow-sm shadow-[#22d3ee]/50" : "bg-[#27272a]"
               }`}
             />
           ))}
@@ -663,8 +663,8 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
       {/* Preset Protocol Stacks Bar (One-click installation of proven routines) */}
       <div className="space-y-3">
         <div className="flex items-center gap-2">
-          <Layers className="w-4 h-4 text-[#42E8FF]" />
-          <h3 className="text-sm font-bold text-[#F4F7FA] tracking-wide uppercase">
+          <Layers className="w-4 h-4 text-[#22d3ee]" />
+          <h3 className="text-sm font-bold text-[#f4f4f5] tracking-wide uppercase">
             {t.quests.presetStacksTitle}
           </h3>
         </div>
@@ -675,23 +675,23 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
             return (
               <div
                 key={stack.key}
-                className="bg-[#111318] rounded-2xl p-4 border border-[#1E232E] hover:border-[#42E8FF]/30 flex flex-col justify-between gap-3 transition-colors"
+                className="bg-[#18181b] rounded-2xl p-4 border border-[#27272a] hover:border-[#22d3ee]/30 flex flex-col justify-between gap-3 transition-colors"
               >
                 <div>
-                  <h4 className="text-xs font-bold text-[#F4F7FA]">
+                  <h4 className="text-xs font-bold text-[#f4f4f5]">
                     {stack.title}
                   </h4>
-                  <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">
+                  <p className="text-[11px] text-[#a1a1aa] mt-1 leading-relaxed">
                     {stack.desc}
                   </p>
                 </div>
 
                 <button
                   onClick={() => handleApplyPreset(stack)}
-                  className={`w-full py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all ${
+                  className={`w-full py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
                     isAdded
-                      ? "bg-emerald-500 text-black"
-                      : "bg-[#181B22] hover:bg-[#202532] text-[#42E8FF] border border-[#42E8FF]/30 shadow-sm"
+                      ? "bg-emerald-500 text-[#09090b]"
+                      : "bg-[#111113] hover:bg-[#1f1f23] text-[#22d3ee] border border-[#22d3ee]/30 shadow-sm"
                   }`}
                 >
                   {isAdded ? (
@@ -716,16 +716,16 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
       <div className="space-y-8">
         {renderQuestSection(
           t.quests.morningHeader,
-          <Sun className="w-4 h-4 text-[#42E8FF]" />,
+          <Sun className="w-4 h-4 text-[#22d3ee]" />,
           morningQuests,
-          "text-[#42E8FF]"
+          "text-[#22d3ee]"
         )}
 
         {renderQuestSection(
           t.quests.eveningHeader,
-          <Moon className="w-4 h-4 text-[#8B5CF6]" />,
+          <Moon className="w-4 h-4 text-[#818cf8]" />,
           eveningQuests,
-          "text-[#8B5CF6]"
+          "text-[#818cf8]"
         )}
 
         {renderQuestSection(
@@ -739,14 +739,14 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
       {/* Add Custom Quest Modal */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#111318] w-full max-w-md rounded-3xl border border-[#1E232E] p-6 shadow-2xl space-y-4">
+          <div className="bg-[#18181b] w-full max-w-md rounded-3xl border border-[#27272a] p-6 shadow-2xl space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-base font-bold text-[#F4F7FA] font-display">
+              <h3 className="text-base font-bold text-[#f4f4f5] font-display">
                 {t.quests.customModalTitle}
               </h3>
               <button
                 onClick={() => setShowAddModal(false)}
-                className="text-slate-400 hover:text-slate-200"
+                className="text-[#a1a1aa] hover:text-[#f4f4f5] cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -754,7 +754,7 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
 
             <form onSubmit={handleCreateQuest} className="space-y-3.5 text-xs">
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[#e4e4e7] font-semibold mb-1">
                   {t.quests.customTitleLabel}
                 </label>
                 <input
@@ -763,18 +763,18 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
                   placeholder={isRtl ? "مثال: تدليك الرقبة لمدة 3 دقائق" : "e.g. 3-Min Neck Extension Stretch"}
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
-                  className="w-full bg-[#08090C] border border-[#1E232E] rounded-xl px-3 py-2 text-[#F4F7FA] focus:outline-none focus:border-[#42E8FF]"
+                  className="w-full bg-[#09090b] border border-[#27272a] rounded-xl px-3 py-2 text-[#f4f4f5] focus:outline-none focus:border-[#22d3ee]"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[#e4e4e7] font-semibold mb-1">
                   {t.quests.customCatLabel}
                 </label>
                 <select
                   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value as any)}
-                  className="w-full bg-[#08090C] border border-[#1E232E] rounded-xl px-3 py-2 text-[#F4F7FA] focus:outline-none focus:border-[#42E8FF]"
+                  className="w-full bg-[#09090b] border border-[#27272a] rounded-xl px-3 py-2 text-[#f4f4f5] focus:outline-none focus:border-[#22d3ee]"
                 >
                   <option value="morning">{t.quests.morningHeader}</option>
                   <option value="evening">{t.quests.eveningHeader}</option>
@@ -783,7 +783,7 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[#e4e4e7] font-semibold mb-1">
                   {t.quests.customXpLabel}
                 </label>
                 <input
@@ -793,12 +793,12 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
                   step="10"
                   value={newXp}
                   onChange={(e) => setNewXp(Number(e.target.value))}
-                  className="w-full bg-[#08090C] border border-[#1E232E] rounded-xl px-3 py-2 text-[#F4F7FA] focus:outline-none focus:border-[#42E8FF]"
+                  className="w-full bg-[#09090b] border border-[#27272a] rounded-xl px-3 py-2 text-[#f4f4f5] focus:outline-none focus:border-[#22d3ee]"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[#e4e4e7] font-semibold mb-1">
                   {isRtl ? "الوصف والهدف" : "Description / Purpose"}
                 </label>
                 <textarea
@@ -806,7 +806,7 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
                   placeholder={isRtl ? "ما هو التأثير الجمالي لهذه المهمة؟" : "What aesthetic benefit does this ritual bring?"}
                   value={newDesc}
                   onChange={(e) => setNewDesc(e.target.value)}
-                  className="w-full bg-[#08090C] border border-[#1E232E] rounded-xl px-3 py-2 text-[#F4F7FA] focus:outline-none focus:border-[#42E8FF]"
+                  className="w-full bg-[#09090b] border border-[#27272a] rounded-xl px-3 py-2 text-[#f4f4f5] focus:outline-none focus:border-[#22d3ee]"
                 />
               </div>
 
@@ -814,13 +814,13 @@ export const QuestsView: React.FC<QuestsViewProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 rounded-xl text-slate-400 hover:text-slate-200"
+                  className="px-4 py-2 rounded-xl text-[#a1a1aa] hover:text-[#f4f4f5] cursor-pointer"
                 >
                   {t.quests.cancel}
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-gradient-to-r from-[#42E8FF] to-[#38bdf8] hover:from-[#38bdf8] hover:to-[#42E8FF] text-[#08090C] font-bold shadow-md shadow-[#42E8FF]/20"
+                  className="px-5 py-2 rounded-xl bg-gradient-to-r from-[#6366f1] via-[#818cf8] to-[#22d3ee] text-[#09090b] font-bold shadow-md shadow-[#22d3ee]/20 cursor-pointer hover:brightness-110"
                 >
                   {t.quests.customAddBtn}
                 </button>
