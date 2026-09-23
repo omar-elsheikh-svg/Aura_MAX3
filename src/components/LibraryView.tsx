@@ -7,9 +7,12 @@ import {
   ChevronDown, 
   ChevronUp, 
   Flame, 
-  Dna,
-  Clock,
-  ArrowRight
+  Clock, 
+  ArrowRight,
+  ArrowLeft,
+  Check,
+  CheckCircle2,
+  ShieldCheck
 } from "lucide-react";
 import { Locale, RoutineGuide, GenderTrack } from "../types";
 import { translations } from "../i18n/translations";
@@ -19,11 +22,17 @@ import { FEMALE_ROUTINE_GUIDES } from "../data/femaleBeautyData";
 interface LibraryViewProps {
   locale: Locale;
   genderTrack?: GenderTrack;
+  onAddGuideToQuests?: (guideTitle: string) => void;
 }
 
-export const LibraryView: React.FC<LibraryViewProps> = ({ locale, genderTrack = "male" }) => {
+export const LibraryView: React.FC<LibraryViewProps> = ({ 
+  locale, 
+  genderTrack = "male",
+  onAddGuideToQuests 
+}) => {
   const t = translations[locale];
   const isRtl = locale === "ar";
+  const ArrowIcon = isRtl ? ArrowLeft : ArrowRight;
   const isFemale = genderTrack === "female";
 
   const [activeCat, setActiveCat] = useState<string>("all");
@@ -36,17 +45,17 @@ export const LibraryView: React.FC<LibraryViewProps> = ({ locale, genderTrack = 
   }, [genderTrack, isFemale]);
 
   const categories = isFemale ? [
-    { id: "all", label: t.library.categoryAll },
+    { id: "all", label: isRtl ? "الكل" : "All" },
     { id: "skin", label: isRtl ? "البشرة الزجاجية" : "Glass Skin & Barrier" },
     { id: "sculpt", label: isRtl ? "نحت الوجه والخدود" : "Facial Sculpt & Gua Sha" },
     { id: "posture", label: isRtl ? "الرقبة الملكية والاستقامة" : "Swan Neck & Poise" },
     { id: "nutrition", label: isRtl ? "التغذية والتوهج الهرموني" : "Hormonal Glow" },
   ] : [
-    { id: "all", label: t.library.categoryAll },
-    { id: "jawline", label: t.library.categoryJawline },
-    { id: "skin", label: t.library.categorySkin },
-    { id: "nutrition", label: t.library.categoryNutrition },
-    { id: "posture", label: t.library.categoryPosture },
+    { id: "all", label: isRtl ? "الكل" : "All" },
+    { id: "jawline", label: isRtl ? "الفك والملامح" : "Jawline Architecture" },
+    { id: "skin", label: isRtl ? "نقاء البشرة" : "Skin Clarity" },
+    { id: "nutrition", label: isRtl ? "طرد السوائل والترطيب" : "Debloating & Hydration" },
+    { id: "posture", label: isRtl ? "استقامة القامة" : "Posture & Poise" },
   ];
 
   const sourceGuides = isFemale ? FEMALE_ROUTINE_GUIDES : ROUTINE_GUIDES;
@@ -65,133 +74,140 @@ export const LibraryView: React.FC<LibraryViewProps> = ({ locale, genderTrack = 
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6 space-y-8">
-      {/* Header & Title */}
-      <div className="text-center max-w-2xl mx-auto space-y-2">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#42E8FF]/10 border border-[#42E8FF]/30 text-[#42E8FF] text-xs font-bold tracking-wider uppercase shadow-[0_0_12px_rgba(66,232,255,0.15)]">
-          <BookOpen className="w-3.5 h-3.5 text-[#42E8FF]" />
-          <span>{t.library.badge}</span>
-        </div>
-        <h1 className="text-2xl sm:text-4xl font-extrabold text-[#F4F7FA] tracking-tight font-display">
-          {t.library.title}
-        </h1>
-        <p className="text-sm text-slate-400 leading-relaxed">
-          {t.library.subtitle}
-        </p>
-      </div>
-
-      {/* Category Pills & Search */}
-      <div className="space-y-4">
-        <div className="flex flex-wrap items-center justify-center gap-2">
-          {categories.map((c) => (
-            <button
-              key={c.id}
-              onClick={() => setActiveCat(c.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                activeCat === c.id
-                  ? "bg-gradient-to-r from-[#42E8FF] to-[#38bdf8] text-[#08090C] shadow-md shadow-[#42E8FF]/20"
-                  : "bg-[#111318] text-slate-400 hover:text-slate-200 border border-[#1E232E]"
-              }`}
-            >
-              {c.label}
-            </button>
-          ))}
+    <div 
+      className="max-w-6xl mx-auto px-4 py-6 space-y-8 animate-in fade-in duration-200"
+      dir={isRtl ? "rtl" : "ltr"}
+    >
+      {/* 1. Header */}
+      <div className="p-6 sm:p-8 rounded-3xl bg-[#111318] border border-[#252A33] flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 text-xs font-bold text-[#42E8FF] uppercase tracking-wider mb-1">
+            <BookOpen className="w-3.5 h-3.5" />
+            <span>{isRtl ? "المكتبة العلمية والبروتوكولات" : "Knowledge System"}</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#F4F7FA] font-display">
+            {isRtl ? "دليل التحول الشامل" : "Science-Backed Transformation Library"}
+          </h1>
+          <p className="text-xs sm:text-sm text-[#A5AEBC] mt-0.5">
+            {isRtl 
+              ? "بروتوكولات سريرية مجربة لتحسين هندسة الفك، نضارة البشرة، وتأطير الشعر." 
+              : "Actionable editorial protocols covering facial contouring, dermal health, and structural framing."}
+          </p>
         </div>
 
-        <div className="relative max-w-md mx-auto">
-          <Search className={`w-4 h-4 text-slate-400 absolute top-1/2 -translate-y-1/2 ${isRtl ? "right-3" : "left-3"}`} />
+        {/* Search bar */}
+        <div className="relative w-full md:w-64">
+          <Search className="w-4 h-4 text-[#6B7484] absolute start-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder={isRtl ? "ابحث في البروتوكولات والنصائح..." : "Search protocols, mewing, debloat..."}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className={`w-full bg-[#111318] border border-[#1E232E] rounded-2xl py-2.5 text-xs text-[#F4F7FA] placeholder-slate-500 focus:outline-none focus:border-[#42E8FF] ${
-              isRtl ? "pr-9 pl-4" : "pl-9 pr-4"
-            }`}
+            placeholder={isRtl ? "بحث في البروتوكولات..." : "Search protocols..."}
+            className="w-full ps-9 pe-3 py-2 rounded-xl bg-[#171A21] border border-[#252A33] text-xs text-[#F4F7FA] focus:outline-none focus:border-[#42E8FF]"
           />
         </div>
       </div>
 
-      {/* Guides List */}
+      {/* 2. Category Filters */}
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
+        {categories.map((c) => (
+          <button
+            key={c.id}
+            onClick={() => setActiveCat(c.id)}
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap cursor-pointer transition-colors ${
+              activeCat === c.id
+                ? "bg-[#171A21] text-[#42E8FF] border border-[#252A33]"
+                : "text-[#A5AEBC] hover:text-[#F4F7FA]"
+            }`}
+          >
+            {c.label}
+          </button>
+        ))}
+      </div>
+
+      {/* 3. Responsive Guides List */}
       <div className="space-y-4">
-        {filteredGuides.map((guide) => {
-          const isExpanded = expandedId === guide.id;
+        {filteredGuides.map((g) => {
+          const isExpanded = expandedId === g.id;
           return (
             <div
-              key={guide.id}
-              className={`bg-[#111318] rounded-3xl border transition-all duration-200 overflow-hidden ${
-                isExpanded ? "border-[#42E8FF]/40 shadow-xl shadow-[#42E8FF]/5" : "border-[#1E232E] hover:border-slate-600"
-              }`}
+              key={g.id}
+              className="rounded-3xl bg-[#111318] border border-[#252A33] overflow-hidden transition-all duration-200"
             >
-              {/* Header Bar */}
-              <div
-                onClick={() => toggleExpand(guide.id)}
-                className="p-5 sm:p-6 flex items-start justify-between gap-4 cursor-pointer select-none"
+              <button
+                onClick={() => toggleExpand(g.id)}
+                className="w-full p-6 text-start flex items-center justify-between gap-4 cursor-pointer hover:bg-[#171A21]/50 transition-colors focus-visible:outline-none"
+                aria-expanded={isExpanded}
               >
-                <div className="space-y-1.5">
+                <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#08090C] border border-[#1E232E] text-[10px] font-bold uppercase text-[#8B5CF6] font-mono">
-                      {guide.category}
+                    <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#171A21] text-[#42E8FF] border border-[#252A33] font-bold uppercase">
+                      {g.category}
                     </span>
-                    <span className="text-[11px] text-slate-400 flex items-center gap-1">
+                    <span className="text-xs text-[#6B7484] flex items-center gap-1">
                       <Clock className="w-3 h-3 text-[#42E8FF]" />
-                      <span>{guide.duration}</span>
+                      <span>{g.duration}</span>
                     </span>
                   </div>
-
-                  <h3 className="text-base sm:text-lg font-extrabold text-[#F4F7FA] font-display">
-                    {guide.title[locale]}
+                  <h3 className="text-base sm:text-lg font-bold text-[#F4F7FA] font-display">
+                    {g.title[locale]}
                   </h3>
-                  <p className="text-xs text-slate-400 leading-relaxed max-w-2xl">
-                    {guide.subtitle[locale]}
+                  <p className="text-xs text-[#A5AEBC]">
+                    {g.subtitle[locale]}
                   </p>
                 </div>
 
-                <button className="p-2 rounded-xl bg-[#08090C] border border-[#1E232E] text-slate-400 hover:text-[#42E8FF] mt-1 shrink-0">
+                <div className="shrink-0 p-2 rounded-xl bg-[#171A21] text-[#A5AEBC]">
                   {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                </button>
-              </div>
+                </div>
+              </button>
 
-              {/* Collapsible Content */}
               {isExpanded && (
-                <div className="px-5 pb-6 pt-1 border-t border-[#1E232E] space-y-6">
-                  {/* Physiological Science Mechanism */}
-                  <div className="bg-[#08090C] rounded-2xl p-4 border border-[#42E8FF]/20 shadow-sm shadow-[#42E8FF]/5">
-                    <div className="flex items-center gap-2 text-xs font-bold text-[#42E8FF] uppercase tracking-wider mb-1.5 font-mono">
-                      <Dna className="w-4 h-4 text-[#42E8FF]" />
-                      <span>{t.library.scienceBasis}</span>
+                <div className="p-6 pt-0 space-y-5 border-t border-[#252A33]/50 animate-in fade-in duration-200">
+                  {/* Scientific Rationale */}
+                  <div className="p-4 rounded-2xl bg-[#171A21] border border-[#252A33] space-y-1.5 mt-4">
+                    <div className="text-[11px] font-bold text-[#42E8FF] uppercase tracking-wider flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5" />
+                      <span>{isRtl ? "الأساس العلمي والفسيولوجي" : "Scientific Mechanism"}</span>
                     </div>
-                    <p className="text-xs text-slate-300 leading-relaxed">
-                      {guide.scienceNote[locale]}
+                    <p className="text-xs text-[#A5AEBC] leading-relaxed">
+                      {g.scienceNote[locale]}
                     </p>
                   </div>
 
-                  {/* Execution Steps */}
-                  <div className="space-y-3">
-                    <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-                      {t.library.executionSteps}
-                    </h4>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {guide.steps.map((step, idx) => (
-                        <div
-                          key={idx}
-                          className="bg-[#08090C] rounded-2xl p-4 border border-[#1E232E] space-y-1"
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className="w-5 h-5 rounded-full bg-[#42E8FF]/15 border border-[#42E8FF]/30 text-[#42E8FF] text-[10px] font-black flex items-center justify-center font-mono shrink-0">
-                              {idx + 1}
-                            </span>
-                            <span className="text-xs font-bold text-[#F4F7FA]">
-                              {step.title[locale]}
-                            </span>
-                          </div>
-                          <p className="text-[11px] text-slate-400 leading-relaxed pl-7 rtl:pr-7 rtl:pl-0">
-                            {step.detail[locale]}
-                          </p>
+                  {/* Step-by-Step execution */}
+                  <div className="space-y-2">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#F4F7FA]">
+                      {isRtl ? "خطوات التطبيق العملي" : "Step-by-Step Execution"}
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+                      {g.steps.map((st, idx) => (
+                        <div key={idx} className="p-3.5 rounded-xl bg-[#171A21] border border-[#252A33] space-y-1">
+                          <span className="text-xs font-mono font-bold text-[#42E8FF]">
+                            Step {idx + 1}
+                          </span>
+                          <div className="text-xs font-bold text-[#F4F7FA]">{st.title[locale]}</div>
+                          <p className="text-[11px] text-[#A5AEBC] leading-relaxed">{st.detail[locale]}</p>
                         </div>
                       ))}
                     </div>
+                  </div>
+
+                  {/* Key Takeaway */}
+                  <div className="p-4 rounded-2xl bg-[#111318] border border-[#42E8FF]/20 flex items-center justify-between gap-4">
+                    <div className="text-xs text-[#A5AEBC]">
+                      <strong className="text-[#42E8FF]">{isRtl ? "البروتوكول: " : "Protocol: "}</strong>
+                      {g.scienceNote[locale]}
+                    </div>
+
+                    {onAddGuideToQuests && (
+                      <button
+                        onClick={() => onAddGuideToQuests(g.title[locale])}
+                        className="px-4 py-2 rounded-xl bg-[#42E8FF] hover:bg-[#38BDF8] text-[#08090C] text-xs font-bold shrink-0 cursor-pointer shadow-xs transition-all"
+                      >
+                        {isRtl ? "إضافة لمهامي اليوم" : "Add to Today"}
+                      </button>
+                    )}
                   </div>
                 </div>
               )}

@@ -1,362 +1,328 @@
 import React, { useState, useRef, useEffect } from "react";
 import { 
+  Bot, 
   Send, 
   Sparkles, 
-  Bot, 
   User, 
-  Copy, 
+  HelpCircle, 
+  ArrowRight, 
+  ArrowLeft, 
   Check, 
-  RefreshCw, 
-  ShieldAlert,
-  ArrowRight,
-  HelpCircle
+  Flame, 
+  Target, 
+  ShieldCheck, 
+  Clock, 
+  ChevronRight,
+  BookOpen
 } from "lucide-react";
-import { Locale, CoachMessage, GenderTrack } from "../types";
+import { Locale, GenderTrack, UserProfile, TransformationPlan, Quest } from "../types";
 import { translations } from "../i18n/translations";
 
 interface CoachViewProps {
   locale: Locale;
   genderTrack?: GenderTrack;
-  glowScore: number;
-  streakDays: number;
+  userProfile: UserProfile;
+  activePlan?: TransformationPlan | null;
+  todayQuests?: Quest[];
+  onAddSuggestedQuest?: (title: string) => void;
+}
+
+interface CoachMessage {
+  id: string;
+  sender: "user" | "coach";
+  directAnswer: string;
+  why?: string;
+  nextAction?: string;
+  rawText?: string;
 }
 
 export const CoachView: React.FC<CoachViewProps> = ({
   locale,
   genderTrack = "male",
-  glowScore,
-  streakDays,
+  userProfile,
+  activePlan,
+  todayQuests = [],
+  onAddSuggestedQuest,
 }) => {
   const t = translations[locale];
   const isRtl = locale === "ar";
+  const ArrowIcon = isRtl ? ArrowLeft : ArrowRight;
   const isFemale = genderTrack === "female";
 
-  const getWelcomeMessage = (): string => {
-    if (isFemale) {
-      return isRtl
-        ? "أهلاً بكِ في Aura Fem! أنا مدربتكِ الذكية في علوم التناسق الجمالي الأنثوي والـ Looksmaxing. أساعدكِ في الحصول على بشرة زجاجية كورية (Glass Skin)، نحت الوجنتين بحجر الغوا شا، رفع سحبة العينين (Canthal Tilt)، وتصميم الحواجب والاستقامة الملكية (Swan Neck).\n\nما هو هدفكِ الجمالي اليوم؟"
-        : "Welcome to Aura Fem! I am your AI Aesthetic Harmony & Looksmaxing Coach. I specialize in Korean glass skin protocols, zygomatic cheek sculpting, positive canthal tilt lift, eyebrow framing, and feminine poise & posture.\n\nWhat beauty or self-improvement goal shall we focus on today?";
-    }
-    return isRtl
-      ? "أهلاً بك! أنا مدربك الشخصي في Glow. أساعدك في تطوير بنية الفك، تحسين صحة البشرة، طرد السوائل الزائدة (Debloating)، واختيار تسريحات الشعر المتناسقة مع ملامحك وفق أحدث العلوم الجمالية الطبيعية.\n\nبماذا نود البدء اليوم؟"
-      : "Welcome! I am your personal AI Glow Coach. I specialize in non-invasive looksmaxing, mandibular jawline definition, dermal health stacks, debloating protocols, and facial harmony science.\n\nWhat aesthetic goal or question are we tackling today?";
+  const initialCoachMessage: CoachMessage = {
+    id: "m0",
+    sender: "coach",
+    directAnswer: isRtl
+      ? `أهلاً بك يا ${userProfile.name || "صديقي"}. أنا مدربك الشخصي في أورا، مطلع على خطتك الحالية (${activePlan?.primaryGoal || "نحت الملامح"}) ومهامك لليوم.`
+      : `Welcome back, ${userProfile.name || "friend"}. I'm your dedicated Aura transformation coach, grounded in your active ${activePlan?.primaryGoal || "sculpting"} plan and today's quests.`,
+    why: isRtl
+      ? "إجاباتي تعتمد على قواعد بيومترية وعادات مثبتة بدلاً من النصائح العامة."
+      : "My guidance is structured around deterministic biometrics and sustainable habit adherence.",
+    nextAction: isRtl
+      ? "اختر أحد الأسئلة السريعة أدناه أو اسألني عن أي تفصيل في روتينك."
+      : "Select one of the contextual prompts below or ask anything about your routine.",
   };
 
-  const initialMessages: CoachMessage[] = [
-    {
-      id: "msg-welcome",
-      role: "assistant",
-      content: getWelcomeMessage(),
-      timestamp: isRtl ? "الآن" : "Just now",
-      source: "gemini",
-    }
-  ];
-
-  const [messages, setMessages] = useState<CoachMessage[]>(initialMessages);
-  const [inputValue, setInputValue] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [copiedId, setCopiedId] = useState<string | null>(null);
-
-  // Reset messages if genderTrack switches
-  useEffect(() => {
-    setMessages([
-      {
-        id: `msg-welcome-${genderTrack}`,
-        role: "assistant",
-        content: getWelcomeMessage(),
-        timestamp: isRtl ? "الآن" : "Just now",
-        source: "gemini",
-      }
-    ]);
-  }, [genderTrack]);
-
+  const [messages, setMessages] = useState<CoachMessage[]>([initialCoachMessage]);
+  const [inputText, setInputText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages, loading]);
-
-  const quickPrompts = isFemale ? [
-    isRtl ? "روتين البشرة الزجاجية الكورية وترميم الحاجز" : "Glass skin routine & ceramide barrier",
-    isRtl ? "تدليك الغوا شا لنحت الوجنتين ورفع الخدود" : "Gua Sha technique to sculpt cheekbones",
-    isRtl ? "رسمة الحواجب لرفع زاوية العين (Canthal Tilt)" : "Eyebrow styling to lift canthal tilt",
-    isRtl ? "طرد احتباس السوائل وتصريف انتفاخ الوجه" : "Rapid facial debloating & lymph drainage",
-    isRtl ? "تمرين الرقبة الملكية (Swan Neck) والترقوة" : "Swan neck & collarbone posture drills",
-  ] : [
-    t.coach.q1,
-    t.coach.q2,
-    t.coach.q3,
-    t.coach.q4,
-    t.coach.q5,
+  const quickPrompts = [
+    {
+      q: isRtl ? "لماذا يبدو فكي منتفخاً اليوم؟" : "Why is my jawline puffy today?",
+      answer: isRtl 
+        ? "انتفاخ الوجه الصباحي سببه احتباس السوائل اللمفاوية الناتج عن الصوديوم المرتفع أو النوم بوضعية غير مستقيمة." 
+        : "Morning facial puffiness is primarily interstitial lymphatic pooling caused by high sodium intake, late meals, or flat sleeping angles.",
+      why: isRtl 
+        ? "الأوعية اللمفاوية في الوجه والرقبة تفتقر إلى مضخة ذاتية وتحتاج إلى حركة خارجية لتصريف السوائل." 
+        : "Facial lymphatic vessels lack active muscular pumps and require manual gravity and stimulation to drain.",
+      nextAction: isRtl 
+        ? "اغسل وجهك بماء بارد ونفذ تدليك التصريف اللمفاوي الصباحي لمدة دقيقتين." 
+        : "Splash face with cold water and perform a 2-minute downward lymphatic drainage massage along the neck."
+    },
+    {
+      q: isRtl ? "ما هي قصة الشعر المثالية لشكل وجهي؟" : "What haircut works best for my face?",
+      answer: isRtl 
+        ? "بناءً على شكل وجهك الهندسي، القصات التي تحافظ على كثافة علوية مع تدريج جانبي منخفض هي الأنسب لإبراز زوايا الفك." 
+        : "Given your geometric proportions, styles maintaining textured crown volume with tapered or faded sides best complement your jawline.",
+      why: isRtl 
+        ? "الكثافة في أعلى الرأس تعطي استطالة وهمية توازن عرض الفك والخدين." 
+        : "Crown height vertically elongates facial thirds, framing the cheekbones and balancing width.",
+      nextAction: isRtl 
+        ? "اطلع على قسم قصات الشعر في صفحة الفحص لاختيار القصة الدقيقة." 
+        : "Check the Tailored Haircuts section in your Scan view for millimeter trimmer specifications."
+    },
+    {
+      q: isRtl ? "هل يمكنني تخطي الروتين المسائي إذا كنت متعباً؟" : "Can I skip my evening routine if I'm exhausted?",
+      answer: isRtl 
+        ? "لا تتخطاه بالكامل! قم بتنفيذ 'النسخة المصغرة' (Micro Stack): غسول سريع وترطيب في دقيقة واحدة." 
+        : "Do not skip entirely! Execute the 1-minute Micro Stack: cold splash and a quick layer of ceramide moisturizer.",
+      why: isRtl 
+        ? "الحفاظ على استمرارية العادة حتى لو بنسبة 10% يحمي مسارك العصبي وسلسلة انضباطك من الانهيار." 
+        : "Maintaining habit continuity at even 10% volume preserves neurological momentum and prevents streak relapse.",
+      nextAction: isRtl 
+        ? "أكمل خطوة واحدة فقط وسنعدل الخطة تلقائياً لتخفيف العبء." 
+        : "Check off just one quick step on Today's view to protect your streak."
+    },
+    {
+      q: isRtl ? "كيف أحسن التزامي واستمراريتي؟" : "How do I improve my consistency?",
+      answer: isRtl 
+        ? "اربط كل مهمة جديدة بعادة يومية ثابتة موجودة مسبقاً (Habit Stacking)، مثل تنظيف الأسنان أو قهوة الصباح." 
+        : "Employ Habit Stacking: attach each transformation quest directly to an existing anchor habit (e.g., brushing teeth or morning coffee).",
+      why: isRtl 
+        ? "تقليل الاحتكاك الذهني يحول الإجراء إلى تصرف تلقائي لا يتطلب قوة إرادة متجددة." 
+        : "Removing cognitive friction converts conscious discipline into subconscious automaticity.",
+      nextAction: isRtl 
+        ? "انضم إلى سبرنت الالتزام (7 أيام) في قسم التحديات لتثبيت العادة." 
+        : "Join the 7-Day Consistency Sprint in Challenges to lock in your morning anchor."
+    }
   ];
 
-  const handleSendMessage = async (textToSend?: string) => {
-    const query = (textToSend || inputValue).trim();
-    if (!query || loading) return;
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isTyping]);
 
-    const userMessage: CoachMessage = {
-      id: `msg-${Date.now()}`,
-      role: "user",
-      content: query,
-      timestamp: isRtl ? "الآن" : "Just now",
+  const handleSendPrompt = (promptText: string, directAnswer?: string, why?: string, nextAction?: string) => {
+    const userMsg: CoachMessage = {
+      id: `u-${Date.now()}`,
+      sender: "user",
+      directAnswer: promptText,
     };
+    setMessages((prev) => [...prev, userMsg]);
+    setIsTyping(true);
 
-    setMessages((prev) => [...prev, userMessage]);
-    if (!textToSend) setInputValue("");
-    setLoading(true);
-
-    try {
-      const historyPayload = messages.slice(-5).map((m) => ({
-        role: m.role,
-        text: m.content,
-      }));
-
-      const response = await fetch("/api/coach", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: query,
-          history: historyPayload,
-          locale,
-          genderTrack,
-          profileContext: {
-            glowScore,
-            streak: streakDays,
-            genderTrack,
-            focus: isFemale ? "Glass Skin, Facial Sculpt & Canthal Tilt" : "Jawline, Skin & Debloating",
-          },
-        }),
-      });
-
-      let replyText = "";
-      let source: "gemini" | "knowledge-base" | "fallback" = "gemini";
-
-      if (response.ok) {
-        const contentType = response.headers.get("content-type") || "";
-        if (contentType.includes("application/json")) {
-          const data = await response.json();
-          replyText = data?.reply || "";
-          source = data?.source || "gemini";
-        } else {
-          const text = await response.text();
-          console.warn("Non-JSON response from /api/coach:", text.slice(0, 100));
-        }
+    setTimeout(() => {
+      let coachReply: CoachMessage;
+      if (directAnswer && why && nextAction) {
+        coachReply = {
+          id: `c-${Date.now()}`,
+          sender: "coach",
+          directAnswer,
+          why,
+          nextAction,
+        };
+      } else {
+        // Fallback contextual response structured as Direct Answer -> Why -> Next Action
+        coachReply = {
+          id: `c-${Date.now()}`,
+          sender: "coach",
+          directAnswer: isRtl
+            ? `بناءً على خطتك الحالية (${activePlan?.primaryGoal || "التحول الشامل"})، التركيز على الخطوات الأساسية المباشرة هو مفتاح التطور.`
+            : `Based on your active plan (${activePlan?.primaryGoal || "holistic grooming"}), targeted daily repetition yields measurable compounding results.`,
+          why: isRtl
+            ? "الأنسجة والجلد يستجيبان للتكرار اليومي البسيط أكثر بكثير من الجهد المتقطع العنيف."
+            : "Dermal barrier integrity and submental muscle tone respond to gentle daily frequency over sporadic intensity.",
+          nextAction: isRtl
+            ? "تأكد من إنجاز مهمتك الصباحية والمسائية اليوم في صفحة اليوم."
+            : "Complete today's protocol quests to keep your transformation compounding.",
+        };
       }
-
-      if (!replyText) {
-        if (isFemale) {
-          replyText = isRtl
-            ? "أهلاً بكِ! لتحقيق أقصى تناسق أنثوي وإشراقة زجاجية:\n1. طبّقي تدليك الغوا شا الصباحي 3 دقائق بحركات للأعلى نحو الصدغين لنحت الوجنتين.\n2. التزمي بواقي شمس SPF 50+ يومياً مع سيروم فيتامين C لحماية الكولاجين.\n3. مارسي تمرين الرقبة الملكية (Swan Neck) على الجدار لإبراز عظام الترقوة والفك."
-            : "For peak feminine harmony and radiant glass skin:\n1. **Zygomatic Sculpt:** 3-minute upward gua sha sweeps over cheekbones with squalane oil.\n2. **Dermal Glow:** Daily SPF 50+ matte defense paired with 15% Vitamin C & ceramide barrier cream.\n3. **Swan Posture:** 3x15 wall chin tucks to lengthen the cervical profile and define collarbones.";
-        } else {
-          replyText = isRtl
-            ? "أهلاً بك! لتحقيق أفضل تناسق لملامح الوجه ونضارة البشرة:\n1. واظب على شرب 3.5 لتر ماء مع تقليل الصوديوم لطرد السوائل الزائدة (Debloating).\n2. التزم بواقي شمس SPF 50+ يومياً صباحاً وسيروم فيتامين C.\n3. مارس تمرين Chin Tucks 3x15 وضبط وضعية اللسان في سقف الحلق."
-            : "For optimal facial aesthetics and skin glow:\n1. **Debloat First:** Keep sodium under 2,000mg and drink 3.5L water with potassium-rich foods.\n2. **Morning Dermal Stack:** Gentle cleanse → 10% Vitamin C → Barrier moisturizer → Broad-Spectrum SPF 50+.\n3. **Mandibular Posture:** Keep tongue sealed against the palate (mewing) and perform 3x15 chin tucks daily.";
-        }
-        source = "fallback";
-      }
-
-      const botMessage: CoachMessage = {
-        id: `msg-${Date.now() + 1}`,
-        role: "assistant",
-        content: replyText,
-        timestamp: isRtl ? "الآن" : "Just now",
-        source,
-      };
-
-      setMessages((prev) => [...prev, botMessage]);
-    } catch (err) {
-      console.error("Coach API error:", err);
-      const errorMessage: CoachMessage = {
-        id: `msg-${Date.now() + 1}`,
-        role: "assistant",
-        content: isRtl
-          ? "حدث انقطاع مؤقت في الاتصال، ولكن إليك النصيحة الذهبية لليوم: احرص على 3.5 لتر ماء، واقي شمس SPF 50 يومياً، وتمرين Chin Tucks 3x15."
-          : "Temporary connection issue. Here is your golden daily takeaway: prioritize 3.5L hydration, daily SPF 50+, and 3x15 chin tucks to decompress the mandibular ramus.",
-        timestamp: isRtl ? "الآن" : "Just now",
-        source: "fallback",
-      };
-      setMessages((prev) => [...prev, errorMessage]);
-    } finally {
-      setLoading(false);
-    }
+      setMessages((prev) => [...prev, coachReply]);
+      setIsTyping(false);
+    }, 600);
   };
 
-  const handleCopy = (id: string, text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2500);
-  };
-
-  const handleClearHistory = () => {
-    setMessages(initialMessages);
+  const handleCustomSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inputText.trim()) return;
+    const q = inputText.trim();
+    setInputText("");
+    handleSendPrompt(q);
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
-      {/* Eyebrow & Header */}
-      <div className="text-center max-w-2xl mx-auto space-y-2">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#42E8FF]/10 border border-[#42E8FF]/30 text-[#42E8FF] text-xs font-bold tracking-wider uppercase shadow-[0_0_12px_rgba(66,232,255,0.15)]">
-          <Sparkles className="w-3.5 h-3.5 text-[#42E8FF]" />
-          <span>{t.coach.badge}</span>
+    <div 
+      className="max-w-4xl mx-auto px-4 py-6 space-y-6 animate-in fade-in duration-200"
+      dir={isRtl ? "rtl" : "ltr"}
+    >
+      {/* 1. Contextual Header: Grounded in User Plan */}
+      <div className="p-6 rounded-3xl bg-[#111318] border border-[#252A33] space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-xl bg-[#8B5CF6]/20 border border-[#8B5CF6]/40 flex items-center justify-center text-[#8B5CF6]">
+              <Bot className="w-4 h-4" />
+            </div>
+            <div>
+              <h1 className="text-base font-bold text-[#F4F7FA]">
+                {isRtl ? "المدرب الذكي للتحول" : "Contextual Transformation Coach"}
+              </h1>
+              <div className="text-[11px] text-[#A5AEBC]">
+                {isRtl ? "متصل مباشرة بخطتك وقياسات فحصك" : "Grounded in your active plan and biometrics"}
+              </div>
+            </div>
+          </div>
+
+          <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#171A21] border border-[#252A33] text-[#8B5CF6] font-bold uppercase">
+            Active Plan Context
+          </span>
         </div>
-        <h1 className="text-2xl sm:text-4xl font-extrabold text-[#F4F7FA] tracking-tight font-display">
-          {t.coach.title}
-        </h1>
-        <p className="text-sm text-slate-400 leading-relaxed">
-          {t.coach.subtitle}
-        </p>
-        <div className="text-[11px] font-mono text-[#42E8FF]/80">
-          {t.coach.poweredBy}
+
+        {/* Plan context pill bar */}
+        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-[#252A33] text-xs text-[#A5AEBC]">
+          <span className="flex items-center gap-1">
+            <Target className="w-3.5 h-3.5 text-[#42E8FF]" />
+            <strong className="text-[#F4F7FA]">{isRtl ? "الهدف:" : "Goal:"}</strong> {activePlan?.primaryGoal || "Face Structure"}
+          </span>
+          <span aria-hidden="true">·</span>
+          <span className="flex items-center gap-1">
+            <Clock className="w-3.5 h-3.5 text-[#42E8FF]" />
+            <strong className="text-[#F4F7FA]">{isRtl ? "الوقت:" : "Time:"}</strong> {activePlan?.timeBudget || "15m/day"}
+          </span>
+          <span aria-hidden="true">·</span>
+          <span className="flex items-center gap-1">
+            <Flame className="w-3.5 h-3.5 text-[#42E8FF]" />
+            <strong className="text-[#F4F7FA]">{isRtl ? "الالتزام:" : "Streak:"}</strong> {userProfile.streakDays}d
+          </span>
         </div>
       </div>
 
-      {/* Quick Prompts Carousel / Pills */}
-      <div className="space-y-2">
-        <div className="text-xs font-bold text-slate-400 flex items-center justify-between">
-          <span className="flex items-center gap-1.5">
-            <HelpCircle className="w-3.5 h-3.5 text-[#42E8FF]" />
-            <span>{t.coach.suggestedQuestions}</span>
-          </span>
-          {messages.length > 2 && (
-            <button
-              onClick={handleClearHistory}
-              className="text-[11px] text-slate-500 hover:text-slate-300 flex items-center gap-1"
-            >
-              <RefreshCw className="w-3 h-3" />
-              <span>{isRtl ? "مسح المحادثة" : "Reset Conversation"}</span>
-            </button>
-          )}
-        </div>
+      {/* 2. Structured Chat History */}
+      <div className="p-6 rounded-3xl bg-[#111318] border border-[#252A33] min-h-[380px] max-h-[500px] overflow-y-auto space-y-4">
+        {messages.map((m) => {
+          if (m.sender === "user") {
+            return (
+              <div key={m.id} className="flex justify-end">
+                <div className="max-w-md p-3.5 rounded-2xl bg-[#42E8FF] text-[#08090C] text-xs font-semibold shadow-xs">
+                  {m.directAnswer}
+                </div>
+              </div>
+            );
+          }
 
-        <div className="flex flex-wrap gap-2">
-          {quickPrompts.map((q, idx) => (
+          // Structured Coach Response: Direct Answer -> Why -> Next Action
+          return (
+            <div key={m.id} className="flex justify-start">
+              <div className="max-w-xl p-5 rounded-2xl bg-[#171A21] border border-[#252A33] space-y-3 text-xs">
+                {/* 1. Direct Answer */}
+                <div>
+                  <div className="text-[10px] font-bold text-[#8B5CF6] uppercase tracking-wider mb-1">
+                    {isRtl ? "الإجابة المباشرة" : "Direct Answer"}
+                  </div>
+                  <p className="text-[#F4F7FA] font-medium leading-relaxed">
+                    {m.directAnswer}
+                  </p>
+                </div>
+
+                {/* 2. Why (Rationale) */}
+                {m.why && (
+                  <div className="pt-2 border-t border-[#252A33]/60">
+                    <div className="text-[10px] font-bold text-[#A5AEBC] uppercase tracking-wider mb-1">
+                      {isRtl ? "السبب العلمي والتأثير" : "Why this matters"}
+                    </div>
+                    <p className="text-[#A5AEBC] leading-relaxed">
+                      {m.why}
+                    </p>
+                  </div>
+                )}
+
+                {/* 3. Next Action */}
+                {m.nextAction && (
+                  <div className="p-3 rounded-xl bg-[#111318] border border-[#42E8FF]/20 flex items-start gap-2.5">
+                    <Check className="w-4 h-4 text-[#42E8FF] shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-[10px] font-bold text-[#42E8FF] uppercase tracking-wider">
+                        {isRtl ? "الخطوة المقترحة التالية" : "Next Recommended Action"}
+                      </div>
+                      <div className="text-[#F4F7FA] text-xs mt-0.5 font-medium">
+                        {m.nextAction}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
+
+        {isTyping && (
+          <div className="flex justify-start">
+            <div className="p-3.5 rounded-2xl bg-[#171A21] border border-[#252A33] text-xs text-[#A5AEBC] flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#8B5CF6] animate-pulse" />
+              <span>{isRtl ? "جاري صياغة التوصية..." : "Formulating structured recommendation..."}</span>
+            </div>
+          </div>
+        )}
+
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* 3. Quick Prompt Chips (Section 21) */}
+      <div className="space-y-2">
+        <span className="text-[11px] font-bold uppercase tracking-wider text-[#A5AEBC] block">
+          {isRtl ? "أسئلة شائعة مرتبطة ببروتوكولك:" : "Contextual quick prompts:"}
+        </span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {quickPrompts.map((p, idx) => (
             <button
               key={idx}
-              onClick={() => handleSendMessage(q)}
-              disabled={loading}
-              className="bg-[#111318] hover:bg-[#181B22] border border-[#1E232E] hover:border-[#42E8FF]/40 text-slate-300 hover:text-[#42E8FF] text-xs py-1.5 px-3 rounded-full transition-all duration-150 cursor-pointer text-start"
+              onClick={() => handleSendPrompt(p.q, p.answer, p.why, p.nextAction)}
+              className="p-3 rounded-xl bg-[#111318] hover:bg-[#171A21] border border-[#252A33] hover:border-[#8B5CF6]/50 text-start text-xs text-[#F4F7FA] transition-colors cursor-pointer flex items-center justify-between gap-2"
             >
-              {q}
+              <span>{p.q}</span>
+              <ArrowIcon className="w-3.5 h-3.5 text-[#8B5CF6] shrink-0" />
             </button>
           ))}
         </div>
       </div>
 
-      {/* Chat Container */}
-      <div className="bg-[#111318] rounded-3xl border border-[#1E232E] shadow-xl overflow-hidden flex flex-col h-[520px]">
-        {/* Messages Scroll Area */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
-          {messages.map((msg) => {
-            const isBot = msg.role === "assistant";
-            return (
-              <div
-                key={msg.id}
-                className={`flex gap-3 ${isBot ? "justify-start" : "justify-end"}`}
-              >
-                {isBot && (
-                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#42E8FF] to-[#8B5CF6] flex items-center justify-center shrink-0 shadow-md text-[#08090C] mt-1">
-                    <Bot className="w-4 h-4" />
-                  </div>
-                )}
-
-                <div
-                  className={`max-w-[85%] sm:max-w-[75%] rounded-2xl p-4 text-xs leading-relaxed space-y-2 ${
-                    isBot
-                      ? "bg-[#08090C] border border-[#1E232E] text-[#F4F7FA]"
-                      : "bg-gradient-to-r from-[#42E8FF] to-[#38bdf8] text-[#08090C] font-semibold shadow-md shadow-[#42E8FF]/10"
-                  }`}
-                >
-                  <div className="whitespace-pre-line">
-                    {msg.content}
-                  </div>
-
-                  {isBot && (
-                    <div className="pt-2 border-t border-[#1E232E] flex items-center justify-between text-[10px] text-slate-400">
-                      <span className="font-mono text-[#42E8FF]">
-                        {msg.source === "gemini" ? "Gemini 3.8 Flash" : "Knowledge Base"}
-                      </span>
-
-                      <button
-                        onClick={() => handleCopy(msg.id, msg.content)}
-                        className="flex items-center gap-1 hover:text-slate-200 transition-colors"
-                      >
-                        {copiedId === msg.id ? (
-                          <>
-                            <Check className="w-3 h-3 text-emerald-400" />
-                            <span className="text-emerald-400">{t.coach.copied}</span>
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-3 h-3" />
-                            <span>{t.coach.copyAdvice}</span>
-                          </>
-                        )}
-                      </button>
-                    </div>
-                  )}
-                </div>
-
-                {!isBot && (
-                  <div className="w-8 h-8 rounded-xl bg-[#1E232E] border border-[#2a3140] flex items-center justify-center shrink-0 text-slate-300 mt-1">
-                    <User className="w-4 h-4" />
-                  </div>
-                )}
-              </div>
-            );
-          })}
-
-          {loading && (
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl bg-[#42E8FF]/20 border border-[#42E8FF]/40 flex items-center justify-center shrink-0 text-[#42E8FF] animate-pulse">
-                <Bot className="w-4 h-4" />
-              </div>
-              <div className="bg-[#08090C] border border-[#1E232E] rounded-2xl px-4 py-3 text-xs text-slate-400 flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#42E8FF] animate-ping" />
-                <span>{t.coach.thinking}</span>
-              </div>
-            </div>
-          )}
-
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Input Bar */}
-        <div className="p-3 sm:p-4 bg-[#08090C] border-t border-[#1E232E]">
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSendMessage();
-            }}
-            className="flex items-center gap-2"
-          >
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder={t.coach.inputPlaceholder}
-              disabled={loading}
-              className="flex-1 bg-[#111318] border border-[#1E232E] rounded-xl px-4 py-3 text-xs text-[#F4F7FA] placeholder-slate-500 focus:outline-none focus:border-[#42E8FF] transition-colors"
-            />
-
-            <button
-              type="submit"
-              disabled={!inputValue.trim() || loading}
-              className="p-3 rounded-xl bg-gradient-to-r from-[#42E8FF] to-[#38bdf8] hover:from-[#38bdf8] hover:to-[#42E8FF] text-[#08090C] font-bold disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-[#42E8FF]/20 transition-all cursor-pointer"
-            >
-              <Send className={`w-4 h-4 ${isRtl ? "rotate-180" : ""}`} />
-            </button>
-          </form>
-
-          <p className="text-[10px] text-slate-500 mt-2 text-center">
-            {t.coach.disclaimer}
-          </p>
-        </div>
-      </div>
+      {/* 4. Chat Input Form */}
+      <form onSubmit={handleCustomSubmit} className="flex gap-2">
+        <input
+          type="text"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+          placeholder={isRtl ? "اسأل المدرب عن أي تفصيل في خطتك أو ملامحك..." : "Ask your coach anything about your plan or routine..."}
+          className="flex-1 px-4 py-3 rounded-xl bg-[#111318] border border-[#252A33] text-xs text-[#F4F7FA] focus:outline-none focus:border-[#8B5CF6]"
+        />
+        <button
+          type="submit"
+          className="px-5 py-3 rounded-xl bg-[#8B5CF6] hover:bg-[#7C3AED] text-white text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5"
+        >
+          <Send className="w-4 h-4 rtl:rotate-180" />
+          <span className="hidden sm:inline">{isRtl ? "إرسال" : "Send"}</span>
+        </button>
+      </form>
     </div>
   );
 };

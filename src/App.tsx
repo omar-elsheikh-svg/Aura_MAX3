@@ -488,12 +488,18 @@ export default function App() {
               <TodayView
                 locale={locale}
                 genderTrack={effectiveGenderTrack}
-                activePlan={activePlan}
+                userProfile={userProfile}
                 quests={quests}
                 onToggleQuest={handleToggleQuest}
-                onAddCustomQuest={handleAddQuest}
-                streakDays={userProfile.streakDays}
-                xp={userProfile.xp}
+                onQuickAddCustomQuest={(title, cat) => handleAddQuest({
+                  title: { en: title, ar: title },
+                  category: "anytime",
+                  xp: 25,
+                  frequency: "daily",
+                  description: { en: "Personal routine habit.", ar: "عادة من الروتين الشخصي." },
+                  iconName: "check"
+                })}
+                onShowToast={showToast}
               />
             )}
 
@@ -517,11 +523,10 @@ export default function App() {
                 scansHistory={scansHistory}
                 activePlan={activePlan}
                 onInitiateScan={() => setActiveTab("scan")}
-                onPlanAdapted={(adapted) => {
-                  setActivePlan(adapted);
-                  showToast(locale === "ar" ? "تم تعديل خطتك الأسبوعية بنجاح!" : "Plan adapted successfully!");
+                onAdjustPlan={() => {
+                  setPlanBuilderScan(scansHistory[0] || null);
+                  setIsPlanBuilderOpen(true);
                 }}
-                onOpenChallenges={() => setActiveTab("challenges")}
               />
             )}
 
@@ -532,13 +537,12 @@ export default function App() {
                 genderTrack={effectiveGenderTrack}
                 onChangeGenderTrack={handleGenderChange}
                 userProfile={userProfile}
-                activePlan={activePlan}
-                onEditPlan={() => {
-                  setPlanBuilderScan(scansHistory[0] || null);
-                  setIsPlanBuilderOpen(true);
+                onUpdateProfile={(updated) => {
+                  setUserProfile((prev) => ({ ...prev, ...updated }));
                 }}
+                onResetAllData={handleClearAllData}
                 onOpenSettings={() => setIsSettingsOpen(true)}
-                onClearAllData={handleClearAllData}
+                onShowToast={showToast}
               />
             )}
 
@@ -546,8 +550,17 @@ export default function App() {
               <CoachView
                 locale={locale}
                 genderTrack={effectiveGenderTrack}
-                glowScore={userProfile.glowScore}
-                streakDays={userProfile.streakDays}
+                userProfile={userProfile}
+                activePlan={activePlan}
+                todayQuests={quests}
+                onAddSuggestedQuest={(title) => handleAddQuest({
+                  title: { en: title, ar: title },
+                  category: "anytime",
+                  xp: 25,
+                  frequency: "daily",
+                  description: { en: "Coach suggested routine habit.", ar: "عادة مقترحة من المدرب الذكي." },
+                  iconName: "check"
+                })}
               />
             )}
 
@@ -555,6 +568,9 @@ export default function App() {
               <ChallengesView
                 locale={locale}
                 genderTrack={effectiveGenderTrack}
+                onJoinChallenge={(id) => {
+                  showToast(locale === "ar" ? "تم الانضمام إلى سبرنت العادات بنجاح!" : "Joined habit sprint successfully!");
+                }}
               />
             )}
 
@@ -572,6 +588,16 @@ export default function App() {
               <LibraryView
                 locale={locale}
                 genderTrack={effectiveGenderTrack}
+                onAddGuideToQuests={(guideTitle) => {
+                  handleAddQuest({
+                    title: { en: guideTitle, ar: guideTitle },
+                    category: "anytime",
+                    xp: 35,
+                    frequency: "daily",
+                    description: { en: "Added from Aura Max knowledge library.", ar: "مضافة من مكتبة أورا ماكس المعرفية." },
+                    iconName: "book"
+                  });
+                }}
               />
             )}
           </>

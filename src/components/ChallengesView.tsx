@@ -60,23 +60,25 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
 
   return (
     <div 
-      className="max-w-4xl mx-auto px-4 py-6 space-y-8 animate-in fade-in duration-200"
+      className="max-w-6xl mx-auto px-4 py-6 space-y-8 animate-in fade-in duration-200"
       dir={isRtl ? "rtl" : "ltr"}
     >
-      {/* Header & Title */}
-      <div className="text-center max-w-2xl mx-auto space-y-2">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#8B5CF6]/15 border border-[#8B5CF6]/30 text-[#8B5CF6] text-xs font-bold tracking-wider uppercase">
-          <Trophy className="w-3.5 h-3.5 text-[#8B5CF6]" />
-          <span>{isRtl ? "سبرنتات العادات السلوكية" : "Behavioral Sprints"}</span>
+      {/* Header */}
+      <div className="p-6 sm:p-8 rounded-3xl bg-[#111318] border border-[#252A33] flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 text-xs font-bold text-[#8B5CF6] uppercase tracking-wider mb-1">
+            <Trophy className="w-3.5 h-3.5" />
+            <span>{isRtl ? "سبرنتات العادات السلوكية" : "Consistency Sprints"}</span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#F4F7FA] font-display">
+            {isRtl ? "تحديات الاستمرارية وحماية السلسلة" : "Habit Formation & Streak Challenges"}
+          </h1>
+          <p className="text-xs sm:text-sm text-[#A5AEBC] mt-0.5">
+            {isRtl 
+              ? "تحديات شخصية مركزة تركز على بناء العادات وتطبيق البروتوكولات المثبتة علمياً." 
+              : "Focused execution sprints to lock in morning and evening protocols without cognitive friction."}
+          </p>
         </div>
-        <h1 className="text-2xl sm:text-4xl font-extrabold text-[#F4F7FA] tracking-tight font-display">
-          {isRtl ? "تحديات الانضباط والاستمرارية" : "Consistency & Habit Challenges"}
-        </h1>
-        <p className="text-sm text-[#A5AEBC] leading-relaxed">
-          {isRtl 
-            ? "تحديات شخصية مركزة تركز على بناء العادات، حماية سلسلة الاستمرارية، وتطبيق البروتوكولات المثبتة دون منافسات سطحية." 
-            : "Personal execution sprints focused on habit formation, streak protection, and proven protocols."}
-        </p>
       </div>
 
       {/* Sprints Grid */}
@@ -90,7 +92,7 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="px-2.5 py-0.5 rounded-full bg-[#08090C] border border-[#252A33] text-[10px] font-bold uppercase text-[#42E8FF]">
+                <span className="px-2.5 py-0.5 rounded-full bg-[#171A21] border border-[#252A33] text-[10px] font-bold uppercase text-[#42E8FF]">
                   {ch.category}
                 </span>
 
@@ -100,58 +102,49 @@ export const ChallengesView: React.FC<ChallengesViewProps> = ({
                 </div>
               </div>
 
-              <div>
-                <h3 className="text-base font-extrabold text-[#F4F7FA] font-display">
-                  {ch.title[locale]}
-                </h3>
-                <p className="text-xs text-[#A5AEBC] mt-1.5 leading-relaxed">
-                  {ch.description[locale]}
-                </p>
-              </div>
+              <h2 className="text-lg font-bold text-[#F4F7FA] font-display">
+                {ch.title[locale]}
+              </h2>
 
-              {/* Progress bar if joined */}
+              <p className="text-xs text-[#A5AEBC] leading-relaxed">
+                {ch.description[locale]}
+              </p>
+
+              {/* Progress if joined */}
               {ch.joined && (
                 <div className="space-y-1.5 pt-2">
-                  <div className="flex justify-between text-xs text-[#42E8FF] font-semibold font-mono">
-                    <span>
-                      {isRtl 
-                        ? `اليوم ${ch.currentDay} من ${ch.durationDays}` 
-                        : `Day ${ch.currentDay} of ${ch.durationDays}`}
+                  <div className="flex items-center justify-between text-xs text-[#A5AEBC]">
+                    <span>{isRtl ? "اليوم الحالي" : "Current Progress"}</span>
+                    <span className="font-bold text-[#42E8FF]">
+                      {ch.currentDay} / {ch.durationDays} {isRtl ? "يوم" : "Days"}
                     </span>
-                    <span>{Math.round((ch.currentDay / ch.durationDays) * 100)}%</span>
                   </div>
-                  <div className="w-full h-2 bg-[#08090C] rounded-full overflow-hidden border border-[#252A33]">
-                    <div
-                      className="h-full bg-gradient-to-r from-[#42E8FF] to-[#38bdf8] transition-all duration-500 rounded-full"
-                      style={{ width: `${(ch.currentDay / ch.durationDays) * 100}%` }}
+                  <div className="w-full bg-[#171A21] h-1.5 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-[#42E8FF]"
+                      style={{ width: `${Math.min(100, (ch.currentDay / ch.durationDays) * 100)}%` }}
                     />
                   </div>
                 </div>
               )}
             </div>
 
+            {/* Bottom: XP Reward & Join CTA */}
             <div className="pt-4 border-t border-[#252A33] flex items-center justify-between">
-              <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-amber-400">
-                <Award className="w-4 h-4" />
+              <div className="flex items-center gap-1.5 text-xs font-bold text-[#8B5CF6]">
+                <Sparkles className="w-3.5 h-3.5" />
                 <span>+{ch.rewardXp} XP</span>
               </div>
 
               <button
                 onClick={() => toggleJoin(ch.id)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                   ch.joined
-                    ? "bg-[#171A21] text-[#42E8FF] border border-[#42E8FF]/30 hover:bg-[#252A33]"
-                    : "bg-[#42E8FF] hover:bg-[#38BDF8] text-[#08090C] shadow-md shadow-[#42E8FF]/20"
+                    ? "bg-[#171A21] text-[#10B981] border border-[#10B981]/30 hover:bg-[#1E232E]"
+                    : "bg-[#42E8FF] hover:bg-[#38BDF8] text-[#08090C] shadow-xs"
                 }`}
               >
-                {ch.joined ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-[#42E8FF]" />
-                    <span>{isRtl ? "مشارك (نشط)" : "Active Sprint"}</span>
-                  </>
-                ) : (
-                  <span>{isRtl ? "بدء التحدي" : "Start Sprint"}</span>
-                )}
+                {ch.joined ? (isRtl ? "مشترك في السبرنت ✓" : "Active Sprint ✓") : (isRtl ? "انضمام للتحدي" : "Join Sprint")}
               </button>
             </div>
           </div>
